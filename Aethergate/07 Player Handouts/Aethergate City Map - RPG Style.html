@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aethergate City Map - RPG Style</title>
+  <style>
+    :root {
+      --paper: #ead9aa;
+      --ink: #2b2117;
+      --water: #6f9aa5;
+      --water-dark: #3f7481;
+      --wall: #5d4832;
+      --wall-hi: #b89c6b;
+      --road: #efe0b3;
+      --roof: #8e5b35;
+      --roof2: #a66e3c;
+      --stone: #c0aa7d;
+      --green: #9eab72;
+      --violet: #8a679c;
+      --heart: #b7352c;
+      --mana: #2b7194;
+      --rail: #2d2921;
+    }
+
+    @page {
+      size: landscape;
+      margin: 0.25in;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #b8a071;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .page {
+      width: 11in;
+      min-height: 8.5in;
+      margin: 0 auto;
+      padding: 0.2in;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(255,255,255,0.22), transparent 22%),
+        radial-gradient(circle at 82% 80%, rgba(72,44,18,0.13), transparent 28%),
+        linear-gradient(120deg, rgba(255,255,255,0.16), transparent 25%, transparent 75%, rgba(43,33,23,0.09)),
+        var(--paper);
+      border: 1px solid #7b6747;
+      box-shadow: 0 18px 50px rgba(25, 15, 6, 0.34);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.2in;
+      align-items: end;
+      margin-bottom: 0.08in;
+      border-bottom: 4px double var(--ink);
+      padding-bottom: 0.07in;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 25pt;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0.03in 0 0;
+      color: #67563d;
+      font-size: 10pt;
+      font-style: italic;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 0.03in 0.12in;
+      min-width: 2.3in;
+      padding: 0.06in;
+      border: 1px solid rgba(43,33,23,0.55);
+      background: rgba(255,255,255,0.18);
+      font-size: 8pt;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 0.24in;
+      height: 0.07in;
+      margin-right: 0.05in;
+      border: 1px solid rgba(43,33,23,0.48);
+      vertical-align: middle;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--wall);
+      background: #ead9aa;
+    }
+
+    .sea { fill: url(#seaGrad); }
+    .shore { fill: none; stroke: #f1dfae; stroke-width: 10; stroke-linecap: round; }
+    .city { fill: url(#cityWash); stroke: var(--wall); stroke-width: 8; }
+    .city-shadow { fill: none; stroke: rgba(54,38,22,0.28); stroke-width: 18; }
+    .inner-wall { fill: none; stroke: rgba(78,57,36,0.42); stroke-width: 2; stroke-dasharray: 8 8; }
+    .district { fill: rgba(205,181,124,0.52); stroke: rgba(80,60,37,0.35); stroke-width: 2; }
+    .district-green { fill: rgba(145,160,103,0.42); }
+    .district-stone { fill: rgba(182,158,108,0.54); }
+    .district-harbor { fill: rgba(131,151,139,0.35); }
+    .overbright-fill { fill: rgba(137,96,156,0.5); stroke: #593d6c; stroke-width: 3; stroke-dasharray: 8 6; }
+    .harbor-water { fill: rgba(102,151,163,0.78); stroke: #436f78; stroke-width: 2; }
+    .road { fill: none; stroke: var(--road); stroke-width: 17; stroke-linecap: round; stroke-linejoin: round; }
+    .road-edge { fill: none; stroke: rgba(84,60,34,0.35); stroke-width: 20; stroke-linecap: round; stroke-linejoin: round; }
+    .road-line { fill: none; stroke: rgba(69,50,31,0.38); stroke-width: 2; stroke-dasharray: 5 8; stroke-linecap: round; }
+    .wall-tower { fill: #6f563e; stroke: #2e2117; stroke-width: 2; }
+    .landmark { fill: #5c3c27; stroke: #f2e4ba; stroke-width: 3; }
+    .hospital { fill: #f3ead4; stroke: var(--heart); stroke-width: 4; }
+    .roof { fill: var(--roof); stroke: #3b291d; stroke-width: 1.2; }
+    .roof2 { fill: var(--roof2); stroke: #3b291d; stroke-width: 1.2; }
+    .building { fill: #d4bd89; stroke: #5b4229; stroke-width: 1; }
+    .garden { fill: rgba(121,145,88,0.75); stroke: rgba(49,71,39,0.55); stroke-width: 1.2; }
+    .rail { fill: none; stroke: var(--rail); stroke-width: 4; stroke-dasharray: 10 8; stroke-linecap: round; }
+    .heartline { fill: none; stroke: var(--heart); stroke-width: 7; stroke-linecap: round; }
+    .conduit { fill: none; stroke: var(--mana); stroke-width: 3.5; stroke-dasharray: 9 7; stroke-linecap: round; }
+    .boundary { fill: none; stroke: #5d3c72; stroke-width: 6; stroke-dasharray: 10 6; }
+    .station { fill: #f3e3b1; stroke: var(--rail); stroke-width: 3; }
+    .compass { fill: rgba(255,255,255,0.16); stroke: rgba(43,33,23,0.7); stroke-width: 2; }
+    .compass-line { stroke: rgba(43,33,23,0.74); stroke-width: 2; }
+    .label-box { fill: rgba(239,222,178,0.72); stroke: rgba(43,33,23,0.34); stroke-width: 1; }
+
+    text {
+      fill: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      paint-order: stroke;
+      stroke: rgba(239,222,178,0.88);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .small-label { font-size: 16px; font-weight: normal; }
+    .tiny-label { font-size: 13px; font-weight: normal; }
+    .water-label { fill: #244e57; font-style: italic; }
+    .danger-label { fill: #4e2d61; }
+    .title-label { font-size: 31px; text-transform: uppercase; }
+    .number { font-size: 15px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.15in;
+      border-top: 1px solid rgba(43,33,23,0.55);
+      padding-top: 0.06in;
+      margin-top: 0.07in;
+      color: #67563d;
+      font-size: 8pt;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Aethergate</h1>
+        <p class="subtitle">City district map for Open Valves visitors and reasonably sober navigators.</p>
+      </div>
+      <div class="legend" aria-label="Map legend">
+        <span><span class="swatch" style="background: var(--heart);"></span>Heartline</span>
+        <span><span class="swatch" style="background: var(--mana);"></span>major conduit</span>
+        <span><span class="swatch" style="background: var(--rail);"></span>undertram</span>
+        <span><span class="swatch" style="background: var(--violet);"></span>quarantine</span>
+      </div>
+    </header>
+
+    <svg viewBox="0 0 1400 880" role="img" aria-label="RPG-style labeled city map of Aethergate">
+      <defs>
+        <radialGradient id="seaGrad" cx="35%" cy="45%" r="80%">
+          <stop offset="0%" stop-color="#9fbfc4"/>
+          <stop offset="62%" stop-color="#6f9aa5"/>
+          <stop offset="100%" stop-color="#477982"/>
+        </radialGradient>
+        <radialGradient id="cityWash" cx="50%" cy="44%" r="65%">
+          <stop offset="0%" stop-color="#e6d0a0"/>
+          <stop offset="68%" stop-color="#cfb172"/>
+          <stop offset="100%" stop-color="#b99158"/>
+        </radialGradient>
+        <pattern id="waves" width="48" height="24" patternUnits="userSpaceOnUse">
+          <path d="M0,12 C12,2 24,22 36,12 C42,7 45,7 48,12" fill="none" stroke="rgba(244,233,199,0.42)" stroke-width="2"/>
+        </pattern>
+        <pattern id="parchmentNoise" width="120" height="120" patternUnits="userSpaceOnUse">
+          <circle cx="16" cy="22" r="1.1" fill="rgba(91,57,27,0.14)"/>
+          <circle cx="76" cy="38" r="1.3" fill="rgba(91,57,27,0.12)"/>
+          <circle cx="104" cy="98" r="1" fill="rgba(91,57,27,0.13)"/>
+          <path d="M10,88 C35,80 47,96 68,88 C91,78 103,86 117,80" fill="none" stroke="rgba(91,57,27,0.08)" stroke-width="1"/>
+        </pattern>
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#2b1a0a" flood-opacity="0.32"/>
+        </filter>
+      </defs>
+
+      <rect x="0" y="0" width="1400" height="880" fill="#ead9aa"/>
+      <rect x="0" y="0" width="1400" height="880" fill="url(#parchmentNoise)" opacity="0.9"/>
+
+      <path class="sea" d="M0,520 C110,500 185,545 245,630 C305,715 382,800 510,880 L0,880 Z"/>
+      <path d="M0,520 C110,500 185,545 245,630 C305,715 382,800 510,880 L0,880 Z" fill="url(#waves)"/>
+      <path class="shore" d="M112,526 C170,535 206,572 245,630 C292,699 381,762 502,805"/>
+      <text class="water-label title-label" x="62" y="742" transform="rotate(-20 62 742)">Sea of Glass</text>
+      <text class="water-label small-label" x="168" y="652">Glass Sea Harbor</text>
+
+      <path class="overbright-fill" d="M1110,220 C1215,180 1310,235 1355,330 C1308,375 1276,430 1280,500 C1210,526 1135,503 1082,448 C1115,385 1120,306 1110,220 Z"/>
+      <path class="boundary" d="M1082,448 C1115,385 1120,306 1110,220"/>
+      <text class="danger-label" x="1153" y="335">The Overbright</text>
+      <text class="danger-label" x="1185" y="362">Ward</text>
+      <text class="danger-label tiny-label" x="1130" y="391">fever wall and violet lamps</text>
+
+      <path class="city-shadow" d="M700,62
+        C885,66 1034,137 1110,220
+        C1128,290 1121,374 1082,448
+        C1138,512 1214,536 1280,500
+        C1245,642 1134,758 980,815
+        C823,873 638,853 502,805
+        C381,762 292,699 245,630
+        C206,572 170,535 112,526
+        C105,375 167,236 283,148
+        C394,64 543,56 700,62 Z"/>
+      <path class="city" d="M700,62
+        C885,66 1034,137 1110,220
+        C1128,290 1121,374 1082,448
+        C1138,512 1214,536 1280,500
+        C1245,642 1134,758 980,815
+        C823,873 638,853 502,805
+        C381,762 292,699 245,630
+        C206,572 170,535 112,526
+        C105,375 167,236 283,148
+        C394,64 543,56 700,62 Z"/>
+      <path class="inner-wall" d="M700,103
+        C852,108 986,164 1060,239
+        C1076,300 1066,372 1036,432
+        C1081,486 1142,516 1194,507
+        C1155,614 1060,713 934,763
+        C799,817 649,801 530,760
+        C426,724 351,670 307,606
+        C271,555 226,514 166,499
+        C166,379 220,266 317,191
+        C414,117 552,99 700,103 Z"/>
+
+      <g id="districts">
+        <path class="district district-green" d="M316,190 C405,123 545,103 682,105 L655,310 L466,337 Z"/>
+        <path class="district district-stone" d="M682,105 C835,109 977,165 1060,239 L892,344 L655,310 Z"/>
+        <path class="district" d="M466,337 L655,310 L678,450 L490,515 L335,435 Z"/>
+        <path class="district district-stone" d="M655,310 L892,344 L909,518 L678,450 Z"/>
+        <path class="district" d="M892,344 L1036,432 C1080,485 1144,518 1194,507 C1162,596 1095,683 1000,737 L909,518 Z"/>
+        <path class="district district-harbor" d="M335,435 L490,515 L510,746 C418,713 350,665 307,606 C270,554 225,514 166,499 C171,410 203,319 260,248 Z"/>
+        <path class="district district-stone" d="M490,515 L678,450 L718,792 C648,795 584,782 530,760 L510,746 Z"/>
+        <path class="district" d="M678,450 L909,518 L1000,737 C913,784 813,803 718,792 Z"/>
+        <path class="district district-green" d="M260,248 C277,226 296,207 316,190 L466,337 L335,435 Z"/>
+      </g>
+
+      <path class="harbor-water" d="M245,630 C303,606 356,622 403,672 C361,690 309,693 264,670 Z"/>
+
+      <g id="city-buildings"></g>
+      <g id="wall-towers"></g>
+
+      <g id="roads">
+        <path class="road-edge" d="M700,440 L700,126"/>
+        <path class="road-edge" d="M700,440 L1015,255"/>
+        <path class="road-edge" d="M700,440 L1100,600"/>
+        <path class="road-edge" d="M700,440 L700,784"/>
+        <path class="road-edge" d="M700,440 L326,610"/>
+        <path class="road-edge" d="M700,440 L292,293"/>
+        <circle class="road-edge" cx="700" cy="440" r="188"/>
+        <path class="road" d="M700,440 L700,126"/>
+        <path class="road" d="M700,440 L1015,255"/>
+        <path class="road" d="M700,440 L1100,600"/>
+        <path class="road" d="M700,440 L700,784"/>
+        <path class="road" d="M700,440 L326,610"/>
+        <path class="road" d="M700,440 L292,293"/>
+        <circle class="road" cx="700" cy="440" r="188"/>
+        <path class="road-line" d="M700,440 L700,126"/>
+        <path class="road-line" d="M700,440 L1015,255"/>
+        <path class="road-line" d="M700,440 L1100,600"/>
+        <path class="road-line" d="M700,440 L700,784"/>
+        <path class="road-line" d="M700,440 L326,610"/>
+        <path class="road-line" d="M700,440 L292,293"/>
+        <circle class="road-line" cx="700" cy="440" r="188"/>
+      </g>
+
+      <ellipse class="rail" cx="700" cy="455" rx="340" ry="235"/>
+      <path class="heartline" d="M700,440 C728,392 770,364 820,355 C855,348 892,350 930,368"/>
+      <path class="conduit" d="M700,440 C608,390 525,374 430,390 C350,405 285,445 205,492"/>
+      <path class="conduit" d="M700,440 C792,410 902,417 1036,432"/>
+      <path class="conduit" d="M700,440 C685,535 638,610 585,690"/>
+
+      <g id="landmarks" filter="url(#softShadow)">
+        <circle class="landmark" cx="700" cy="440" r="40"/>
+        <path class="landmark" d="M700,376 L720,430 L700,492 L680,430 Z"/>
+        <rect class="hospital" x="900" y="330" width="105" height="76" rx="5"/>
+        <rect class="landmark" x="365" y="546" width="118" height="66" rx="6"/>
+        <rect class="landmark" x="220" y="610" width="105" height="55" rx="5"/>
+        <rect class="landmark" x="600" y="130" width="160" height="64" rx="7"/>
+        <rect class="landmark" x="784" y="520" width="140" height="62" rx="6"/>
+        <rect class="landmark" x="520" y="690" width="132" height="62" rx="6"/>
+        <rect class="landmark" x="846" y="165" width="140" height="62" rx="6"/>
+        <rect class="landmark" x="371" y="230" width="140" height="62" rx="6"/>
+      </g>
+
+      <circle class="station" cx="700" cy="220" r="15"/>
+      <circle class="station" cx="1000" cy="370" r="15"/>
+      <circle class="station" cx="930" cy="630" r="15"/>
+      <circle class="station" cx="470" cy="620" r="15"/>
+      <circle class="station" cx="410" cy="360" r="15"/>
+
+      <g id="labels">
+        <rect class="label-box" x="617" y="397" width="168" height="73" rx="8"/>
+        <text x="628" y="423">Aetherspark's</text>
+        <text x="658" y="452">Tower</text>
+
+        <text x="887" y="318">Ninefold</text>
+        <text x="878" y="345">Infirmary</text>
+        <text x="341" y="536">Cogmarket</text>
+        <text class="small-label" x="344" y="628">The Smouldering Cog</text>
+        <text class="small-label" x="196" y="603">Glass Sea</text>
+        <text class="small-label" x="221" y="625">Harbor</text>
+        <text x="598" y="122">Airship Docks</text>
+        <text class="tiny-label" x="622" y="207">clean wind moorings</text>
+        <text x="774" y="508">Pipeline</text>
+        <text x="790" y="536">Quarter</text>
+        <text x="497" y="680">Industrial</text>
+        <text x="519" y="708">Mains</text>
+        <text x="838" y="155">Shrine</text>
+        <text x="820" y="182">Allotment</text>
+        <text x="376" y="220">Watch Net</text>
+        <text class="small-label" x="390" y="307">courts and archives</text>
+        <text class="tiny-label" x="718" y="225">Undertram loop</text>
+        <text x="495" y="382">Old Gear Ward</text>
+        <text x="735" y="305">Tower District</text>
+        <text x="976" y="610">Eastgate</text>
+        <text x="541" y="806">Foundry Rows</text>
+        <text x="250" y="455">Dockside</text>
+        <text x="262" y="286">Glassway</text>
+        <text class="small-label" x="760" y="384">Heartline</text>
+        <text class="small-label danger-label" x="1092" y="454">fever wall</text>
+      </g>
+
+      <g transform="translate(1242 72)">
+        <circle class="compass" cx="0" cy="0" r="42"/>
+        <path class="compass-line" d="M0,-58 L0,58 M-58,0 L58,0"/>
+        <path d="M0,-70 L12,-24 L0,-34 L-12,-24 Z" fill="#3c2b1d"/>
+        <text class="small-label" x="-7" y="-76">N</text>
+      </g>
+
+      <text class="tiny-label" x="1010" y="807">Not to exact scale. Rail tunnels and conduit routes shown schematically.</text>
+    </svg>
+
+    <footer>
+      <span>Public guide edition, suitable for navigation rather than surveying.</span>
+      <span>Quarantine boundaries and protected conduits may shift without notice.</span>
+      <span>Report wrong-way bells, indoor frost, or missing pressure tags.</span>
+    </footer>
+  </main>
+
+  <script>
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    let seed = 71317;
+    function rand() {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    }
+
+    function add(tag, attrs, parent) {
+      const el = document.createElementNS(SVG_NS, tag);
+      for (const [key, value] of Object.entries(attrs)) {
+        el.setAttribute(key, value);
+      }
+      parent.appendChild(el);
+      return el;
+    }
+
+    function nearRoad(x, y) {
+      const d = Math.hypot(x - 700, y - 440);
+      if (Math.abs(d - 188) < 22) return true;
+      const spokes = [
+        [700, 440, 700, 126],
+        [700, 440, 1015, 255],
+        [700, 440, 1100, 600],
+        [700, 440, 700, 784],
+        [700, 440, 326, 610],
+        [700, 440, 292, 293]
+      ];
+      return spokes.some(([x1, y1, x2, y2]) => {
+        const a = x - x1;
+        const b = y - y1;
+        const c = x2 - x1;
+        const d2 = y2 - y1;
+        const dot = a * c + b * d2;
+        const len = c * c + d2 * d2;
+        const t = Math.max(0, Math.min(1, dot / len));
+        const px = x1 + t * c;
+        const py = y1 + t * d2;
+        return Math.hypot(x - px, y - py) < 22;
+      });
+    }
+
+    function inCity(x, y) {
+      const cx = 690;
+      const cy = 445;
+      const rx = 540;
+      const ry = 365;
+      const ell = ((x - cx) ** 2) / (rx ** 2) + ((y - cy) ** 2) / (ry ** 2);
+      const harborBite = x < 255 && y > 515;
+      const overbrightBite = x > 1080 && y > 210 && y < 510;
+      return ell < 0.96 && !harborBite && !overbrightBite;
+    }
+
+    function reserved(x, y) {
+      const boxes = [
+        [610, 380, 790, 485],
+        [880, 300, 1030, 420],
+        [330, 520, 500, 650],
+        [205, 585, 345, 680],
+        [575, 105, 790, 220],
+        [760, 485, 950, 600],
+        [490, 660, 675, 770],
+        [815, 135, 1010, 245],
+        [350, 200, 535, 320]
+      ];
+      return boxes.some(([x1, y1, x2, y2]) => x > x1 && x < x2 && y > y1 && y < y2);
+    }
+
+    const buildings = document.getElementById("city-buildings");
+    const areas = [
+      [290, 175, 610, 360, 48],
+      [705, 130, 1030, 340, 48],
+      [340, 360, 650, 535, 55],
+      [680, 330, 920, 520, 45],
+      [930, 455, 1130, 725, 44],
+      [230, 430, 500, 720, 45],
+      [510, 540, 705, 775, 42],
+      [705, 560, 970, 755, 42],
+      [270, 250, 420, 430, 30]
+    ];
+
+    for (const [x1, y1, x2, y2, count] of areas) {
+      for (let i = 0; i < count; i++) {
+        const x = x1 + rand() * (x2 - x1);
+        const y = y1 + rand() * (y2 - y1);
+        if (!inCity(x, y) || nearRoad(x, y) || reserved(x, y)) continue;
+        const w = 13 + rand() * 18;
+        const h = 10 + rand() * 14;
+        const angle = -28 + rand() * 56;
+        const cls = rand() > 0.45 ? "roof" : "roof2";
+        const g = add("g", { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${angle.toFixed(1)})` }, buildings);
+        add("rect", { class: "building", x: (-w / 2).toFixed(1), y: (-h / 2).toFixed(1), width: w.toFixed(1), height: h.toFixed(1), rx: 1.5 }, g);
+        add("path", { class: cls, d: `M${(-w/2-1).toFixed(1)},${(-h/2).toFixed(1)} L0,${(-h/2-7-rand()*5).toFixed(1)} L${(w/2+1).toFixed(1)},${(-h/2).toFixed(1)} Z` }, g);
+      }
+    }
+
+    for (let i = 0; i < 34; i++) {
+      const x = 290 + rand() * 730;
+      const y = 190 + rand() * 540;
+      if (!inCity(x, y) || nearRoad(x, y) || reserved(x, y)) continue;
+      add("circle", { class: "garden", cx: x.toFixed(1), cy: y.toFixed(1), r: (4 + rand() * 8).toFixed(1) }, buildings);
+    }
+
+    const towers = document.getElementById("wall-towers");
+    const towerPts = [
+      [700, 62], [860, 86], [1014, 148], [1110, 220], [1082, 448],
+      [1280, 500], [1160, 648], [980, 815], [805, 850], [620, 838],
+      [502, 805], [330, 705], [245, 630], [112, 526], [130, 360],
+      [205, 225], [283, 148], [440, 78], [560, 60]
+    ];
+    towerPts.forEach(([x, y]) => {
+      add("circle", { class: "wall-tower", cx: x, cy: y, r: 13 }, towers);
+      add("circle", { fill: "#b99d6b", cx: x - 3, cy: y - 4, r: 3.5 }, towers);
+    });
+  </script>
+</body>
+</html>

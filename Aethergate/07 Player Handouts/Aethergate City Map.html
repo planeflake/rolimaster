@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aethergate City Map</title>
+  <style>
+    :root {
+      --paper: #efe3c3;
+      --ink: #2b2116;
+      --muted: #6f604b;
+      --water: #9db9bd;
+      --wall: #4f3c2a;
+      --street: #d7c79f;
+      --district: #dbc895;
+      --district2: #d1b986;
+      --district3: #c8aa76;
+      --green: #b4bd86;
+      --violet: #8b6b9b;
+      --heart: #b83d2f;
+      --rail: #2f2b25;
+      --mana: #2f6f94;
+    }
+
+    @page {
+      size: landscape;
+      margin: 0.35in;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #c9b889;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .page {
+      width: 11in;
+      min-height: 8.5in;
+      margin: 0 auto;
+      padding: 0.28in;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.2), transparent 22%),
+        radial-gradient(circle at 85% 70%, rgba(86,55,22,0.09), transparent 24%),
+        linear-gradient(135deg, rgba(255,255,255,0.16), transparent 22%, transparent 76%, rgba(0,0,0,0.05)),
+        var(--paper);
+      border: 1px solid #7e6c4e;
+      box-shadow: 0 18px 50px rgba(30, 18, 8, 0.32);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 0.2in;
+      border-bottom: 4px double var(--ink);
+      padding-bottom: 0.08in;
+      margin-bottom: 0.12in;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28pt;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0.03in 0 0;
+      font-size: 11pt;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .key {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 0.03in 0.12in;
+      font-size: 8.5pt;
+      border: 1px solid rgba(43,33,22,0.55);
+      padding: 0.07in;
+      background: rgba(255,255,255,0.18);
+      min-width: 2.2in;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 0.24in;
+      height: 0.07in;
+      vertical-align: middle;
+      margin-right: 0.05in;
+      border: 1px solid rgba(43,33,22,0.5);
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--wall);
+      background: #efe2bf;
+    }
+
+    .sea { fill: var(--water); }
+    .outside { fill: #c9b889; }
+    .wall { fill: #ead6a9; stroke: var(--wall); stroke-width: 8; }
+    .wall-inner { fill: none; stroke: rgba(79,60,42,0.5); stroke-width: 2; stroke-dasharray: 8 8; }
+    .district { fill: var(--district); stroke: rgba(79,60,42,0.62); stroke-width: 2; }
+    .district.alt { fill: var(--district2); }
+    .district.dark { fill: var(--district3); }
+    .district.green { fill: var(--green); }
+    .overbright { fill: rgba(139,107,155,0.56); stroke: #5f4372; stroke-width: 3; stroke-dasharray: 7 5; }
+    .harbor { fill: rgba(111,151,162,0.72); stroke: #4f747c; stroke-width: 2; }
+    .road { fill: none; stroke: #f6edcc; stroke-width: 15; stroke-linecap: round; stroke-linejoin: round; }
+    .road-line { fill: none; stroke: rgba(78,58,36,0.42); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 6 8; }
+    .rail { fill: none; stroke: var(--rail); stroke-width: 4; stroke-dasharray: 10 8; stroke-linecap: round; }
+    .heartline { fill: none; stroke: var(--heart); stroke-width: 7; stroke-linecap: round; }
+    .conduit { fill: none; stroke: var(--mana); stroke-width: 3.5; stroke-dasharray: 8 7; stroke-linecap: round; }
+    .boundary { fill: none; stroke: #5f4372; stroke-width: 6; stroke-dasharray: 10 6; }
+    .landmark { fill: #3c2d1f; stroke: #f8edd0; stroke-width: 3; }
+    .hospital { fill: #f5efe1; stroke: var(--heart); stroke-width: 4; }
+    .station { fill: #f4e8bf; stroke: var(--rail); stroke-width: 3; }
+    text {
+      fill: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      paint-order: stroke;
+      stroke: rgba(239,227,195,0.84);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 0;
+    }
+    .small-label { font-size: 17px; font-weight: normal; }
+    .tiny-label { font-size: 14px; font-weight: normal; }
+    .water-label { fill: #2d5961; stroke: rgba(239,227,195,0.7); font-style: italic; }
+    .danger-label { fill: #4d2b5f; }
+    .title-label { font-size: 32px; text-transform: uppercase; }
+    .number { font-size: 16px; stroke-width: 3px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.15in;
+      margin-top: 0.09in;
+      padding-top: 0.07in;
+      border-top: 1px solid rgba(43,33,22,0.55);
+      font-size: 8.5pt;
+      color: var(--muted);
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <h1>Aethergate City Map</h1>
+        <p class="subtitle">A simple guide to the districts, lines, docks, and limits of the city where magic runs like clockwork.</p>
+      </div>
+      <div class="key" aria-label="Map legend">
+        <span><span class="swatch" style="background: var(--heart);"></span>Heartline</span>
+        <span><span class="swatch" style="background: var(--mana);"></span>major conduit</span>
+        <span><span class="swatch" style="background: var(--rail);"></span>undertram</span>
+        <span><span class="swatch" style="background: var(--violet);"></span>quarantine</span>
+      </div>
+    </header>
+
+    <svg viewBox="0 0 1400 880" role="img" aria-label="Labeled district map of Aethergate">
+      <rect class="outside" x="0" y="0" width="1400" height="880"/>
+      <path class="sea" d="M0,520 C110,500 185,545 245,630 C305,715 382,800 510,880 L0,880 Z"/>
+      <text class="water-label title-label" x="75" y="740" transform="rotate(-20 75 740)">Sea of Glass</text>
+      <text class="water-label small-label" x="180" y="652">Glass Sea Harbor</text>
+
+      <path class="overbright" d="M1110,220 C1215,180 1310,235 1355,330 C1308,375 1276,430 1280,500 C1210,526 1135,503 1082,448 C1115,385 1120,306 1110,220 Z"/>
+      <text class="danger-label" x="1154" y="335">The Overbright</text>
+      <text class="danger-label" x="1185" y="362">Ward</text>
+      <text class="danger-label tiny-label" x="1132" y="391">Arcane quarantine</text>
+
+      <path class="wall" d="M700,62
+        C885,66 1034,137 1110,220
+        C1128,290 1121,374 1082,448
+        C1138,512 1214,536 1280,500
+        C1245,642 1134,758 980,815
+        C823,873 638,853 502,805
+        C381,762 292,699 245,630
+        C206,572 170,535 112,526
+        C105,375 167,236 283,148
+        C394,64 543,56 700,62 Z"/>
+
+      <path class="wall-inner" d="M700,103
+        C852,108 986,164 1060,239
+        C1076,300 1066,372 1036,432
+        C1081,486 1142,516 1194,507
+        C1155,614 1060,713 934,763
+        C799,817 649,801 530,760
+        C426,724 351,670 307,606
+        C271,555 226,514 166,499
+        C166,379 220,266 317,191
+        C414,117 552,99 700,103 Z"/>
+
+      <path class="harbor" d="M245,630 C303,606 356,622 403,672 C361,690 309,693 264,670 Z"/>
+
+      <path class="district green" d="M316,190 C405,123 545,103 682,105 L655,310 L466,337 Z"/>
+      <path class="district alt" d="M682,105 C835,109 977,165 1060,239 L892,344 L655,310 Z"/>
+      <path class="district" d="M466,337 L655,310 L678,450 L490,515 L335,435 Z"/>
+      <path class="district dark" d="M655,310 L892,344 L909,518 L678,450 Z"/>
+      <path class="district alt" d="M892,344 L1036,432 C1080,485 1144,518 1194,507 C1162,596 1095,683 1000,737 L909,518 Z"/>
+      <path class="district" d="M335,435 L490,515 L510,746 C418,713 350,665 307,606 C270,554 225,514 166,499 C171,410 203,319 260,248 Z"/>
+      <path class="district dark" d="M490,515 L678,450 L718,792 C648,795 584,782 530,760 L510,746 Z"/>
+      <path class="district alt" d="M678,450 L909,518 L1000,737 C913,784 813,803 718,792 Z"/>
+      <path class="district green" d="M260,248 C277,226 296,207 316,190 L466,337 L335,435 Z"/>
+
+      <path class="road" d="M700,440 L700,126"/>
+      <path class="road" d="M700,440 L1015,255"/>
+      <path class="road" d="M700,440 L1100,600"/>
+      <path class="road" d="M700,440 L700,784"/>
+      <path class="road" d="M700,440 L326,610"/>
+      <path class="road" d="M700,440 L292,293"/>
+      <circle class="road" cx="700" cy="440" r="188"/>
+      <path class="road-line" d="M700,440 L700,126"/>
+      <path class="road-line" d="M700,440 L1015,255"/>
+      <path class="road-line" d="M700,440 L1100,600"/>
+      <path class="road-line" d="M700,440 L700,784"/>
+      <path class="road-line" d="M700,440 L326,610"/>
+      <path class="road-line" d="M700,440 L292,293"/>
+      <circle class="road-line" cx="700" cy="440" r="188"/>
+
+      <ellipse class="rail" cx="700" cy="455" rx="340" ry="235"/>
+      <path class="heartline" d="M700,440 C728,392 770,364 820,355 C855,348 892,350 930,368"/>
+      <path class="conduit" d="M700,440 C608,390 525,374 430,390 C350,405 285,445 205,492"/>
+      <path class="conduit" d="M700,440 C792,410 902,417 1036,432"/>
+      <path class="conduit" d="M700,440 C685,535 638,610 585,690"/>
+      <path class="boundary" d="M1082,448 C1115,385 1120,306 1110,220"/>
+
+      <circle class="landmark" cx="700" cy="440" r="34"/>
+      <text x="628" y="432">Aetherspark's</text>
+      <text x="655" y="462">Tower</text>
+
+      <rect class="hospital" x="900" y="330" width="96" height="70" rx="5"/>
+      <text x="885" y="318">Ninefold</text>
+      <text x="878" y="343">Infirmary</text>
+
+      <rect class="landmark" x="370" y="548" width="108" height="62" rx="6"/>
+      <text x="342" y="536">Cogmarket</text>
+      <text class="small-label" x="344" y="627">The Smouldering Cog</text>
+
+      <rect class="landmark" x="225" y="610" width="95" height="52" rx="5"/>
+      <text class="small-label" x="196" y="603">Glass Sea</text>
+      <text class="small-label" x="222" y="625">Harbor</text>
+
+      <rect class="landmark" x="606" y="132" width="150" height="60" rx="6"/>
+      <text x="598" y="122">Airship Docks</text>
+      <text class="tiny-label" x="622" y="207">clean wind moorings</text>
+
+      <rect class="landmark" x="785" y="520" width="130" height="58" rx="6"/>
+      <text x="774" y="508">Pipeline</text>
+      <text x="790" y="535">Quarter</text>
+
+      <rect class="landmark" x="522" y="690" width="126" height="58" rx="6"/>
+      <text x="497" y="680">Industrial</text>
+      <text x="517" y="707">Mains</text>
+
+      <rect class="landmark" x="850" y="165" width="130" height="58" rx="6"/>
+      <text x="838" y="155">Shrine</text>
+      <text x="820" y="181">Allotment</text>
+
+      <rect class="landmark" x="375" y="230" width="130" height="58" rx="6"/>
+      <text x="376" y="220">Watch Net</text>
+      <text class="small-label" x="390" y="306">courts and archives</text>
+
+      <circle class="station" cx="700" cy="220" r="15"/>
+      <circle class="station" cx="1000" cy="370" r="15"/>
+      <circle class="station" cx="930" cy="630" r="15"/>
+      <circle class="station" cx="470" cy="620" r="15"/>
+      <circle class="station" cx="410" cy="360" r="15"/>
+      <text class="tiny-label" x="718" y="224">Undertram loop</text>
+
+      <text x="495" y="382">Old Gear Ward</text>
+      <text x="735" y="305">Tower District</text>
+      <text x="976" y="610">Eastgate</text>
+      <text x="541" y="806">Foundry Rows</text>
+      <text x="250" y="455">Dockside</text>
+      <text x="262" y="286">Glassway</text>
+
+      <text class="small-label" x="760" y="384">Heartline</text>
+      <text class="small-label" x="198" y="485">harbor indent</text>
+      <text class="small-label danger-label" x="1092" y="454">fever wall</text>
+      <text class="tiny-label" x="1040" y="792">Not to exact scale. Rail tunnels shown schematically.</text>
+    </svg>
+
+    <footer>
+      <span>Public guide edition, printed for Open Valves visitors.</span>
+      <span>Major streets and conduit routes simplified for navigation.</span>
+      <span>Report wrong-way bells, indoor frost, or missing pressure tags.</span>
+    </footer>
+  </main>
+</body>
+</html>

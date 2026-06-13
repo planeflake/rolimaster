@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "users": {
+    "chris": {
+      "id": "chris",
+      "name": "Chris",
+      "characters": [
+        {
+          "name": "Steve",
+          "raceId": "Droloi",
+          "cultureId": "Aerial Culture",
+          "professionId": "Dabbler",
+          "spellListIds": [
+            "Concealment Mastery",
+            "Influences",
+            "Mechanisms"
+          ],
+          "spellPool": 45,
+          "spellRanks": {
+            "Mechanisms": 6,
+            "Influences": 5,
+            "Concealment Mastery": 5
+          },
+          "talentIds": [
+            "Arcane Discovery",
+            "Assassin Training",
+            "Deadly Training"
+          ],
+          "talentPool": 40,
+          "trainingPackageIds": [
+            "Amateur Mage Revised"
+          ],
+          "trainingPool": 50,
+          "xp": 45,
+          "spentXp": 14,
+          "currentHp": null,
+          "skillTiers": {},
+          "skillRanks": {
+            "Acrobatics": 28,
+            "Adrenal Quickdraw": 8,
+            "Adrenal Speed": 6
+          },
+          "directedSpells": {
+            "Fire": {
+              "ranks": 1
+            },
+            "Cold": {
+              "ranks": 1
+            },
+            "Electricity": {
+              "ranks": 2
+            },
+            "Water": {
+              "ranks": 2
+            },
+            "Mana": {
+              "ranks": 1
+            },
+            "Void": {
+              "ranks": 1
+            }
+          },
+          "statPool": 550,
+          "statPoints": {},
+          "customRules": "",
+          "customRuleIds": [
+            "runeskin",
+            "you-no-take-candle"
+          ],
+          "languages": [],
+          "inventory": [
+            {
+              "name": "Travelling Cloak",
+              "qty": 1,
+              "location": "Worn",
+              "status": "Equipped",
+              "weight": 4,
+              "value": 8,
+              "notes": "Weather-stained wool cloak."
+            },
+            {
+              "name": "Iron Dagger",
+              "qty": 1,
+              "location": "Belt",
+              "status": "Equipped",
+              "weight": 1,
+              "value": 12,
+              "notes": "Simple backup blade."
+            },
+            {
+              "name": "Rations",
+              "qty": 5,
+              "location": "Pack",
+              "status": "Carried",
+              "weight": 1,
+              "value": 0.5,
+              "notes": "One day each."
+            },
+            {
+              "name": "Quartz Mana Shard",
+              "qty": 2,
+              "location": "Pouch",
+              "status": "Carried",
+              "weight": 0.1,
+              "value": 15,
+              "notes": "Low-grade mana storage crystal."
+            }
+          ],
+          "id": "char-mq9hv76b-n9yn84",
+          "ownerId": "chris",
+          "createdAt": "2026-06-11T12:49:15.539Z",
+          "updatedAt": "2026-06-11T13:14:35.080Z"
+        }
+      ]
+    },
+    "sigbjorn": {
+      "id": "sigbjorn",
+      "name": "Sigbjørn",
+      "characters": []
+    },
+    "tor-arne": {
+      "id": "tor-arne",
+      "name": "Tor-Arne",
+      "characters": []
+    },
+    "kim": {
+      "id": "kim",
+      "name": "Kim",
+      "characters": []
+    }
+  }
+}

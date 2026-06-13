@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Obsidian excluded scratch dir
+_obsidian_excluded/
+
+# Copyrighted PDFs
+*.pdf
+
+# Tesseract training data (large binary)
+*.traineddata
+
+# Loose binary files at root
+*.xls
+*.jpg
+*.png
+documents/
+Old/
+
+# Temp import scratch dirs
+.tmp-essence-import/
+.tmp-*/

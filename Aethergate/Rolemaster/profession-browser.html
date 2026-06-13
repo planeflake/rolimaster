@@ -1,0 +1,367 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aethergate Rolemaster Profession Browser</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10151a;
+      --panel: #172027;
+      --panel-soft: #202c34;
+      --line: #34444d;
+      --text: #ecf2ef;
+      --muted: #aab8b6;
+      --gold: #e0b869;
+      --teal: #70c8bf;
+      --rose: #dc8e91;
+      --shadow: 0 16px 40px rgb(0 0 0 / 22%);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top right, #23323a 0, var(--bg) 42rem);
+      color: var(--text);
+      font: 15px/1.5 system-ui, sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--teal); }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    aside {
+      padding: 22px;
+      background: rgb(14 20 24 / 86%);
+      border-right: 1px solid var(--line);
+    }
+    main { padding: 28px; }
+    h1, h2, h3 { margin: 0; font-family: Georgia, serif; }
+    h1 { color: var(--gold); font-size: 24px; }
+    h2 { font-size: 30px; }
+    h3 { margin-top: 24px; color: var(--gold); font-size: 20px; }
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .intro, .muted { color: var(--muted); }
+    .intro { margin: 8px 0 18px; }
+    .control {
+      width: 100%;
+      margin: 6px 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+    }
+    .profession-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .profession {
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+    }
+    .profession:hover, .profession.active {
+      border-color: var(--gold);
+      background: var(--panel);
+    }
+    .profession small { display: block; margin-top: 2px; color: var(--muted); }
+    .card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgb(23 32 39 / 92%);
+      box-shadow: var(--shadow);
+    }
+    .topline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .note-link {
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel-soft);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .pill.imported::before { content: "â—"; color: var(--teal); font-size: 10px; }
+    .pill.pending::before { content: "â—‹"; color: var(--rose); font-size: 12px; }
+    .pill.package::before { content: "â—†"; color: var(--gold); font-size: 10px; }
+    .spell-viewer { margin-top: 16px; }
+    .spell-table { width: 100%; border-collapse: collapse; }
+    .spell-table th, .spell-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .spell-table th { color: var(--gold); }
+    .spell-table td:first-child { width: 68px; color: var(--teal); }
+    button.pill { font: inherit; }
+    button.pill:hover, button.pill.active { border-color: var(--gold); }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 9px;
+      margin-top: 10px;
+    }
+    .scenario {
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+    }
+    .scenario strong { display: block; color: var(--gold); }
+    .empty {
+      padding: 12px;
+      border-left: 3px solid var(--gold);
+      color: var(--muted);
+    }
+    @media (max-width: 780px) {
+      .layout { grid-template-columns: 1fr; }
+      aside { border-right: 0; border-bottom: 1px solid var(--line); }
+      main { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <p class="eyebrow">Mana World</p>
+      <h1>Profession Browser</h1>
+      <p class="intro">Choose a Rolemaster profession to view its spell lists and training-package suggestions.</p>
+      <input id="profession-search" class="control" type="search" placeholder="Search professions">
+      <select id="realm-filter" class="control">
+        <option value="">All realms</option>
+        <option>Arms</option>
+        <option>Channeling</option>
+        <option>Essence</option>
+        <option>Mentalism</option>
+      </select>
+      <div id="profession-list" class="profession-list"></div>
+    </aside>
+
+    <main>
+      <section id="profession-detail" class="card"></section>
+    </main>
+  </div>
+
+  <script>
+    const professions = [
+      ["Alchemist","Essence",[],"Alchemists practice Essence magic through enchantment, materials, and imbedding.",["Enchanting Ways","Organic Skills","Inorganic Skills","Liquid-Gas Skills","Essence Imbedding","Ment-Chan. Imbedding"],[]],
+      ["Animist","Channeling",[],"Animists use Channeling magic to understand, protect, and influence the natural world.",["Nature's Movement","Plant Mastery","Animal Mastery","Herb Mastery","Nature's Protection","Nature's Lore"],[]],
+      ["Armsmaster","Mentalism",[],"Armsmasters combine Mentalism with elite martial training and battlefield command.",["Armor Mastery","Battle Law","Fortress Law","Martial Law","Warrior Law","Weapon Mastery"],[]],
+      ["Astrologer","Channeling",["Mentalism"],"Astrologers combine Channeling and Mentalism to gather information through celestial observation.",["Way of the Voice","Holy Vision","Far Voice","Starsense","Time's Bridge","Starlights","Starlore"],[]],
+      ["Bard","Mentalism",[],"Bards combine Mentalism with performance, sound, lore, and arms training.",["Controlling Songs","Entertaining Ways","Item Lore","Lores","Sound Control","Sound Projection","Sound Lore"],["Loremaster","Performer"]],
+      ["Cleric","Channeling",[],"Clerics receive Channeling magic through a deity and religious obligations.",["Channels","Communal Ways","Life Mastery","Protections","Repulsions","Summons"],["Loremaster","Merchant"]],
+      ["Dabbler","Essence",[],"Dabblers combine Essence with stealth, perception, movement, locks, and traps.",["Concealment Mastery","Influences","Mechanisms","Movement Mastery","Senses","Thieving Law"],["City Guard","Loremaster","Scout"]],
+      ["Enchanter","Mentalism",["Essence"],"Enchanters use hybrid magic to misdirect and manipulate minds.",["Seeming Defenses","Seeming Enhancement","Seeming Law","Seeming Mastery","Seeming Memories","Seeming Projection"],[]],
+      ["Evil Cleric","Channeling",[],"Evil Clerics channel harmful divine magic through disease, curses, and dark lore.",["Disease","Curses","Necromancy","Dark Channels","Dark Lore"],[]],
+      ["Evil Magician","Essence",[],"Evil Magicians turn Essence toward darkness, erosion, disruption, and dangerous summons.",["Matter Disruption","Darkness","Dark Contacts","Physical Erosion","Dark Summons"],[]],
+      ["Evil Mentalist","Mentalism",[],"Evil Mentalists attack, erode, dominate, and subvert minds.",["Mind Subversion","Mind Domination","Mind Erosion","Mind Illusions","Mind Death","Mind Disease"],[]],
+      ["Fighter","Arms",[],"Fighters are non-spell users trained for weapons and heavy armor.",[],["City Guard","Knight","Soldier"]],
+      ["Healer","Channeling",[],"Healers use Channeling magic to restore bodies, cleanse afflictions, and repair injuries.",["Blood Ways","Muscle Ways","Bone Ways","Cleansing","Organ Ways","Surface Ways"],[]],
+      ["Illusionist","Essence",[],"Illusionists manipulate sensory experience through pure Essence magic.",["Feel-Taste-Smell","Guises","Illusion Mastery","Light Molding","Mind Sense Molding","Sound Molding"],[]],
+      ["Lay Healer","Mentalism",[],"Lay Healers use Mentalism to repair bodies and develop restorative prosthetics.",["Blood Mastery","Muscle Mastery","Bone Mastery","Concussion Mastery","Nerve and Organ Mastery","Prosthetics"],[]],
+      ["Magent","Mentalism",["Arms"],"Magents combine Mentalism with information gathering, subterfuge, and stealthy missions.",["Assassination Mastery","Disguise Mastery","Escapes","Gathering Secrets","Misdirections","Poison Mastery"],["Adventurer","Amateur Mage","Animal Friend","Burglar","City Guard","Loremaster","Merchant","Performer","Scout","Soldier","Traveller"]],
+      ["Magician","Essence",[],"Magicians are pure Essence users focused on elemental manipulation.",["Earth Law","Fire Law","Ice Law","Light Law","Water Law","Wind Law"],["Amateur Mage","Loremaster","Merchant"]],
+      ["Mana Molder","Essence",[],"Mana Molders create solid manifestations of Essence such as items, fields, and servants.",["Mana Fields","Mana Items","Mana Servants","Mana Warriors","Glyphs","Matter Molding"],[]],
+      ["Mentalist","Mentalism",[],"Mentalists specialize in perception, communication, control, attack, and mental merging.",["Mind Attack","Mind Control","Mind Merge","Mind Speech","Presence","Sense Control"],["Loremaster","Merchant"]],
+      ["Monk","Essence",["Arms"],"Monks combine Essence with disciplined martial training and unusual physical feats.",["Body Reins","Body Renewal","Evasions","Mind Over Matter","Monk's Bridge","Monk's Sense"],[]],
+      ["Mystic","Mentalism",["Essence"],"Mystics combine subtle misdirection, personal illusion, and the alteration of matter.",["Confusing Ways","Gas Alteration","Hiding","Liquid Alteration","Mystical Change","Solid Alteration"],[]],
+      ["Mythic","Channeling",["Arms"],"Mythics undertake covert religious missions outside ordinary church hierarchies.",["Holy Mission","The Defender","The Eye","The Mask","The Will","Vengeance"],[]],
+      ["Priest","Channeling",[],"Priests are configurable pure Channeling users shaped by religion and divine spheres of influence.",[],[]],
+      ["Ranger","Channeling",["Arms"],"Rangers combine Channeling with wilderness travel, weather, concealment, and survival.",["Inner Walls","Moving Ways","Nature's Guises","Nature's Summons","Nature's Way","Path Mastery"],["Animal Friend","City Guard","Herbalist","Hunter","Scout"]],
+      ["Rogue","Arms",[],"Rogues are flexible non-spell users balancing arms training with thief-like skills.",[],["Burglar","City Guard","Scout","Soldier"]],
+      ["Runemage","Essence",["Channeling"],"Runemages use words, symbols, and runes to shape reality.",["Commanding Will","Inscriptions","Nomenclature Mastery","Physical Manipulations","Symbolism","Warding Mastery"],[]],
+      ["Seer","Mentalism",[],"Seers gather information by evoking the past, scrying the present, and divining the future.",["True Sight","True Perception","Mind Visions","Sense Through Others","Past Visions","Future Visions","Far Visions","Vision Borrowing","Vision Guard"],[]],
+      ["Sorcerer","Essence",["Channeling"],"Sorcerers combine Essence and Channeling to destroy animate and inanimate material.",["Flesh Destruction","Fluid Destruction","Gas Destruction","Mind Destruction","Solid Destruction","Soul Destruction"],[]],
+      ["Summoner","Channeling",["Essence"],"Summoners communicate with, summon, control, and enhance creatures.",["Animal Summons","Planar Summons","Summoning Bond","Summoning Circles","Summoning Mastery","Teleportals"],[]],
+      ["Thief","Arms",[],"Thieves excel at mechanical manipulation, maneuvering, and stealth.",[],["Burglar","City Guard","Scout"]],
+      ["Warlock","Channeling",["Mentalism"],"Warlocks manipulate people and fate through harmful magic and broken faith.",["Doom's Law","Faith Destruction","Look of Terror","Revenging Law","Transformations","Wyrd Mastery"],[]],
+      ["Warrior Mage","Essence",["Arms"],"Warrior Mages adapt Essence casting to combat and hostile environments.",["Combat Enhancement","Combat Misdirections","Detections and Protections","Warrior's Blade","Warrior's Enhancements","Will of the Warrior"],[]]
+    ].map(([name, realm, secondary, summary, spells, packages]) => ({name, realm, secondary, summary, spells, packages}));
+
+    const playstyles = {
+      "Fighter": ["Reliable weapon attacks, heavy armor, endurance, and battlefield control.", [["Street ambush","Holds the narrowest approach and protects less durable companions."],["Guarded doorway","Forces or defends the entry with armor and weapon skill."],["Tense negotiation","Watches for physical danger while a social companion leads."]]],
+      "Thief": ["Stealth, locks, traps, observation, mobility, and opportunistic attacks.", [["Sealed archive","Checks for traps, opens the lock, and searches hidden compartments."],["Rooftop pursuit","Uses climbing and route knowledge to intercept a target."],["Tavern investigation","Listens for rumors and notices who is watching the group."]]],
+      "Rogue": ["Flexible weapons, stealth, practical skills, and adaptable problem-solving.", [["Caravan attack","Shifts between skirmishing, guarding civilians, and flanking."],["Locked warehouse","Scouts the site and chooses a practical way inside."],["Tense meeting","Reads the room and keeps an exit plan."]]],
+      "Alchemist": ["Enchantment, material analysis, item creation, imbedding, and prepared solutions.", [["Strange relic","Tests how mana has been bound into the object."],["Fortified gate","Prepares an item or compound suited to bypassing the obstacle."],["Long expedition","Equips the group before departure."]]],
+      "Dabbler": ["Essence-assisted stealth, perception, movement, locks, traps, and influence.", [["Trapped vault","Combines inspection with magic that bypasses mechanisms."],["Alley pursuit","Uses movement magic and concealment."],["Guarded reception","Blends into the crowd and gathers information."]]],
+      "Evil Magician": ["Darkness, destructive Essence, erosion, dangerous contacts, and hostile summons.", [["Fortified sanctuary","Weakens protections and attacks from darkness."],["Rival mage","Disrupts materials and applies magical pressure."],["Forbidden bargain","Calls dangerous entities when ordinary allies will not suffice."]]],
+      "Illusionist": ["Sensory illusions, disguises, false sounds, misleading impressions, and concealment.", [["Guarded checkpoint","Creates a convincing appearance or distraction."],["Larger enemy force","Uses false sights and sounds to divide attention."],["Secret meeting","Masks identities and makes the site seem unoccupied."]]],
+      "Magician": ["Elemental attacks, environmental manipulation, ranged pressure, and versatility.", [["Burning building","Controls fire or water to open a route."],["Battlefield chokepoint","Uses elemental force to deny an approach."],["Hostile creature","Chooses the most useful element."]]],
+      "Mana Molder": ["Shapes mana into fields, temporary items, servants, warriors, and constructs.", [["Collapsed passage","Creates a useful tool or temporary support."],["Outnumbered group","Summons a servant or warrior."],["Exposed camp","Shapes a protective field before danger arrives."]]],
+      "Monk": ["Martial discipline, evasive movement, heightened senses, recovery, and bodily control.", [["Narrow bridge","Engages without becoming surrounded."],["Silent infiltration","Relies on discipline and unusual movement."],["Exhausting journey","Remains capable when others tire."]]],
+      "Runemage": ["Runes, symbols, wards, commanding words, and written magical preparation.", [["Defending a room","Places wards before an attack."],["Unknown inscription","Studies names and written magic."],["Dangerous object","Uses rune work to contain it."]]],
+      "Sorcerer": ["Destructive magic affecting flesh, minds, souls, liquids, gases, and solids.", [["Armored monster","Attacks a vulnerable material or bodily aspect."],["Blocked tunnel","Weakens the obstructing material."],["Terrifying enemy","Applies focused destructive magic."]]],
+      "Warrior Mage": ["Combat enhancement, magical defenses, detection, misdirection, and weapon-focused Essence.", [["Enemy spell caster","Closes distance under magical protection."],["Hostile terrain","Uses enhancements to keep fighting."],["Duel","Layers weapon skill with Essence advantages."]]],
+      "Animist": ["Nature lore, animal influence, plant magic, herbs, movement, and protection.", [["Trackless wilderness","Finds a safe route and reads signs."],["Injured traveler","Uses herbs and natural lore."],["Hostile animals","Calms or redirects the creatures."]]],
+      "Astrologer": ["Celestial observation, divination, communication, detection, and precognition.", [["Missing person","Uses divination to narrow the search."],["Night watch","Reads celestial signs."],["Distant ally","Sends information when messengers are too slow."]]],
+      "Cleric": ["Divine protection, communal support, healing, repulsion, summons, and authority.", [["Undead incursion","Repels the threat and protects companions."],["Wounded villagers","Organizes aid and restorative magic."],["Temple dispute","Uses religious standing to mediate."]]],
+      "Evil Cleric": ["Curses, disease, necromancy, dark channels, and forbidden lore.", [["Protected rival","Weakens the target with curses."],["Fearful community","Uses secrecy and dark lore."],["Dead witness","Turns to necromantic means for answers."]]],
+      "Healer": ["Repairs blood, muscle, bone, organs, surface injuries, and afflictions.", [["After a battle","Prioritizes dangerous injuries."],["Mysterious illness","Uses cleansing magic to isolate the cause."],["Long expedition","Keeps injuries from ending the mission."]]],
+      "Mythic": ["Covert religious missions, protection, observation, disguise, resolve, and vengeance.", [["Cult infiltration","Uses subtle methods to enter hostile circles."],["Threatened relic","Defends the object and identifies pursuers."],["Betrayed ally","Tracks the responsible enemy."]]],
+      "Priest": ["Faith-dependent authority, sphere-specific magic, ceremonies, counsel, and obligations.", [["Community crisis","Provides leadership shaped by the priesthood."],["Sacred mystery","Interprets doctrine and ritual signs."],["Supernatural threat","Applies faith-specific protections."]]],
+      "Ranger": ["Wilderness movement, concealment, weather sense, survival, and guided travel.", [["Dangerous journey","Chooses the route and protects camp."],["Enemy patrol","Guides a quiet approach."],["Lost traveler","Tracks signs through difficult terrain."]]],
+      "Summoner": ["Summons, bindings, circles, creature communication, enhancement, and transport.", [["Missing scout","Calls a creature or ally for information."],["Planar disturbance","Uses circles and bindings."],["Overwhelming opposition","Adds summoned support."]]],
+      "Warlock": ["Fear, broken faith, revenge, ill fortune, transformation, and harmful bargains.", [["Powerful rival","Undermines confidence and fate."],["Hidden cult","Recognizes dangerous bargains."],["Pursuing enemy","Turns fear into obstacles."]]],
+      "Armsmaster": ["Weapon mastery, armor use, battlefield command, defense, and preparation.", [["Defending a bridge","Organizes the line."],["Unknown opponent","Reads fighting style."],["Militia in panic","Restores order and gives allies a plan."]]],
+      "Bard": ["Performance, lore, sound magic, social influence, and flexible support.", [["Suspicious tavern","Performs and turns conversation toward rumors."],["Faltering allies","Uses presence and sound to steady the group."],["Old inscription","Draws on lore before disturbing it."]]],
+      "Enchanter": ["Mental illusions, memory alteration, seeming, manipulation, and subtle defense.", [["Court intrigue","Alters impressions and protects allies."],["Guarded secret","Makes an observer remember events incorrectly."],["Hostile witness","Redirects attention quietly."]]],
+      "Evil Mentalist": ["Mind subversion, domination, erosion, illusions, disease, and lethal attacks.", [["Resistant prisoner","Applies pressure through fear or domination."],["Influential rival","Erodes judgment and trust."],["Direct confrontation","Attacks the mind rather than armor."]]],
+      "Lay Healer": ["Mentalism-based repair of blood, bone, muscle, concussions, nerves, organs, and prosthetics.", [["Crushed limb","Stabilizes and begins repair."],["Head trauma","Uses specialized healing."],["Recovery period","Returns an injured ally to useful function."]]],
+      "Magent": ["Disguise, infiltration, escape, secret gathering, misdirection, and poison expertise.", [["Restricted archive","Enters under a false identity and copies records."],["Compromised mission","Escapes restraints, locks, and pursuit."],["Quiet takedown","Studies the target and prepares a precise attack."]]],
+      "Mentalist": ["Mental communication, perception control, mind attacks, influence, and merging.", [["Silent coordination","Communicates without speech."],["Unreliable witness","Identifies mental interference."],["Armored opponent","Applies pressure that bypasses armor."]]],
+      "Mystic": ["Personal illusion, hiding, confusion, and alteration of gases, liquids, and solids.", [["Guarded compound","Hides movement and creates a distraction."],["Blocked passage","Alters nearby material."],["Uneven fight","Uses confusion and concealment."]]],
+      "Seer": ["Past, present, and future visions, borrowed senses, perception, and investigation.", [["Unsolved murder","Searches the past for missed details."],["Dangerous route","Looks ahead for likely trouble."],["Hidden chamber","Extends perception to inspect it safely."]]]
+    };
+
+    const spellProgressions = {"Animal Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Anticipations":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Assassination Mastery":[["1","Concealed Object I",""],["2","Study Patsy",""],["3","Well-Aimed Attack I",""],["4","Open Ambush I",""],["5","Targeting I",""],["6","Create Evidence I",""],["7","Concealed Object II",""],["8","Well-Aimed Attack II",""],["9","Open Ambush II",""],["10","Targeting II",""],["11","Lightning Reactions","Source marks this spell with an asterisk."],["12","Create Evidence II",""],["13","Well-Aimed Attack III",""],["14","Open Ambush III",""],["15","Targeting III",""],["16","Concealed Object True",""],["17","Study Victim",""],["18","Create Evidence III",""],["19","Well-Aimed Attack True",""],["20","Slaying Attack",""],["25","Open Ambush True",""],["30","Targeting True",""],["50","Slaying Attack True",""]],"Attack Avoidance":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Barrier Law":[["1","Airwall",""],["2","Waterwall",""],["3","Woodwall",""],["4","Earthwall",""],["5","Icewall",""],["6","Barrier Pit",""],["7","Airwall True",""],["8","Stonewall",""],["9","Waterwall True",""],["10","Woodwall True",""],["11","Earthwall True",""],["12","Icewall (20x20)",""],["13","Stonewall True",""],["14","Meld Walls",""],["15","Curved Wall",""],["16","Wall of Force",""]],"Blood Law":[["1","TODO",""]],"Blood Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Blood Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Body Reins":[["1","Balance",""],["2","Concentration",""],["3","Concentration II",""],["4","Unpain I",""],["5","Face Shifting",""],["6","Waterlungs",""],["7","Concentration III",""],["8","Strength II",""],["9","Unpain II",""],["10","Body Shifting",""]],"Body Renewal":[["1","Flow Stoppage I",""],["2","Clotting I",""],["3","Stun Relief I",""],["4","Pain Relief I",""],["5","Cut Repair I",""],["6","Fracture Repair",""],["7","Mus./Tend. Repair",""],["8","Clotting III",""],["9","Stun Relief III",""],["10","Resist Poison",""]],"Bone Law":[["1","TODO",""]],"Bone Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Bone Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Brilliance":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Calm Spirits":[["1","TODO",""]],"Cloaking":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Communal Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Concealment Mastery":[["1","Shadow",""],["2","Unseen III",""],["3","Conceal I",""],["4","Locate Object",""],["5","Darkness",""],["6","Secret I",""],["7","Unseen V",""],["8","Displacement I",""],["9","Conceal III",""],["10","Unseen X",""]],"Concussion Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Concussion\u0027s Ways":[["1","TODO",""]],"Confusing Ways":[["1","Distraction",""],["2","Confusion",""],["3","Blur Vision",""],["4","Fear",""],["5","Stumble",""],["6","Fumble",""],["7","Hallucination",""],["8","Spin",""],["9","Weapon Alteration",""],["10","Mirages",""]],"Controlling Songs":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Creations":[["1","TODO",""]],"Curses":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Damage Resistance":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Dark Channels":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Dark Contacts":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Dark Lore":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Dark Summons":[["1","Familiar",""],["2","Summons I",""],["3","Investiture I",""],["4","Summons II",""],["5","Binding II",""],["6","Summons III",""],["7","Order Bound II",""],["8","Summons V",""],["9","Binding V",""],["10","Summons VII",""]],"Darkness":[["1","Darkness II",""],["2","Nightvision",""],["3","Dark Control II",""],["4","-",""],["5","Darkness X",""],["6","Darkvision",""],["7","Dark Control V",""],["8","Shadow Forms",""],["9","Lesser Darkness",""],["10","Lesser Utterdark",""]],"Delving":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Delving Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Detecting Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Detection Mastery":[["1","Detect Channeling",""],["2","Detect Essence",""],["3","Detect Mentalism",""],["4","Detect Life",""],["5","Detect Curse",""],["6","Detect Undead",""],["7","Detect Traps",""],["8","Life Typing",""],["9","Detect Invisible",""],["10","Perceive Power (50\u0027)",""],["11","Poison Analysis",""],["12","Power Typing",""],["13","Detect Spell",""],["14","Perceive Power (500\u0027)",""],["15","Location",""],["16","Curse Analysis",""],["17","Life Analysis",""],["18","Detect True",""],["19","Location True",""]],"Detections":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Disease":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Disguise Mastery":[["1","Study Disguise",""],["2","Light Glamour",""],["3","Facade I",""],["4","Shadow Assassin",""],["5","Misfeel Kind","Source marks this spell with a dot."],["6","Facade II",""],["7","Disguise I",""],["8","Unknown Assassin",""],["9","Facade III",""],["10","Disguise II",""],["11","Misfeel Calling","Source marks this spell with a dot."],["12","Mind Tongue",""],["13","Disguise III",""],["14","Facade V",""],["15","Misfeel Power","Source marks this spell with a dot."],["16","Disguise IV",""],["17","Unpresence",""],["18","False Assassin",""],["19","Disguise V",""],["20","Misfeel","Source marks this spell with a dot."],["25","Nondetect",""],["30","Misfeel True","Source marks this spell with a dot."],["50","Disguise Mastery",""]],"Dispelling Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Earth Law":[["1","Enchanted Rope",""],["2","Loosen Earth",""],["3","-",""],["4","Earthwall",""],["5","Cracks Call",""],["6","Repair",""],["7","Stonewall",""],["8","Earthen Spikes",""],["9","Stone/Earth",""],["10","Earthwall True",""]],"Elemental Shields":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Enchanting Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Entertaining Ways":[["1","Spotlight",""],["2","Dim Lights",""],["3","Hush",""],["4","Fanfare",""],["5","Showman I",""],["6","Legerdemain",""],["7","Enthrall I",""],["8","Hidden Pocket",""],["9","Lightshow",""],["10","Showman II",""]],"Escapes":[["1","Locklore",""],["2","Unlock I",""],["3","Ungag",""],["4","Leave Item I",""],["5","Unlock II",""],["6","Untie",""],["7","Minor Long Door",""],["8","Unlock III",""],["9","Unbind",""],["10","Leaving I",""],["11","Passing",""],["12","Item Long Door I",""],["13","Unlock IV",""],["14","Long Door I",""],["15","Unbind True",""],["16","Leaving II",""],["17","No spell listed",""],["18","Flattening",""],["19","Long Door II",""],["20","Passing True",""],["25","Portal",""],["30","Unlock True",""],["50","Teleport I",""]],"Essence Hand":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Essence Imbedding":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Essence\u0027s Perceptions":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Evasions":[["1","Swing I",""],["2","Speed I",""],["3","Dodging I",""],["4","Swing III",""],["5","Flip I",""],["6","Haste I",""],["7","Speed III",""],["8","Dodging III",""],["9","Swing V",""],["10","Speed V",""]],"Far Voice":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Feel-Taste-Smell":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Fire Law":[["1","Boil Liquid",""],["2","Warm Solid",""],["3","Woodfires",""],["4","Wall of Fire",""],["5","Heat Solid",""],["6","Fire Bolt I",""],["7","Call Flame I",""],["8","Fire Ball",""],["9","Ignite",""],["10","Circle Aflame",""]],"Flesh Destruction":[["1","Shatter Limb",""],["2","Ruin Pain",""],["3","Touch of Disruption",""],["4","Lock Jaw",""],["5","Break Limb",""],["6","Disruption II",""],["7","Skin Death",""],["8","Disruption V",""],["9","Rupture Ear",""],["10","Limb Death",""]],"Fluid Destruction":[["1","Vaporize Fluid",""],["2","Freeze Fluid",""],["3","Evaporate I",""],["4","Unwater I",""],["5","Calm Water",""],["6","Water Bolt I",""],["7","Unrain",""],["8","Dehydrate",""],["9","Evaporate II",""],["10","Unwater II",""]],"Future Visions":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Gas Alteration":[["1","Condensation",""],["2","Airwall",""],["3","Fog II",""],["4","Vacuum A",""],["5","Air Stop I",""],["6","Fog X",""],["7","Airwall True",""],["8","Fire Bolt I",""],["9","Vacuum B",""],["10","Airstop V",""]],"Gas Destruction":[["1","Unfog",""],["2","Air Stop I",""],["3","Vacuum I",""],["4","Deoxygenation I",""],["5","Air Stop II",""],["6","Vacuum II",""],["7","Deoxygenation II",""],["8","Gas To Air",""],["9","Air Stop X",""],["10","Vacuum IV",""]],"Gas Manipulation":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Gate Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Gathering Secrets":[["1","Copy I",""],["2","Listen",""],["3","Duplicate I",""],["4","Sensory Marker",""],["5","Copy II",""],["6","Far Sense I",""],["7","Locate Evidence I",""],["8","Watch",""],["9","Duplicate II",""],["10","Copy III",""],["11","Far Sense II",""],["12","Woodsight",""],["13","Locate Evidence II",""],["14","Duplicate III",""],["15","Copy IV",""],["16","Greater Far Sense I",""],["17","Stonesight",""],["18","Locate Evidence III",""],["19","Greater Far Sense II",""],["20","Ironsight",""],["25","Long Far Sense I",""],["30","Copy V",""],["50","Copy True",""]],"Guises":[["1","Blur",""],["2","Shadow",""],["3","Facade I",""],["4","Signs",""],["5","Displacement I",""],["6","Facade II",""],["7","Imper. Facade I",""],["8","Facade III",""],["9","Imper. Facade II",""],["10","Displacement II",""]],"Herb Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Hiding":[["1","Blur",""],["2","Unseen I",""],["3","Shadow",""],["4","Silence",""],["5","Invisibility I",""],["6","Invisibility II",""],["7","Screens",""],["8","Displacement I",""],["9","No Sense",""],["10","Shadow Mystic",""]],"Holy Vision":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Ice Law":[["1","Freeze Liquid",""],["2","Cool Solid",""],["3","Wall of Cold",""],["4","-",""],["5","Chill Solid",""],["6","Ice Bolt I",""],["7","Cold Ball II",""],["8","Wall of Ice",""],["9","Call Cold I",""],["10","Circle of Cold",""]],"Illusion Mastery":[["1","Illusion II",""],["2","Phantasm I",""],["3","Illusion III",""],["4","Waiting Illusion II",""],["5","Phantasm II",""],["6","Illusion V",""],["7","Waiting Phantasm I",""],["8","Waiting Illusion III",""],["9","Phantasm III",""],["10","Illusion VII",""]],"Illusions":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Influences":[["1","Sleep III",""],["2","Charm Animals",""],["3","Charm Kind",""],["4","Sleep V",""],["5","Suggestion",""],["6","Telepathy I",""],["7","Sleep VII",""],["8","Hold Kind",""],["9","Greater Charm Kind",""],["10","Sleep X",""]],"Inner Walls":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Inorganic Skills":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Invisible Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Item Lore":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Lesser Illusions":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Life Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Light Law":[["1","Projected Light",""],["2","Shock Bolt I",""],["3","Light I",""],["4","Shade",""],["5","Sudden Light",""],["6","Dark I",""],["7","Light V",""],["8","Shock Bolt III",""],["9","Dark V",""],["10","Lightning Bolt I",""]],"Light Molding":[["1","Light Mirage",""],["2","Projected Light",""],["3","Light Control I",""],["4","Sudden Light",""],["5","Shock Bolt I",""],["6","Light Glamour",""],["7","-",""],["8","-",""],["9","Blind",""],["10","Light Control V",""]],"Light\u0027s Way":[["1","TODO",""]],"Liquid Alteration":[["1","Boil/Freeze Water",""],["2","Clean/Desalinate Water",""],["3","Evaporate Water",""],["4","Waterwall",""],["5","Water Bolt I",""],["6","Water Corridor I",""],["7","Call Rain",""],["8","Calm Water",""],["9","Wave",""],["10","Waterwall True",""]],"Liquid Manipulation":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Liquid-Gas Skills":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Living Change":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Locating Ways":[["1","TODO",""]],"Lofty Bridge":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Lore":[["1","TODO",""]],"Lores":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Lufty Movements":[["1","TODO",""]],"Matter Disruption":[["1","Un-Ice I",""],["2","Earth to Dust I",""],["3","Cracks Call",""],["4","Powder Stone I",""],["5","Un-Ice X",""],["6","Disruption I",""],["7","Earth to Dust X",""],["8","Shatter",""],["9","Powder Stone X",""],["10","Un-Ice True",""]],"Mechanisms":[["1","Machine Lore",""],["2","Tune",""],["3","Jam I",""],["4","Unlock I",""],["5","Untrap I",""],["6","Operate I",""],["7","Detect Active Power",""],["8","Jam II",""],["9","Unlock II",""],["10","Untrap II",""]],"Ment-Chan. Imbedding":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Attack":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Control":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Death":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Destruction":[["1","Minor Pain",""],["2","Jolts I",""],["3","Disorientation",""],["4","Unbalance",""],["5","Distractions",""],["6","Jolts III",""],["7","Major Pain",""],["8","Forget",""],["9","Word of Pain",""],["10","Mind Shock",""]],"Mind Disease":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Domination":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Erosion":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Merge":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Over Matter":[["1","Body Weapon I",""],["2","Adrenal Focus II",""],["3","Missile\u0027s Master I",""],["4","-",""],["5","Shattering Blow I",""],["6","Adrenal Focus III",""],["7","Body Weaponry II",""],["8","Missile\u0027s Master III",""],["9","Body Armor III",""],["10","Lion\u0027s Heart",""]],"Mind Sense Molding":[["1","Detect Illusion",""],["2","Detect Invisible",""],["3","Misfeel Kind",""],["4","Misfeel Power I",""],["5","Presence Mirage",""],["6","Misfeel Calling",""],["7","Misfeel Power III",""],["8","-",""],["9","Reduce Power Eman.",""],["10","Misfeel Power V",""]],"Mind Speech":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Subversion":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind Visions":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mind\u0027s Door":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Misdirections":[["1","False Credentials",""],["2","Unseen I",""],["3","Eyewitness III",""],["4","Cloaking III",""],["5","Misleading I",""],["6","Unseen II",""],["7","Cloaking V",""],["8","Eyewitness V",""],["9","Cloaking Sphere I",""],["10","Misleading III",""],["11","Cloaking X",""],["12","Displacement I",""],["13","Eyewitness X",""],["14","Cloaking Sphere II",""],["15","Misleading V",""],["16","Cloaking XX",""],["17","No spell listed",""],["18","Mass Eyewitness",""],["19","Cloaking Sphere III",""],["20","Misleading True",""],["25","Displacement II",""],["30","True Cloaking",""],["50","Eyewitness True",""]],"Monk\u0027s Bridge":[["1","Leaping I",""],["2","Landing",""],["3","Traction",""],["4","Edgerunning",""],["5","Leaping III",""],["6","Cornering I",""],["7","Levitation",""],["8","Landing True",""],["9","Wallwalking",""],["10","Great Leap",""]],"Monk\u0027s Sense":[["1","Sly Ears",""],["2","Nightvision",""],["3","Sidevision",""],["4","Scent",""],["5","Watervision",""],["6","Fogvision",""],["7","Touch",""],["8","Darkvision",""],["9","Detect Invisible",""],["10","Detect Illusion",""]],"Movement":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Movement Mastery":[["1","Run",""],["2","Longjump",""],["3","Landing",""],["4","Shadow Steps",""],["5","Underwater Movement",""],["6","Balance I",""],["7","Spider\u0027s Step",""],["8","Long Dive",""],["9","Traceless Passing",""],["10","Spider\u0027s Step True",""]],"Moving Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Muscle Law":[["1","TODO",""]],"Muscle Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Muscle Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Mystical Change":[["1","Study Form",""],["2","Face Shifting True",""],["3","Change to Kind",""],["4","Misfeel Kind",""],["5","Enlarge",""],["6","Shrink",""],["7","Misfeel Calling",""],["8","Changing Lungs",""],["9","Change",""],["10","Mystical Tongue",""]],"Nature\u0027s Guises":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Nature\u0027s Law":[["1","TODO",""]],"Nature\u0027s Lore":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Nature\u0027s Movement":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Nature\u0027s Protection":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Nature\u0027s Summons":[["1","Summon Nourishment",""],["2","Summon Warmth",""],["3","Summon Guide",""],["4","Summon Guardian",""],["5","Summon Mount",""],["6","Summon Hunter",""],["7","Summon Sense",""],["8","-",""],["9","Summon Group",""],["10","Mass Summons",""]],"Nature\u0027s Way":[["1","Trap Detection",""],["2","Water Finding I",""],["3","Fire Starting",""],["4","-",""],["5","Food Finding I",""],["6","Water Purification",""],["7","Shelter Finding I",""],["8","Lesser Traps",""],["9","Weather Prediction I",""],["10","Nature\u0027s Awareness I",""]],"Necromancy":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Nerve and Organ Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Nerve Law":[["1","TODO",""]],"Organ Law":[["1","TODO",""]],"Organic Skills":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Past Visions":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Path Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Physical Enhancement":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Physical Erosion":[["1","Pain",""],["2","Impair I",""],["3","Ache",""],["4","Fire Nerves",""],["5","Trait Erosion I",""],["6","Impair III",""],["7","Pang",""],["8","-",""],["9","Agony",""],["10","Trait Erosion II",""]],"Plant Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Poison Mastery":[["1","Poison Lore",""],["2","Poison Resistance I",""],["3","Apply Poison I",""],["4","Work Poison V",""],["5","Poison Analysis",""],["6","Delay Poison","Source marks this spell with an asterisk."],["7","Transfer Poison I",""],["8","Apply Poison II",""],["9","Neutralize Poison",""],["10","Work Poison X",""],["11","Venom",""],["12","Apply Poison III",""],["13","Neutralize Poison True",""],["14","Transfer Poison II",""],["15","Venom\u0027s Touch",""],["16","Work Poison True",""],["17","Apply Poison IV",""],["18","Contact Poison",""],["19","Transfer Poison III",""],["20","Venom\u0027s Breath",""],["25","Venom\u0027s Glare",""],["30","Venom\u0027s Cloud",""],["50","Venom\u0027s Sight",""]],"Presence":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Prosthetics":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Protections":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Purifications":[["1","TODO",""]],"Rapid Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Repulsions":[["1","Repel Undead V",""],["2","Cancel Channeling",""],["3","Anti-Channels I",""],["4","Neutralize Curse I",""],["5","Anti-Channels III",""],["6","Repel Undead IX",""],["7","Remove Curse",""],["8","Dispel Channeling I",""],["9","Neutralize Curse II",""],["10","Anti-Channels V",""]],"Rune Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Self Healing":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Sense Control":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Sense Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Sense Through Others":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Senses":[["1","Sly Ears",""],["2","Nightvision",""],["3","Scent",""],["4","Sensory Marker",""],["5","Far Sense I",""],["6","Sidevision",""],["7","Touch",""],["8","Watervision",""],["9","Darkvision",""],["10","Far Sense II",""]],"Shield Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Shifting":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Solid Alteration":[["1","Warm Solid",""],["2","Heat Solid I",""],["3","Cool Solid",""],["4","Cracks Call",""],["5","Door",""],["6","Woodfires",""],["7","-",""],["8","Heat Solid II",""],["9","Chill Solid",""],["10","Wall of Ice",""]],"Solid Destruction":[["1","Melt Ice",""],["2","Loosen Earth",""],["3","Erosions",""],["4","Cracks Call",""],["5","Undoor",""],["6","Stone/Earth",""],["7","-",""],["8","Earth/Mud",""],["9","-",""],["10","Corridor",""]],"Solid Manipulation":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Soul Destruction":[["1","Question",""],["2","Demonic Possession I",""],["3","Neurosis",""],["4","Guilt",""],["5","Paranoia",""],["6","Demonic Possession II",""],["7","Panic",""],["8","Transferral",""],["9","-",""],["10","Demonic Possession III",""]],"Sound Control":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Sound Lore":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Sound Molding":[["1","Sound Mirage",""],["2","Silence I",""],["3","Sound Control I",""],["4","Sudden Sound",""],["5","Sound Control V",""],["6","Sound Glamour",""],["7","Deafen",""],["8","Silence V",""],["9","Minor Ultrasonics",""],["10","Sound Control X",""]],"Sound Projection":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Sound\u0027s Way":[["1","TODO",""]],"Speed":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Spell Defense":[["1","TODO",""]],"Spell Enhancement":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Spell Reins":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Spell Resistance":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Spell Wall":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Spirit Mastery":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Starlights":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Starsense":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Summons":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Surface Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Symbolic Ways":[["1","TODO",""]],"Telekinesis":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Thieving Law":[["1","Gauge Wealth",""],["2","Weigh Pockets",""],["3","Mark Target",""],["4","Find Buyer I",""],["5","Locate Target",""],["6","Jewel/Metal Assessment",""],["7","Item Assessment",""],["8","Find Buyer II",""],["9","Detect Power",""],["10","Item Analysis I",""]],"Time\u0027s Bridge":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"True Perception":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"True Sight":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Unbarring Ways":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Water Law":[["1","Condensation",""],["2","Fog",""],["3","Waterwall",""],["4","Water Bolt I",""],["5","Unfog",""],["6","-",""],["7","-",""],["8","Calm Water",""],["9","-",""],["10","Waterwall True",""]],"Way of the Voice":[["1","TODO",""],["2","TODO",""],["3","TODO",""],["4","TODO",""],["5","TODO",""],["6","TODO",""],["7","TODO",""],["8","TODO",""],["9","TODO",""],["10","TODO",""]],"Weather Ways":[["1","TODO",""]],"Wind Law":[["1","Breezes",""],["2","Airwall",""],["3","Slumber Mist",""],["4","Stun Cloud I",""],["5","Air Stop I",""],["6","Stun Cloud II",""],["7","Vacuum I",""],["8","Air Stop II",""],["9","Slumber Cloud",""],["10","Stun Cloud IV",""]]};
+
+    const importedSpells = new Set([
+      "Animal Mastery","Anticipations","Armor Mastery","Assassination Mastery","Attack Avoidance","Barrier Law","Battle Law",
+      "Blood Mastery","Blood Ways","Bone Law","Bone Mastery","Bone Ways","Brilliance","Calm Spirits","Channels","Cleansing",
+      "Cloaking","Communal Ways","Concealment Mastery","Concussion Mastery","Confusing Ways","Controlling Songs","Creations",
+      "Curses","Damage Resistance","Dark Channels","Dark Contacts","Dark Lore","Dark Summons","Darkness","Delving","Delving Ways",
+      "Detections","Detecting Ways","Disguise Mastery","Disease","Dispelling Ways","Earth Law","Enchanting Ways","Entertaining Ways",
+      "Escapes","Essence Hand","Essence Imbedding","Essence's Perceptions","Evasions","Far Voice","Feel-Taste-Smell","Fire Law",
+      "Flesh Destruction","Fluid Destruction","Fortress Law","Future Visions","Gas Alteration","Gas Destruction","Gas Manipulation",
+      "Gathering Secrets","Gate Mastery","Guises","Herb Mastery","Hiding","Holy Vision","Ice Law","Illusions","Illusion Mastery",
+      "Influences","Inner Walls","Inorganic Skills","Invisible Ways","Item Lore","Life Mastery","Light Law","Light Molding","Liquid Alteration",
+      "Liquid Manipulation","Liquid-Gas Skills","Living Change","Locating Ways","Lofty Bridge","Lore","Lores","Lufty Movements",
+      "Martial Law","Matter Disruption","Mechanisms","Ment-Chan. Imbedding","Mind Attack","Mind Control","Mind Death","Mind Disease",
+      "Mind Domination","Mind Erosion","Mind Illusions","Mind Mastery","Mind Merge","Mind Over Matter","Mind Sense Molding","Mind Speech",
+      "Mind Subversion","Mind's Door","Misdirections","Moving Ways","Movement","Movement Mastery","Muscle Law","Muscle Mastery","Muscle Ways",
+      "Mystical Change","Nature's Guises","Nature's Law","Nature's Lore","Nature's Movement","Nature's Protection","Nature's Summons",
+      "Nature's Way","Necromancy","Nerve and Organ Mastery","Nerve Law","Organ Law","Organ Ways","Organic Skills","Past Visions",
+      "Path Mastery","Physical Enhancement","Physical Erosion","Plant Mastery","Poison Mastery","Presence","Protections","Prosthetics",
+      "Purifications","Rapid Ways","Repulsions","Rune Mastery","Self Healing","Sense Control","Sense Mastery","Sense Through Others","Senses",
+      "Shifting","Shield Mastery","Solid Alteration","Solid Destruction","Solid Manipulation","Soul Destruction","Sound Control","Sound Lore",
+      "Sound Molding","Sound Projection","Sound's Way","Speed","Spell Defense","Spell Enhancement","Spell Reins","Spell Resistance",
+      "Spell Wall","Spirit Mastery","Starlights","Starlore","Starsense","Summons","Surface Ways","Symbolic Ways","Telekinesis","Thieving Law",
+      "Time's Bridge","True Perception","True Sight","Unbarring Ways","Vision Borrowing","Vision Guard","Warrior Law","Water Law","Way of the Voice",
+      "Weapon Mastery","Weather Ways","Wind Law"
+    ]);
+
+    const $ = (id) => document.getElementById(id);
+    let selected = "Magent";
+    let selectedSpellList = "";
+    const notePath = (folder, name) => `${folder}/${encodeURIComponent(name)}.md`;
+
+    function renderProfessions() {
+      const query = $("profession-search").value.toLowerCase();
+      const realm = $("realm-filter").value;
+      const filtered = professions.filter((p) =>
+        p.name.toLowerCase().includes(query) &&
+        (!realm || p.realm === realm || p.secondary.includes(realm))
+      );
+      $("profession-list").innerHTML = filtered.map((p) => `
+        <button class="profession ${p.name === selected ? "active" : ""}" data-profession="${p.name}">
+          ${p.name}<small>${[p.realm, ...p.secondary].join(" / ")}</small>
+        </button>`).join("");
+      document.querySelectorAll("[data-profession]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selected = button.dataset.profession;
+          selectedSpellList = "";
+          renderProfessions();
+          renderDetail();
+        });
+      });
+    }
+
+    function renderDetail() {
+      const p = professions.find((item) => item.name === selected) || professions[0];
+      const playstyle = playstyles[p.name];
+      const realms = [p.realm, ...p.secondary].join(" / ");
+      const spells = p.spells.length
+        ? p.spells.map((spell) => `<button class="pill ${spellProgressions[spell] ? "imported" : "pending"} ${spell === selectedSpellList ? "active" : ""}" data-spell-list="${spell}">${spell}</button>`).join("")
+        : `<p class="empty">No fixed spell-list attachment is recorded for this profession.</p>`;
+      const suggestions = p.packages.length
+        ? p.packages.map((name) => `<a class="pill package" href="${notePath("./04 Training Packages", name)}">${name}</a>`).join("")
+        : `<p class="empty">No specific package recommendations are recorded yet. Browse the full catalog below.</p>`;
+      $("profession-detail").innerHTML = `
+        <div class="topline">
+          <div><p class="eyebrow">${realms}</p><h2>${p.name}</h2></div>
+          <a class="note-link" href="${notePath("./02 Professions", p.name)}">Open Markdown note</a>
+        </div>
+        <p>${p.summary}</p>
+        <h3>Typical Abilities</h3>
+        <p>${playstyle[0]}</p>
+        <h3>Situation Examples</h3>
+        <div class="scenario-grid">${playstyle[1].map(([title, text]) => `<div class="scenario"><strong>${title}</strong>${text}</div>`).join("")}</div>
+        <h3>Spell Lists</h3>
+        <p class="muted"><span class="pill imported">Spell progression available</span> <span class="pill pending">List details pending</span></p>
+        <div class="pill-grid">${spells}</div>
+        <div id="spell-viewer" class="spell-viewer"></div>
+        <h3>Suggested Training Packages</h3>
+        <div class="pill-grid">${suggestions}</div>`;
+      document.querySelectorAll("[data-spell-list]").forEach((button) => {
+        button.addEventListener("click", () => {
+          selectedSpellList = button.dataset.spellList;
+          renderDetail();
+          renderSpellList();
+        });
+      });
+      renderSpellList();
+    }
+
+    function renderSpellList() {
+      const viewer = $("spell-viewer");
+      if (!selectedSpellList) {
+        viewer.innerHTML = `<p class="empty">Click a spell list to view its spells.</p>`;
+        return;
+      }
+      const rows = spellProgressions[selectedSpellList];
+      if (!rows) {
+        viewer.innerHTML = `<p class="empty"><strong>${selectedSpellList}</strong> is attached to this profession, but its spell progression has not been imported yet.</p>`;
+        return;
+      }
+      viewer.innerHTML = `<h3>${selectedSpellList}</h3>
+        <table class="spell-table">
+          <thead><tr><th>Level</th><th>Spell</th><th>Notes</th></tr></thead>
+          <tbody>${rows.map(([level, spell, notes]) => `<tr><td>${level}</td><td>${spell}</td><td>${notes}</td></tr>`).join("")}</tbody>
+        </table>`;
+    }
+
+    ["profession-search", "realm-filter"].forEach((id) => $(id).addEventListener("input", renderProfessions));
+    renderProfessions();
+    renderDetail();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Smouldering Cog Menu</title>
+  <style>
+    :root {
+      --paper: #ead7ad;
+      --paper-dark: #d1a96d;
+      --ink: #2a180d;
+      --copper: #8f4f22;
+      --ember: #b94117;
+      --smoke: #6b5b4a;
+      --rule: #5a3117;
+    }
+
+    @page {
+      size: letter;
+      margin: 0.45in;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #3b2a1e;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.22;
+    }
+
+    .sheet {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: 0.42in;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.18), transparent 18%),
+        radial-gradient(circle at 88% 88%, rgba(91, 40, 13, 0.16), transparent 24%),
+        linear-gradient(135deg, rgba(143, 79, 34, 0.14), transparent 18%, transparent 82%, rgba(60, 30, 12, 0.12)),
+        var(--paper);
+      border: 0.08in double var(--rule);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.38);
+      position: relative;
+    }
+
+    .sheet::before {
+      content: "";
+      position: absolute;
+      inset: 0.13in;
+      border: 1.5px solid rgba(90, 49, 23, 0.45);
+      pointer-events: none;
+    }
+
+    header {
+      text-align: center;
+      padding: 0 0.15in 0.12in;
+      border-bottom: 4px double var(--rule);
+      margin-bottom: 0.14in;
+    }
+
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.12in;
+      font-size: 9.2pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--smoke);
+      border-bottom: 1px solid rgba(90, 49, 23, 0.55);
+      padding-bottom: 0.04in;
+      margin-bottom: 0.09in;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 39pt;
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0.05in 0 0;
+      font-size: 14pt;
+      font-style: italic;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.12in;
+      margin-top: 0.08in;
+      font-size: 9.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--copper);
+    }
+
+    .badge-row span {
+      border: 1px solid var(--copper);
+      padding: 0.03in 0.07in;
+      background: rgba(255,255,255,0.14);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.17in;
+    }
+
+    section {
+      border-top: 2px solid var(--rule);
+      padding-top: 0.08in;
+      margin-bottom: 0.13in;
+    }
+
+    h2 {
+      margin: 0 0 0.06in;
+      font-size: 17pt;
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 0.05in;
+    }
+
+    h2::before,
+    h2::after {
+      content: "";
+      height: 1px;
+      background: rgba(90, 49, 23, 0.45);
+      flex: 1;
+    }
+
+    h2::before {
+      max-width: 0.28in;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.1in;
+      padding: 0.045in 0;
+      border-bottom: 1px dotted rgba(90, 49, 23, 0.38);
+      break-inside: avoid;
+    }
+
+    .name {
+      font-size: 12.4pt;
+      font-weight: bold;
+    }
+
+    .price {
+      font-size: 11.5pt;
+      font-weight: bold;
+      white-space: nowrap;
+      color: var(--copper);
+    }
+
+    .desc {
+      grid-column: 1 / -1;
+      margin-top: -0.02in;
+      font-size: 9.7pt;
+      color: #4d3523;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .notice {
+      border: 2px solid var(--rule);
+      padding: 0.1in 0.14in;
+      background:
+        linear-gradient(90deg, rgba(185,65,23,0.09), transparent 50%, rgba(143,79,34,0.08)),
+        rgba(255, 255, 255, 0.16);
+      text-align: center;
+      margin-top: 0.02in;
+    }
+
+    .notice strong {
+      display: block;
+      font-size: 14pt;
+      text-transform: uppercase;
+      margin-bottom: 0.04in;
+    }
+
+    .notice p {
+      margin: 0.04in 0;
+      font-size: 10pt;
+    }
+
+    .fineprint {
+      margin-top: 0.08in;
+      font-size: 8.5pt;
+      color: var(--smoke);
+      text-align: center;
+      font-style: italic;
+    }
+
+    footer {
+      border-top: 4px double var(--rule);
+      padding-top: 0.1in;
+      margin-top: 0.05in;
+      text-align: center;
+      font-size: 9.5pt;
+      color: var(--smoke);
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .sheet {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        border-color: var(--rule);
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header>
+      <div class="topline">
+        <span>Cogmarket</span>
+        <span>Built in Aetherspark's failed flying boat</span>
+        <span>Open Valves Night</span>
+      </div>
+      <h1>The Smouldering Cog</h1>
+      <p class="subtitle">Hot food, warm pipes, questionable decisions.</p>
+      <div class="badge-row">
+        <span>Boiler Bar</span>
+        <span>Airship Crews Welcome</span>
+        <span>No Refunds After Sparks</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section>
+        <h2>House Specials</h2>
+
+        <div class="item">
+          <div class="name">Smouldering Cog Stew</div>
+          <div class="price">4 cp</div>
+          <div class="desc">Thick beef, root vegetables, fire-pepper oil, and a copper pot that stays warm far too long.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Boiler-Roast Sausages</div>
+          <div class="price">5 cp</div>
+          <div class="desc">Sausages cooked over the old mana-boiler vents. Smoky, spicy, slightly metallic.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Aetherspark's Breakfast</div>
+          <div class="price">7 cp</div>
+          <div class="desc">Eggs, fried potatoes, black pudding, grilled tomatoes, and a tiny gear-shaped biscuit. Served all day.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Skyboat Pie</div>
+          <div class="price">8 cp</div>
+          <div class="desc">Flaky pastry filled with chicken, leeks, mushrooms, and amber gravy.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Cogmarket Hash</div>
+          <div class="price">2 cp</div>
+          <div class="desc">Cheap, filling, and different every time.</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Drinks</h2>
+
+        <div class="item">
+          <div class="name">Copperline Ale</div>
+          <div class="price">3 cp</div>
+          <div class="desc">Bitter local ale served in dented brass mugs.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Ember Stout</div>
+          <div class="price">4 cp</div>
+          <div class="desc">Dark stout with a smoky finish. Popular with pipeline workers.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Spark-Cider</div>
+          <div class="price">4 cp</div>
+          <div class="desc">Sweet apple cider with a tiny harmless mana crackle.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">The Failed Launch</div>
+          <div class="price">8 cp</div>
+          <div class="desc">Rum, citrus, ginger, and a flaming sugar cube. Comes with a warning.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Cogwater</div>
+          <div class="price">1 cp</div>
+          <div class="desc">Water filtered through the tavern's old condenser system. Mostly safe.</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>For Airship Crews</h2>
+
+        <div class="item">
+          <div class="name">Navigator's Tea</div>
+          <div class="price">3 cp</div>
+          <div class="desc">Strong black tea with mint and wakeleaf.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Highwind Rations</div>
+          <div class="price">6 cp</div>
+          <div class="desc">Dried meat, hard cheese, oatcakes, and pickled onions wrapped for travel.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Captain's Reserve</div>
+          <div class="price">1 sp</div>
+          <div class="desc">A small glass of whatever Mara claims is too good for the rest of you.</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Open Valves Fare</h2>
+
+        <div class="item">
+          <div class="name">Valve-Day Fritters</div>
+          <div class="price">3 cp</div>
+          <div class="desc">Crisp onion and potato fritters dusted with smoked salt and served in a folded news scrap.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Beacon Broth</div>
+          <div class="price">2 cp</div>
+          <div class="desc">Peppery chicken broth that changes color under festival lamps. The cook says that is intentional.</div>
+        </div>
+
+        <div class="item">
+          <div class="name">Copper Rain Toddy</div>
+          <div class="price">5 cp</div>
+          <div class="desc">Hot cider, honey, clove, and a harmless sparkle for old times' sake.</div>
+        </div>
+      </section>
+
+      <section class="full notice">
+        <strong>House Notices</strong>
+        <p>The boiler whistles when city pressure changes. Do not whistle back unless you know what you are doing.</p>
+        <p>Festival sparks are for drinks, lamps, and licensed performances only.</p>
+        <p>Mara reserves the right to refuse service to smugglers, prophets, unpaid inventors, and anyone carrying a leaking canister.</p>
+      </section>
+    </div>
+
+    <p class="fineprint">Ask at the bar for work, warnings, rumours, lost hats, or the name of someone who knows a better entrance below Cogmarket.</p>
+
+    <footer>
+      The Smouldering Cog - warm copper pipes, mostly honest ale, and the safest bad idea in Cogmarket.
+    </footer>
+  </main>
+</body>
+</html>

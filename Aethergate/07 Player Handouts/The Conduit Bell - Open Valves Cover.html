@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Conduit Bell - Open Valves Cover</title>
+  <style>
+    :root {
+      --paper: #f2ead6;
+      --ink: #221b14;
+      --rule: #4c3c2d;
+      --muted: #6f5b45;
+      --wash: #ded0ad;
+    }
+
+    @page {
+      size: letter;
+      margin: 0.45in;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #d8caa9;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.24;
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: 0.42in 0.45in;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(115, 85, 48, 0.1), transparent 22%),
+        radial-gradient(circle at 82% 76%, rgba(80, 55, 30, 0.08), transparent 28%),
+        linear-gradient(90deg, rgba(255,255,255,0.18), transparent 18%, transparent 82%, rgba(0,0,0,0.04)),
+        var(--paper);
+      border: 1px solid #8d7b5f;
+      box-shadow: 0 18px 45px rgba(20, 12, 5, 0.28);
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 4px double var(--ink);
+      padding-bottom: 0.12in;
+      margin-bottom: 0.14in;
+    }
+
+    .kicker {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.1in;
+      font-size: 9.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 0.04in 0;
+      margin-bottom: 0.08in;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 44pt;
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .tagline {
+      margin-top: 0.03in;
+      font-size: 12pt;
+      font-style: italic;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.45fr 0.95fr;
+      gap: 0.18in;
+    }
+
+    .headline {
+      border-bottom: 3px solid var(--ink);
+      padding-bottom: 0.1in;
+      margin-bottom: 0.12in;
+    }
+
+    h2 {
+      margin: 0 0 0.04in;
+      font-size: 30pt;
+      line-height: 0.95;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .deck {
+      margin: 0;
+      font-size: 13pt;
+      font-weight: bold;
+    }
+
+    .byline {
+      margin: 0.06in 0;
+      font-size: 9.5pt;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .columns {
+      column-count: 2;
+      column-gap: 0.15in;
+      column-rule: 1px solid rgba(76, 60, 45, 0.45);
+      font-size: 10.2pt;
+      text-align: justify;
+    }
+
+    .columns p,
+    article p {
+      margin: 0 0 0.08in;
+    }
+
+    article {
+      border-top: 2px solid var(--rule);
+      padding-top: 0.07in;
+      margin-top: 0.1in;
+      font-size: 9.6pt;
+    }
+
+    h3 {
+      margin: 0 0 0.04in;
+      font-size: 14.5pt;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .side article:first-child {
+      margin-top: 0;
+    }
+
+    .notice {
+      border: 2px solid var(--ink);
+      padding: 0.08in;
+      background: rgba(222, 208, 173, 0.55);
+    }
+
+    .notice h3 {
+      text-align: center;
+      font-size: 15pt;
+    }
+
+    .small {
+      font-size: 8.8pt;
+    }
+
+    .ad {
+      margin-top: 0.12in;
+      border: 3px double var(--ink);
+      padding: 0.07in;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .ad strong {
+      display: block;
+      font-size: 12pt;
+      text-transform: uppercase;
+    }
+
+    .footer-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.12in;
+      margin-top: 0.14in;
+      border-top: 4px double var(--ink);
+      padding-top: 0.1in;
+    }
+
+    .footer-row article {
+      margin-top: 0;
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .correction {
+      border: 1.5px solid var(--ink);
+      padding: 0.06in;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .ornament {
+      font-size: 18pt;
+      line-height: 1;
+      color: var(--muted);
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="kicker">
+        <span>Cogmarket Morning Edition</span>
+        <span>Cycle 713, Valve Day</span>
+        <span>Price: 1 copper</span>
+      </div>
+      <h1>The Conduit Bell</h1>
+      <div class="tagline">Aethergate: Where Magic Runs Like Clockwork</div>
+    </header>
+
+    <section class="main-grid">
+      <div>
+        <section class="headline">
+          <h2>First Full Open Valves in Seven Years Begins at Noon</h2>
+          <p class="deck">Tower officials promise a citywide surplus release, public clinics, valve-light displays, and the return of Aethergate's brightest civic holiday.</p>
+          <p class="byline">By Halwen Quill, Civic Desk</p>
+        </section>
+
+        <div class="columns">
+          <p>Aethergate will celebrate its first full Day of Open Valves in seven years beginning at noon, when the Cycle Beacon turns to festival sequence and district release arches open across the city.</p>
+          <p>The Ratio Office credits improved storage discipline, stronger reclamation arrays, and steady conservation for the return of the holiday once held every year.</p>
+          <p>Public baths, lamp walks, artificer displays, minor healing clinics, and valve-lit processions are scheduled from Cogmarket to the Tower Steps. Officials ask citizens to enjoy the surplus without tampering with decorative pipework, most of which remains functional.</p>
+          <p>"Aethergate has remembered how to spend wisely," said Deputy Ratio Clerk Oren Pell. "Better bright in the streets than sour in the tanks."</p>
+          <p>Guild of Conduits crews will monitor pressure throughout the day. The Mana Authority has warned that unlicensed canisters, inhalers, and private siphon tools remain illegal, festival or no festival.</p>
+          <p>Older residents recall annual Open Valves as the sound of bells, steam, laughter, and copper rain. For many younger citizens, today's celebration will be their first.</p>
+        </div>
+
+        <article>
+          <h3>Cycle Beacon to Run Historic Nine-Phase Display</h3>
+          <p>The Cycle Beacon atop Aetherspark's Tower will display an old festival sequence not seen since the last full surplus release. Officials emphasize that the display is symbolic and should not be read as a pressure warning.</p>
+        </article>
+
+        <article>
+          <h3>Cogmarket Taverns Prepare for Brightest Night in Years</h3>
+          <p>Pipeline crews, airship hands, junior artificers, and visiting families are expected to pack Cogmarket by dusk. The Smouldering Cog has announced festival stew, gear-shaped biscuits, and "properly harmless" spark-cider.</p>
+        </article>
+      </div>
+
+      <aside class="side">
+        <article class="notice">
+          <h3>Public Safety Notice</h3>
+          <p>The White Line Wardens report that the Heartline remains fully protected during today's celebrations.</p>
+          <p class="small">Citizens are reminded that medical valves, white-painted conduits, and hospital pressure posts are not festival fixtures.</p>
+        </article>
+
+        <article>
+          <h3>Free Minor Clinics Open Across Three Districts</h3>
+          <p>Lay healers and hospital apprentices will offer treatment for minor cuts, burns, coughs, and work strains. Serious cases should proceed directly to the Ninefold Infirmary.</p>
+        </article>
+
+        <article>
+          <h3>Shrine Allotment League Questions Figures</h3>
+          <p>The Shrine Allotment League has asked why several sanctuary lamps and burial wards were dimmed before a declared surplus. The Mana Authority called the matter "routine balancing."</p>
+        </article>
+
+        <article class="correction">
+          <h3>Correction</h3>
+          <p>Yesterday's pressure notice incorrectly listed Arcane reserve status as "comfortable." The correct term is "adequate." The Bell regrets the error.</p>
+        </article>
+
+        <div class="ad">
+          <span class="ornament">-:-</span>
+          <strong>Guild of Conduits Advisory</strong>
+          <p class="small">Do not scrape, bottle, inhale, warm, bless, sell, or taste frost found on indoor copperwork.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="footer-row">
+      <article>
+        <h3>Ward Bell Test Delayed</h3>
+        <p>Overbright Ward officials have postponed a scheduled Violet Bell demonstration until after the festival, citing maintenance and crowd-noise concerns.</p>
+      </article>
+
+      <article>
+        <h3>Decorative Valves Are Still Valves</h3>
+        <p>Conduit crews ask revelers not to hang lanterns, ribbons, children, pets, hats, or relatives from active release arches.</p>
+      </article>
+
+      <article>
+        <h3>Rumor Desk</h3>
+        <p>Loose doomsday handbills claiming "dragons drink first" have appeared near Cogmarket. Officials advise citizens to recycle panic responsibly.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "aethergate-character-creator",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/build-data.mjs",
+    "dev": "npm run build && node scripts/server.mjs",
+    "dev:vite": "vite --host 0.0.0.0 --configLoader runner",
+    "prebuild": "node scripts/build-data.mjs",
+    "build": "vite build --configLoader runner",
+    "prepreview": "node scripts/build-data.mjs",
+    "preview": "npm run build && node scripts/server.mjs",
+    "serve": "node scripts/server.mjs"
+  },
+  "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "vite": "^6.0.7",
+    "svelte": "^5.16.0"
+  },
+  "devDependencies": {}
+}
