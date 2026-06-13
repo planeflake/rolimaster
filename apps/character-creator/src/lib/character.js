@@ -45,7 +45,8 @@ export function blankCharacter() {
     customRules: "",
     customRuleIds: [],
     languages: [],
-    inventory: []
+    inventory: [],
+    ppRanks: { arcane: 0, channeling: 0, essence: 0, mentalism: 0, psionic: 0 }
   };
 }
 

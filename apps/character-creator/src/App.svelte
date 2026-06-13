@@ -173,6 +173,11 @@
   $: inventoryValue = inventoryTotal("value");
   $: primeStatSet = new Set(STATS.filter(s => (selectedProfession?.primeStats ?? "").includes(s.name)).map(s => s.id));
   $: primeStats = STATS.filter((stat) => primeStatSet.has(stat.id));
+
+  const REALM_STAT = { Essence: "IN", Channeling: "EM", Mentalism: "ME", Arcane: "IN", Psionic: "ME" };
+  $: ppRealms = [selectedProfession?.realm, selectedProfession?.secondaryRealm]
+    .filter(r => r && REALM_STAT[r])
+    .filter((r, i, a) => a.indexOf(r) === i);
   $: xpTotal = Math.max(0, Number(character.xp || 0));
   $: xpLevel = Math.floor(xpTotal / 100);
   $: xpProgress = xpTotal % 100;
@@ -890,6 +895,19 @@
   function setStatPoint(statId, value) {
     const n = Math.max(0, Math.min(100, Number(value) || 0));
     character = { ...character, statPoints: { ...character.statPoints, [statId]: n } };
+  }
+
+  function setPPRanks(realm, value) {
+    const key = realm.toLowerCase();
+    const n = Math.max(0, parseInt(value) || 0);
+    character = { ...character, ppRanks: { ...(character.ppRanks ?? {}), [key]: n } };
+  }
+
+  function ppForRealm(realm) {
+    const statId = REALM_STAT[realm] ?? "IN";
+    const ranks = Number(character.ppRanks?.[realm.toLowerCase()] ?? 0);
+    const statBonus = basicStatBonus(finalStat(statId));
+    return { ranks, statBonus, total: Math.max(0, ranks + statBonus), statId };
   }
 
   function toggleCustomRule(id) {
@@ -2089,6 +2107,39 @@
               {/each}
             </div>
           </section>
+
+          {#if ppRealms.length > 0}
+          <section class="sheet-section">
+            <h2 class="sheet-section-title">Power Points</h2>
+            <div class="sheet-pp-row">
+              {#each ppRealms as realm}
+                {@const pp = ppForRealm(realm)}
+                {@const prog = selectedRace?.ppProgression?.[realm.toLowerCase()] ?? ""}
+                <div class="sheet-pp-tile">
+                  <span class="sheet-pp-realm">{realm}</span>
+                  <span class="sheet-pp-stat">{pp.statId} {formatBonus(pp.statBonus)}</span>
+                  <label class="sheet-pp-ranks-label">
+                    <span>Ranks</span>
+                    <input
+                      class="sheet-pp-input"
+                      type="number"
+                      min="0"
+                      value={character.ppRanks?.[realm.toLowerCase()] ?? 0}
+                      on:input={(e) => setPPRanks(realm, e.target.value)}
+                    />
+                  </label>
+                  <div class="sheet-pp-total">
+                    <strong class="sheet-pp-number">{pp.total}</strong>
+                    <small>PP</small>
+                  </div>
+                  {#if prog}
+                    <span class="sheet-pp-prog" title="DP cost per rank (tier progression)">{prog}</span>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+          </section>
+          {/if}
 
           <section class="sheet-section sheet-section--carousel">
             <div class="summary-panel-tracker" aria-label="Summary panels">

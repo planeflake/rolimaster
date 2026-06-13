@@ -25,7 +25,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "- Centaurs share Centaur-speech as a racial language.\n- Lion Centaurs can make unarmed attacks as Medium Claw attacks.\n- Centaurs may not choose the Extra Limbs talent in the same way as two-legged races.\n- The source gives each Centaur variant five background options.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Common Men",
@@ -51,7 +58,14 @@
       "backgroundOptions": 6,
       "baseRate": "50",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-7-6-5-4"
+      }
     },
     {
       "id": "Droloi",
@@ -77,7 +91,14 @@
       "backgroundOptions": 5,
       "baseRate": "50",
       "notes": "- Strong dark vision, including excellent sight in non-magical darkness.\n- Leathery skin provides natural armor.\n- Claws allow Medium Claw unarmed attacks.\n- Notable tolerance for cold attacks, though not against below-freezing extremes.\n- The source frames them as especially workable Fighters because of Strength and Constitution.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-7-6-5-4"
+      }
     },
     {
       "id": "Dwarves",
@@ -104,7 +125,14 @@
       "backgroundOptions": 5,
       "baseRate": "50",
       "notes": "- Strong endurance and physical toughness.\n- Heat and cold resistance for standard Dwarves.\n- Shadow World Nomari have altered cold notes and a hibernation-related exception in the source.\n- Strong fit for Fighter professions.\n- Less natural fit for agile, socially focused, Essence, or Mentalism paths.\n- Everyman skills include craft, mining, caving, and underground survival themes.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-3-2-1-1",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-2-1-1-1",
+        "mentalism": "0-2-1-1-1",
+        "psionic": "0-6-6-4-3"
+      }
     },
     {
       "id": "Elves",
@@ -131,7 +159,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "- Elves are resistant to disease.\n- Wood Elves have cold resistance and strong night vision short of absolute darkness.\n- Elves have strong hearing; Wood Elves gain additional hearing-linked and performance-adjacent benefits in the source.\n- Attribute bonuses make many Elves broadly capable, though the source notes some profession tension around Self-Discipline.\n- Wood Elves are especially suitable as Bards, Dabblers, or stealth-capable characters.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Fey",
@@ -158,7 +193,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "- Fey are immortal but can die through violence or mischance.\n- Dwelfs, Satyrs, and Tylweth Teg lean toward stealth, trickery, music, and agility-based roles.\n- Tylweth Teg have a strong fear of iron and avoid iron or steel equipment.\n- Lennai have major mystical affinities, forest ties, and vulnerability around iron.\n- Several Fey variants receive discounted access to luck-related or lesser mystical/mental talents in the source.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Garks",
@@ -184,7 +226,14 @@
       "backgroundOptions": 6,
       "baseRate": "60",
       "notes": "- The source frames Garks as physically durable and useful as Fighters, scouts, spies, or Rogues.\n- They may not become non-Channeling spell users.\n- Their background options emphasize plunder, toughness, and mercenary usefulness.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-2-1-1-1",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-2-1-1-1",
+        "mentalism": "0-2-1-1-1",
+        "psionic": "0-2-1-1-1"
+      }
     },
     {
       "id": "Gnomes",
@@ -210,7 +259,14 @@
       "backgroundOptions": 4,
       "baseRate": "40",
       "notes": "- Poor natural fit for Fighters due to low Strength.\n- Broad modest bonuses make them capable in several knowledge or spell-adjacent roles.\n- The source highlights Clerics, Animists, Paladins, and Magents as possible fits.\n- Gnomes are skilled linguists and may take rare books as wealth.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-6-5-4-3",
+        "psionic": "0-5-4-3-2"
+      }
     },
     {
       "id": "Goblinoids",
@@ -224,7 +280,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Goblins",
@@ -250,7 +313,14 @@
       "backgroundOptions": 4,
       "baseRate": "45",
       "notes": "- Dark vision in starlight, moonlight, and limited non-magical darkness.\n- Sunlight vulnerability: -75 to all activities in daylight.\n- Everyman skills: Mining, Metal-craft.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-3-2-1-1",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-3-2-1-1",
+        "mentalism": "0-3-2-1-1",
+        "psionic": "0-3-2-1-1"
+      }
     },
     {
       "id": "Gratar",
@@ -277,7 +347,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Half-Elves",
@@ -304,7 +381,14 @@
       "backgroundOptions": 4,
       "baseRate": "70",
       "notes": "The character creator currently reads the core Half-Elves row for race selection. The Ta-Lairi variants are preserved here for reference and future subrace support.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "3/4/5/6/0",
+        "channeling": "3/4/5/6/0",
+        "essence": "3/4/6/6/0",
+        "mentalism": "3/4/5/7/0",
+        "psionic": "1/3/4/6/0"
+      }
     },
     {
       "id": "Half-Orcs",
@@ -331,7 +415,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Halflings",
@@ -357,7 +448,14 @@
       "backgroundOptions": 5,
       "baseRate": "60",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-5-4-3-2",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-2-1-1-1",
+        "mentalism": "0-2-1-1-1",
+        "psionic": "0-2-1-1-1"
+      }
     },
     {
       "id": "High Men",
@@ -383,7 +481,14 @@
       "backgroundOptions": 4,
       "baseRate": "50",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-7-6-5-4"
+      }
     },
     {
       "id": "Hirarazhir-Hirazi",
@@ -410,7 +515,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Hobgoblins",
@@ -436,7 +548,14 @@
       "backgroundOptions": 3,
       "baseRate": "50",
       "notes": "- Dark vision in starlight, moonlight, and limited non-magical darkness.\n- Sunlight vulnerability: -25 in direct sunlight.\n- Everyman skills: Mining, Metal-craft.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-5-4-3-2",
+        "channeling": "0-7-6-5-4",
+        "essence": "0-5-4-3-2",
+        "mentalism": "0-3-2-1-1",
+        "psionic": "0-3-2-1-1"
+      }
     },
     {
       "id": "Idivya",
@@ -463,7 +582,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Jhordi",
@@ -490,7 +616,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Kobolds",
@@ -516,7 +649,14 @@
       "backgroundOptions": 5,
       "baseRate": "60",
       "notes": "- Dark vision in starlight, moonlight, and limited non-magical darkness.\n- Sunlight vulnerability: -75 to all activities in daylight.\n- Everyman skills: Mining, Metal-craft.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-3-2-1-1",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-3-2-1-1",
+        "mentalism": "0-3-2-1-1",
+        "psionic": "0-3-2-1-1"
+      }
     },
     {
       "id": "Laan",
@@ -542,7 +682,14 @@
       "backgroundOptions": 5,
       "baseRate": "50",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-7-6-5-4"
+      }
     },
     {
       "id": "Men",
@@ -556,7 +703,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Mermen",
@@ -583,7 +737,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Mixed Men",
@@ -622,7 +783,14 @@
           "range": "21-30",
           "xpCost": 3
         }
-      ]
+      ],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-7-6-5-4"
+      }
     },
     {
       "id": "Murlogi",
@@ -648,7 +816,14 @@
       "backgroundOptions": 6,
       "baseRate": "50",
       "notes": "- Dark vision in starlight, moonlight, and limited non-magical darkness.\n- Sunlight vulnerability: -40 in daylight.\n- Everyman skills: Mining, Metal-craft.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-3-2-1-1",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-3-2-1-1",
+        "mentalism": "0-3-2-1-1",
+        "psionic": "0-3-2-1-1"
+      }
     },
     {
       "id": "Orcs",
@@ -675,7 +850,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Quishadi",
@@ -702,7 +884,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Shuikmar Sharkmen",
@@ -729,7 +918,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Sohleugir-Saurkur",
@@ -756,7 +952,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Troglodytes-Trogli",
@@ -783,7 +986,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Umli",
@@ -809,7 +1019,14 @@
       "backgroundOptions": 4,
       "baseRate": "50",
       "notes": "Umli have strong cold-survival themes in the source and may take Geographic Awareness and Unnatural Stamina at reduced background-option costs.",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-6-5-4-3",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-6-5-4-3",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-7-6-5-4"
+      }
     },
     {
       "id": "Urlocs",
@@ -836,7 +1053,14 @@
       "backgroundOptions": 0,
       "baseRate": "",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "",
+        "channeling": "",
+        "essence": "",
+        "mentalism": "",
+        "psionic": ""
+      }
     },
     {
       "id": "Vulfen Wolfmen",
@@ -862,7 +1086,14 @@
       "backgroundOptions": 4,
       "baseRate": "70",
       "notes": "",
-      "bodyDevelopment": []
+      "bodyDevelopment": [],
+      "ppProgression": {
+        "arcane": "0-7-6-5-4",
+        "channeling": "0-6-5-4-3",
+        "essence": "0-7-6-5-4",
+        "mentalism": "0-7-6-5-4",
+        "psionic": "0-5-3-2-1"
+      }
     }
   ],
   "professions": [

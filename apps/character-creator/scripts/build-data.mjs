@@ -550,6 +550,7 @@ function parseRace(filePath, markdown) {
   const valueRows = tableInSection(markdown, "Character Values", "Soul Departure");
   const gmRows = tableInSection(markdown, "GM Information", "Base Rate");
   const bdRows = tableInSection(markdown, "Body Development", "Ranks");
+  const ppRows = tableInSection(markdown, "Progression Rates", "Body Development");
 
   return {
     id: name,
@@ -563,7 +564,14 @@ function parseRace(filePath, markdown) {
     backgroundOptions: numeric(valueRows[0]?.["Background Options"] ?? 0),
     baseRate: gmRows[0]?.["Base Rate"] ?? "",
     notes: section(markdown, "Mechanical Notes").trim(),
-    bodyDevelopment: bdRows.map((row) => ({ range: row.Ranks, xpCost: numeric(row["XP Cost"]) }))
+    bodyDevelopment: bdRows.map((row) => ({ range: row.Ranks, xpCost: numeric(row["XP Cost"]) })),
+    ppProgression: {
+      arcane: ppRows[0]?.["Arcane PP"] ?? "",
+      channeling: ppRows[0]?.["Channeling PP"] ?? "",
+      essence: ppRows[0]?.["Essence PP"] ?? "",
+      mentalism: ppRows[0]?.["Mentalism PP"] ?? "",
+      psionic: ppRows[0]?.["Psionic PP"] ?? ""
+    }
   };
 }
 
