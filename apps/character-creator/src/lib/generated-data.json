@@ -6171,6 +6171,35 @@
       ],
       "chooseSpellGroups": [
         {
+          "name": "Base Lists",
+          "lists": [
+            {
+              "id": "Commanding Will",
+              "name": "Commanding Will"
+            },
+            {
+              "id": "Inscriptions",
+              "name": "Inscriptions"
+            },
+            {
+              "id": "Nomenclature Mastery",
+              "name": "Nomenclature Mastery"
+            },
+            {
+              "id": "Physical Manipulations",
+              "name": "Physical Manipulations"
+            },
+            {
+              "id": "Symbolism",
+              "name": "Symbolism"
+            },
+            {
+              "id": "Warding Ways",
+              "name": "Warding Ways"
+            }
+          ]
+        },
+        {
           "name": "Open Essence Lists",
           "lists": [
             {
@@ -6352,6 +6381,12 @@
         }
       ],
       "chooseSpellListIds": [
+        "Commanding Will",
+        "Inscriptions",
+        "Nomenclature Mastery",
+        "Physical Manipulations",
+        "Symbolism",
+        "Warding Ways",
         "Delving Ways",
         "Detecting Ways",
         "Elemental Shields",
@@ -21403,6 +21438,1338 @@
           "range": "touch",
           "type": "U",
           "description": "As Opening I, but chance is 40%, or 90% for Magic Locks."
+        }
+      ]
+    },
+    {
+      "id": "Commanding Will",
+      "name": "Commanding Will",
+      "realm": "Essence",
+      "category": "Runemage",
+      "profession": "Runemage",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5603 - RMSS Essence Companion",
+      "sourcePage": "109",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Essence/Runemage/Commanding Will.md",
+      "summary": "Mind-influencing magic that overrides emotions, thoughts, and will. Used to calm, confuse, command, and manipulate the feelings and actions of others.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Calm",
+          "areaOfEffect": "1 target",
+          "duration": "1 min/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "Target will take no aggressive/offensive action and will fight only if attacked. If cast at an already calmed target, the target falls asleep."
+        },
+        {
+          "level": "2",
+          "name": "Truth",
+          "areaOfEffect": "1 target",
+          "duration": "1 question",
+          "range": "10'",
+          "type": "F",
+          "description": "Target must answer the next question the caster asks truthfully."
+        },
+        {
+          "level": "3",
+          "name": "Confusion",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "Target is incapable of making decisions or initiating action; may continue to fight current foes or in self-defence."
+        },
+        {
+          "level": "4",
+          "name": "Fascinate",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/5% fail",
+          "range": "10'",
+          "type": "F",
+          "description": "Target believes the caster is of the same alignment, is influential, and is superior; will seek to ingratiate himself to the caster."
+        },
+        {
+          "level": "5",
+          "name": "Command",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "100'",
+          "type": "F",
+          "description": "Target obeys a command of up to 5 words. Cannot be completely alien to the target; caster must speak a language the target understands."
+        },
+        {
+          "level": "6",
+          "name": "Forget",
+          "areaOfEffect": "1 target",
+          "duration": "P",
+          "range": "10'",
+          "type": "F",
+          "description": "Target permanently forgets up to 1 min/lvl of specified memories. Memories older than 1 day gain +20 RR, older than 1 week +40 RR. Memories older than 1 month cannot be forgotten."
+        },
+        {
+          "level": "7",
+          "name": "Call of the Wild",
+          "areaOfEffect": "1 target",
+          "duration": "1 day/5% fail",
+          "range": "50'",
+          "type": "F",
+          "description": "Target domesticated animal reverts to a wild state for the duration."
+        },
+        {
+          "level": "8",
+          "name": "Emote",
+          "areaOfEffect": "1 target",
+          "duration": "1 min/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "Caster causes the target to experience any one specified emotion. Caster cannot dictate the direction the target will choose to express the emotion."
+        },
+        {
+          "level": "9",
+          "name": "Inclination",
+          "areaOfEffect": "1 target",
+          "duration": "1 min/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "Target likes or dislikes a person, place, or thing as specified by the caster."
+        },
+        {
+          "level": "10",
+          "name": "Fear",
+          "areaOfEffect": "1 target",
+          "duration": "1 min/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "Target flees in total fear from the caster's location for 1 min per 5% failure and will not return for 1 day/5% failure."
+        },
+        {
+          "level": "11",
+          "name": "Doubt",
+          "areaOfEffect": "1 target",
+          "duration": "P",
+          "range": "100'",
+          "type": "F",
+          "description": "Target develops a very serious and troublesome doubt concerning a previously accepted fact, action, or idea."
+        },
+        {
+          "level": "12",
+          "name": "Love/Hate",
+          "areaOfEffect": "1 target",
+          "duration": "1 day/5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "As Inclination, except target experiences devoted love or repulsive hatred. At end of duration, target makes additional RR (+20) or effect becomes permanent (lesser degree)."
+        },
+        {
+          "level": "13",
+          "name": "Vengeance",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "100'",
+          "type": "F",
+          "description": "Target will seek to enact vengeance against a person, place, or thing specified by the caster. There must be some concept in the target's mind that the subject has wronged him."
+        },
+        {
+          "level": "14",
+          "name": "Invoke",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "self",
+          "type": "F",
+          "description": "Caster summons an extra-planar creature (demon, elemental, etc.) whose True name he knows. Each round there is a 35% chance the creature hears and appears. Does not command the entity."
+        },
+        {
+          "level": "15",
+          "name": "Quarrels",
+          "areaOfEffect": "25'R",
+          "duration": "1 rnd/5% fail",
+          "range": "25'",
+          "type": "F",
+          "description": "All targets within area of effect become hostile and seek to attack the nearest opponent."
+        },
+        {
+          "level": "16",
+          "name": "Dismiss/Banish",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "50'",
+          "type": "F",
+          "description": "An extra-planar creature whose True name the caster knows is dismissed to its home plane, or banished from the caster's plane for 100 years/10% failure (+20 RR mod). Cancels caster's control spells."
+        },
+        {
+          "level": "17",
+          "name": "Shout of Panic",
+          "areaOfEffect": "50'R",
+          "duration": "1 rnd/5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "All targets in radius flee in total panic from the caster."
+        },
+        {
+          "level": "18",
+          "name": "Peace",
+          "areaOfEffect": "1 target",
+          "duration": "1 day/10% fail",
+          "range": "touch",
+          "type": "F",
+          "description": "Target is eased from effects of mind disease, grief, lycanthropy, hate, etc. for the duration."
+        },
+        {
+          "level": "19",
+          "name": "Shout of Confusion",
+          "areaOfEffect": "50'R",
+          "duration": "1 rnd/5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "As Confusion, except affects all targets in radius."
+        },
+        {
+          "level": "20",
+          "name": "Shout of Command",
+          "areaOfEffect": "50'R",
+          "duration": "varies",
+          "range": "100'",
+          "type": "F",
+          "description": "As Command, except affects all targets in radius."
+        },
+        {
+          "level": "25",
+          "name": "Slumber",
+          "areaOfEffect": "1 target",
+          "duration": "1 day/5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "Target sleeps in a deep, unwakable sleep without aging or deterioration until dispelled, a set condition is met, or the duration ends."
+        },
+        {
+          "level": "30",
+          "name": "Insanity",
+          "areaOfEffect": "1 target",
+          "duration": "P",
+          "range": "100'",
+          "type": "F",
+          "description": "Target develops a permanent mental disorder. Caster can dictate the general type; exact effects are GM's choice."
+        },
+        {
+          "level": "50",
+          "name": "Slave",
+          "areaOfEffect": "1 target",
+          "duration": "1 day/10% fail",
+          "range": "50'",
+          "type": "F",
+          "description": "Target becomes the caster's unquestioning slave. Target may attempt a new RR at the end of each week to break the effect."
+        }
+      ]
+    },
+    {
+      "id": "Inscriptions",
+      "name": "Inscriptions",
+      "realm": "Essence",
+      "category": "Runemage",
+      "profession": "Runemage",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5603 - RMSS Essence Companion",
+      "sourcePage": "110",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Essence/Runemage/Inscriptions.md",
+      "summary": "Rune and sign magic for the Runemage. Allows inscription of spells onto paper (Runes) and magical triggers onto surfaces (Signs). Signs affect any being that triggers them; Runes are single-use stored spells.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Observation Sign",
+          "areaOfEffect": "1 surface",
+          "duration": "P",
+          "range": "touch",
+          "type": "I",
+          "description": "Caster inscribes an Observation Sign — a point of reference for Signwatch and Sign of Transport spells. Max active signs = half caster's level (rounded up). Can cancel any sign by concentrating and touching it."
+        },
+        {
+          "level": "2",
+          "name": "Rune II",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "Inscribes a 1st or 2nd level spell on specially prepared rune paper. The inscribed spell can be cast once by activating the rune. Spell to be inscribed must be cast within 1 minute. Can be set to affect the reader."
+        },
+        {
+          "level": "3",
+          "name": "Sign of Pain",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "[RR Mod: -20] Sign inscribed on any non-mobile surface; triggers on specified condition. Target takes 25% of remaining concussion hits. Effect lasts 10 min per 5% RR failure."
+        },
+        {
+          "level": "4",
+          "name": "Rune III",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 3rd level spells."
+        },
+        {
+          "level": "5",
+          "name": "Sign of Weakness",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "[RR Mod: -20] As Sign of Pain, except target feels weak. Results in -20 to all manoeuvres and attacks for 10 min per 5% RR failure."
+        },
+        {
+          "level": "6",
+          "name": "Inscription Analysis",
+          "areaOfEffect": "1 rune or sign",
+          "duration": "—",
+          "range": "10'",
+          "type": "I",
+          "description": "Caster determines what spell is inscribed in a rune or sign, and whether it is set to affect a reader. 1% chance per level of the inscribed spell of triggering it."
+        },
+        {
+          "level": "7",
+          "name": "Rune V",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 5th level spells."
+        },
+        {
+          "level": "8",
+          "name": "Sign of Shock",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "[RR Mod: -20] As Sign of Pain, except target is in a state of shock for 10 min per 5% failure (treated as stunned but never passes out)."
+        },
+        {
+          "level": "9",
+          "name": "Rune VI",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 6th level spells."
+        },
+        {
+          "level": "10",
+          "name": "Sign of Fear",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "[RR Mod: -20] As Sign of Pain, except target flees the location of the sign. Target may not return for 10 min per 5% RR failure."
+        },
+        {
+          "level": "11",
+          "name": "Rune VII",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 7th level spells."
+        },
+        {
+          "level": "12",
+          "name": "Sign of Transport",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "As Sign of Pain, except target is teleported to one of the caster's designated Observation Signs, up to 1 mile/level of caster away at time of inscription."
+        },
+        {
+          "level": "13",
+          "name": "Rune VIII",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 8th level spells."
+        },
+        {
+          "level": "14",
+          "name": "Signwatch",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "1 mile/lvl",
+          "type": "U",
+          "description": "Caster can see and hear as if at any one of his Observation Signs within range. Vision can rotate around the sign point."
+        },
+        {
+          "level": "15",
+          "name": "Rune X",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 10th level spells."
+        },
+        {
+          "level": "16",
+          "name": "Sign of Torment",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "[RR Mod: -20] As Sign of Pain, except target takes 90% of remaining hits."
+        },
+        {
+          "level": "17",
+          "name": "Inscription Analysis True",
+          "areaOfEffect": "1 rune or sign",
+          "duration": "—",
+          "range": "10'",
+          "type": "I",
+          "description": "As Inscription Analysis. If caster has analysed work by the same creator before, learns creator's identity and rune's age. Otherwise learns the creator's profession, level, and age of the rune. 1% chance per level of triggering."
+        },
+        {
+          "level": "18",
+          "name": "Rune XV",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 15th level spells."
+        },
+        {
+          "level": "19",
+          "name": "Sign of Blinding",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "[RR Mod: -20] As Sign of Pain, except target is blinded for 1 hour per 5% RR failure."
+        },
+        {
+          "level": "20",
+          "name": "Lord Rune",
+          "areaOfEffect": "1 spell",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "As Rune II, except can inscribe up to 20th level spells."
+        },
+        {
+          "level": "25",
+          "name": "Signwatch True",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "10 min/lvl",
+          "type": "U",
+          "description": "As Signwatch, except for range."
+        },
+        {
+          "level": "30",
+          "name": "Mass Sign",
+          "areaOfEffect": "1+ targets",
+          "duration": "varies",
+          "range": "touch",
+          "type": "F",
+          "description": "Caster may inscribe any lower-level Sign on this list, except it can affect a number of targets equal to the caster's level before being cancelled."
+        },
+        {
+          "level": "50",
+          "name": "Rune of Power",
+          "areaOfEffect": "1 rune paper",
+          "duration": "varies",
+          "range": "touch",
+          "type": "U",
+          "description": "Caster stores a number of power points in a sheet of rune paper equal to the level of this spell. Stored PPs are the same realm as the caster; cannot be multiplied when the rune is activated."
+        }
+      ]
+    },
+    {
+      "id": "Nomenclature Mastery",
+      "name": "Nomenclature Mastery",
+      "realm": "Essence",
+      "category": "Runemage",
+      "profession": "Runemage",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5603 - RMSS Essence Companion",
+      "sourcePage": "111",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Essence/Runemage/Nomenclature Mastery.md",
+      "summary": "Language, memory, and True Name magic for the Runemage. Enables perfect recall, accelerated language learning, reading of unknown tongues, discovery of True Names, and binding of targets through their True Name.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Memorize I",
+          "areaOfEffect": "caster",
+          "duration": "1 week/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Allows the caster to retain anything he reads or learns as if he had a photographic memory with total recall for the duration."
+        },
+        {
+          "level": "2",
+          "name": "Text Analysis III",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "I",
+          "description": "Caster can read text written in an unknown language as though he has rank 3 written in that language. Does not convey the spoken sounds of the language."
+        },
+        {
+          "level": "3",
+          "name": "Learn Language II",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "Cuts study time in half and allows caster to develop one rank higher in a language than his teacher or book would normally allow."
+        },
+        {
+          "level": "4",
+          "name": "Vocalize II",
+          "areaOfEffect": "1 writing",
+          "duration": "10 min/lvl (C)",
+          "range": "touch",
+          "type": "U",
+          "description": "Causes any written text to be vocalized aloud in the language in which it is written, heard in the caster's voice. Only reads up to rank 3 linguistic level; concepts beyond rank 3 are skipped or incomprehensible."
+        },
+        {
+          "level": "5",
+          "name": "Organic Name",
+          "areaOfEffect": "1 organic",
+          "duration": "varies",
+          "range": "50'",
+          "type": "I",
+          "description": "Caster learns the True Name of a target non-living organic item. That item is at -25 to all RRs against spells cast by this caster. Max one True Name known per level (includes all True Names)."
+        },
+        {
+          "level": "6",
+          "name": "Memorize II",
+          "areaOfEffect": "caster",
+          "duration": "1 month/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Memorize I, except for duration."
+        },
+        {
+          "level": "7",
+          "name": "Text Analysis V",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "I",
+          "description": "As Text Analysis III, except text can be read to rank 5 of complexity."
+        },
+        {
+          "level": "8",
+          "name": "Vocalize V",
+          "areaOfEffect": "1 writing",
+          "duration": "10 min/lvl (C)",
+          "range": "touch",
+          "type": "U",
+          "description": "As Vocalize II, except the writing is read at rank 5 of complexity."
+        },
+        {
+          "level": "9",
+          "name": "History",
+          "areaOfEffect": "1 item",
+          "duration": "—",
+          "range": "touch",
+          "type": "I",
+          "description": "Caster learns the area of origin of target item, the race of its maker, and when it was made (within 100 years). Also determines if the item has cultural or historical significance (not what those significances are)."
+        },
+        {
+          "level": "10",
+          "name": "Animal Name",
+          "areaOfEffect": "1 animal",
+          "duration": "varies",
+          "range": "50'",
+          "type": "I",
+          "description": "As Organic Name, except caster learns the True Name of a target animal."
+        },
+        {
+          "level": "11",
+          "name": "Learn Language III",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "As Learn Language II, except study time is one third normal and caster can learn up to two ranks higher than teacher or source book allows."
+        },
+        {
+          "level": "12",
+          "name": "Text Analysis VII",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "I",
+          "description": "As Text Analysis III, except text can be read to rank 7 of complexity."
+        },
+        {
+          "level": "13",
+          "name": "Vocalize VII",
+          "areaOfEffect": "1 writing",
+          "duration": "10 min/lvl (C)",
+          "range": "touch",
+          "type": "U",
+          "description": "As Vocalize II, except the writing is read at rank 7 of complexity."
+        },
+        {
+          "level": "14",
+          "name": "Inorganic Name",
+          "areaOfEffect": "1 inorganic",
+          "duration": "varies",
+          "range": "50'",
+          "type": "I",
+          "description": "As Organic Name, except caster learns the True Name of a non-living inorganic item."
+        },
+        {
+          "level": "15",
+          "name": "Disguise Name",
+          "areaOfEffect": "caster",
+          "duration": "10 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster disguises himself from any attempt to decipher his True Name. Any Name spell targeting the caster must make an RR with a -20 modifier or fail to provide the True Name."
+        },
+        {
+          "level": "16",
+          "name": "Text Analysis X",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "I",
+          "description": "As Text Analysis III, except text can be read to rank 10 of complexity."
+        },
+        {
+          "level": "17",
+          "name": "Vocalize X",
+          "areaOfEffect": "1 writing",
+          "duration": "10 min/lvl (C)",
+          "range": "touch",
+          "type": "U",
+          "description": "As Vocalize II, except the writing is read at rank 10 of complexity."
+        },
+        {
+          "level": "18",
+          "name": "Creature Name",
+          "areaOfEffect": "1 creature",
+          "duration": "varies",
+          "range": "50'",
+          "type": "I",
+          "description": "As Organic Name, except caster learns the True Name of any target creature."
+        },
+        {
+          "level": "19",
+          "name": "Learn Language IV",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "As Learn Language II, except study time is one quarter normal and caster can learn three ranks higher than normally allowed."
+        },
+        {
+          "level": "20",
+          "name": "Cryptics",
+          "areaOfEffect": "1 writing",
+          "duration": "P",
+          "range": "touch",
+          "type": "F",
+          "description": "Caster can decipher any target code into the original language, or encode a message so that it is nonsense to anyone other than a designated target (target caster designates at casting)."
+        },
+        {
+          "level": "25",
+          "name": "Restore Text True",
+          "areaOfEffect": "1 book",
+          "duration": "—",
+          "range": "touch",
+          "type": "U",
+          "description": "Restores any text to its original condition so long as at least half of it is present. Repairs any damage other than lost or destroyed pages; lost pages are replaced with a 75% accurate replication."
+        },
+        {
+          "level": "30",
+          "name": "Binding Name",
+          "areaOfEffect": "1 target",
+          "duration": "1 month/5% fail",
+          "range": "50'",
+          "type": "F",
+          "description": "Caster binds a target by its True Name (must have learned it via this list). Target suffers -35 to RRs against this caster. Must make a Hard maneuver to move more than 100' away or to attempt to harm the caster."
+        },
+        {
+          "level": "50",
+          "name": "Change Name",
+          "areaOfEffect": "caster",
+          "duration": "P",
+          "range": "self",
+          "type": "U",
+          "description": "Caster may alter his own True Name. Requires a significant life-changing event. Frees caster from all Binding Names and Name spells. If the GM deems the change insufficient, the spell auto-fails and the failure chart is rolled three times."
+        }
+      ]
+    },
+    {
+      "id": "Physical Manipulations",
+      "name": "Physical Manipulations",
+      "realm": "Essence",
+      "category": "Runemage",
+      "profession": "Runemage",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5603 - RMSS Essence Companion",
+      "sourcePage": "112",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Essence/Runemage/Physical Manipulations.md",
+      "summary": "Direct manipulation of physical matter — transforming, destroying, animating, and reshaping earth, wood, stone, metal, gas, and liquid. Also includes organic destruction through rot, bleed, and petrification.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Ice/Water",
+          "areaOfEffect": "1 cu'",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "Caster converts 1 cubic foot of water to ice, or ice to water."
+        },
+        {
+          "level": "2",
+          "name": "Warp",
+          "areaOfEffect": "1 wood object",
+          "duration": "P",
+          "range": "10'",
+          "type": "F",
+          "description": "Target wooden object has its form, straightness, and strength ruined; doubles break number range (max 1-10) and halves original strength. Object may not be larger than 1 pound per caster level."
+        },
+        {
+          "level": "3",
+          "name": "Dust Earth/Wood",
+          "areaOfEffect": "1 cu'",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "Caster instantly transforms 1 cubic foot of earth or wood into a fine, dry powder."
+        },
+        {
+          "level": "4",
+          "name": "Dust Stone",
+          "areaOfEffect": "1 cu'",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "As Dust Earth/Wood, except affects 1 cubic foot of stone."
+        },
+        {
+          "level": "5",
+          "name": "Animate Gas",
+          "areaOfEffect": "1 cu'/lvl",
+          "duration": "1 rnd/lvl (C)",
+          "range": "10'R/lvl",
+          "type": "U",
+          "description": "Caster animates 1 cu'/level of any gaseous substance within range. Gas moves at caster's will (1'/level/round). Beyond 10'R/lvl it is no longer controlled. Caster may issue a final command for 1 round/level."
+        },
+        {
+          "level": "6",
+          "name": "Rust",
+          "areaOfEffect": "1 object",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "All metal on target object oxidizes at a rate of 1 cubic inch per round."
+        },
+        {
+          "level": "7",
+          "name": "Animate Liquid",
+          "areaOfEffect": "1 cu'/lvl",
+          "duration": "1 rnd/lvl (C)",
+          "range": "10'R/lvl",
+          "type": "U",
+          "description": "As Animate Gas, except affects liquid."
+        },
+        {
+          "level": "8",
+          "name": "Dust to Stone",
+          "areaOfEffect": "1 cu'",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "Caster converts 1 cubic foot of sand, dirt, or dust into a solid stone form. The stone formed takes the same general shape as the original substance."
+        },
+        {
+          "level": "9",
+          "name": "Warp Metal",
+          "areaOfEffect": "1 metal object",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Warp Wood, except affects metal objects up to 1 pound per level of the caster."
+        },
+        {
+          "level": "10",
+          "name": "Bleed",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "Target living creature bleeds at a rate of 1 hit per round per 5% RR failure (e.g., fail by 25 = bleed 5 hits/round for 5 rounds)."
+        },
+        {
+          "level": "11",
+          "name": "Mass Ice/Water",
+          "areaOfEffect": "10 cu'",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "As Ice/Water, except affects up to 10 cubic feet."
+        },
+        {
+          "level": "12",
+          "name": "Animate Solid",
+          "areaOfEffect": "1 cu'/lvl",
+          "duration": "1 rnd/lvl (C)",
+          "range": "10'R/lvl",
+          "type": "U",
+          "description": "As Animate Gas, except affects 1 cubic inch per level of solid material."
+        },
+        {
+          "level": "13",
+          "name": "Shatter",
+          "areaOfEffect": "1 object",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "Target inorganic item up to 1 cubic foot explodes. All targets within 5' take an 'A' Impact critical; the holder takes a 'C' Impact critical."
+        },
+        {
+          "level": "14",
+          "name": "Lesser Unstone",
+          "areaOfEffect": "10 cu'",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Dust Stone, except affects up to 10 cubic feet of stone."
+        },
+        {
+          "level": "15",
+          "name": "Wither",
+          "areaOfEffect": "1 plant",
+          "duration": "P",
+          "range": "touch",
+          "type": "U",
+          "description": "Target normal plant (shrub-size or smaller) instantly dies and withers. Magical, large, or unusual plants may resist (+20 modifier)."
+        },
+        {
+          "level": "16",
+          "name": "Lesser Animation",
+          "areaOfEffect": "1 spell",
+          "duration": "1 min/lvl",
+          "range": "10'R/lvl",
+          "type": "U",
+          "description": "Target Animate spell from this list has its duration increased to 1 min/level. Caster may give the animated material simple commands without needing to concentrate."
+        },
+        {
+          "level": "17",
+          "name": "Unmetal",
+          "areaOfEffect": "1 cu'",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Dust Earth/Wood, except 1 cubic inch of metal may be affected."
+        },
+        {
+          "level": "18",
+          "name": "Eternal Lock",
+          "areaOfEffect": "1 lock",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "Target lock is magically fused shut. The lock may be broken but will never unlock."
+        },
+        {
+          "level": "19",
+          "name": "Shatter True",
+          "areaOfEffect": "1 object",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "As Shatter, except object may be up to 3 cubic feet; all within 10' take a 'B' Impact critical, holder takes a 'D' Impact critical."
+        },
+        {
+          "level": "20",
+          "name": "Rot",
+          "areaOfEffect": "1 target",
+          "duration": "C",
+          "range": "50'",
+          "type": "F",
+          "description": "Target living creature rots at a cumulative -10 penalty to all actions per round and loses 10% of current hits each round. If target leaves range, the spell is cancelled (damage taken is not reversed)."
+        },
+        {
+          "level": "25",
+          "name": "Greater Animation",
+          "areaOfEffect": "1 spell",
+          "duration": "10 min/lvl",
+          "range": "10'R/lvl",
+          "type": "U",
+          "description": "As Lesser Animation, except for duration."
+        },
+        {
+          "level": "30",
+          "name": "Petrify",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "100'",
+          "type": "F",
+          "description": "Living or organic target gradually turns to stone at 5% of total mass per round. Effect may be dispelled or removed with Remove Curse, but the petrified target resists dispelling at +20."
+        },
+        {
+          "level": "50",
+          "name": "Petrify True",
+          "areaOfEffect": "1 target",
+          "duration": "P/month per 5% fail",
+          "range": "100'",
+          "type": "F",
+          "description": "As Petrify, except the petrified target resists all dispelling attempts at +40."
+        }
+      ]
+    },
+    {
+      "id": "Symbolism",
+      "name": "Symbolism",
+      "realm": "Essence",
+      "category": "Runemage",
+      "profession": "Runemage",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5603 - RMSS Essence Companion",
+      "sourcePage": "113",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Essence/Runemage/Symbolism.md",
+      "summary": "Permanent magical trap-symbols emplaced on stone, surfaces, or living creatures. Symbols store spells that trigger automatically on defined conditions. Companion list to [[Inscriptions]] (for rune paper and signs).",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Bypass Symbol I",
+          "areaOfEffect": "1 symbol",
+          "duration": "1 min/lvl",
+          "range": "50'",
+          "type": "U",
+          "description": "Allows the caster to \"turn off\" a target Symbol I for the duration. If the Symbol I fails an RR, it cannot be triggered and its constant effects are inactive. RR is based on the inscribed spell's level vs. the Bypass spell's level."
+        },
+        {
+          "level": "2",
+          "name": "Unsymbol I",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "Caster can remove one Symbol I (a placed 1st level spell). RR is based on the inscribed spell's level vs. the Bypass spell's level."
+        },
+        {
+          "level": "3",
+          "name": "Symbol I",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "Caster emplaces one 1st level spell on a stone slab weighing at least 2,000 lbs. The spell to be placed must be cast within 1 minute of this spell, within 10'. Trigger: time period, movement, sound, touch, or reading. Only one Symbol per continuous slab. Attack level = spell level (always 1)."
+        },
+        {
+          "level": "4",
+          "name": "Symbol Extension",
+          "areaOfEffect": "1 surface",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "Connects a distant trigger surface to a symbol outside of its normal range. Distance between trigger and symbol can be up to 1 foot per caster level. Must be in place before the symbol is inscribed."
+        },
+        {
+          "level": "5",
+          "name": "Bypass Symbol III",
+          "areaOfEffect": "1 symbol",
+          "duration": "1 min/lvl",
+          "range": "50'",
+          "type": "U",
+          "description": "As Bypass Symbol I, except affects up to a Symbol III."
+        },
+        {
+          "level": "6",
+          "name": "Unsymbol III",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Unsymbol I, except affects up to a Symbol III."
+        },
+        {
+          "level": "7",
+          "name": "Symbol III",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Symbol I, except emplaces up to a 3rd level spell."
+        },
+        {
+          "level": "8",
+          "name": "Bypass Symbol V",
+          "areaOfEffect": "1 symbol",
+          "duration": "1 min/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Bypass Symbol I, except affects up to a Symbol V."
+        },
+        {
+          "level": "9",
+          "name": "Unsymbol V",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Unsymbol I, except affects up to a Symbol V."
+        },
+        {
+          "level": "10",
+          "name": "Symbol V",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Symbol I, except emplaces up to a 5th level spell."
+        },
+        {
+          "level": "11",
+          "name": "Bypass Symbol VIII",
+          "areaOfEffect": "1 symbol",
+          "duration": "1 min/lvl",
+          "range": "50'",
+          "type": "U",
+          "description": "As Bypass Symbol I, except affects up to a Symbol VIII."
+        },
+        {
+          "level": "12",
+          "name": "Symbol VIII",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Symbol I, except emplaces up to an 8th level spell."
+        },
+        {
+          "level": "13",
+          "name": "Unsymbol VIII",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Unsymbol I, except affects up to a Symbol VIII."
+        },
+        {
+          "level": "14",
+          "name": "Bypass Symbol X",
+          "areaOfEffect": "1 symbol",
+          "duration": "1 min/lvl",
+          "range": "50'",
+          "type": "U",
+          "description": "As Bypass Symbol I, except affects up to a Symbol X."
+        },
+        {
+          "level": "15",
+          "name": "Symbol X",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Symbol I, except emplaces up to a 10th level spell."
+        },
+        {
+          "level": "16",
+          "name": "Unsymbol X",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Unsymbol I, except affects up to a Symbol X."
+        },
+        {
+          "level": "17",
+          "name": "Bypass Symbol XIII",
+          "areaOfEffect": "1 symbol",
+          "duration": "1 min/lvl",
+          "range": "50'",
+          "type": "U",
+          "description": "As Bypass Symbol I, except affects up to a Symbol XIII."
+        },
+        {
+          "level": "18",
+          "name": "Symbol XIII",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Symbol I, except emplaces up to a 13th level spell."
+        },
+        {
+          "level": "19",
+          "name": "Unsymbol XIII",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Unsymbol I, except affects up to a Symbol XIII."
+        },
+        {
+          "level": "20",
+          "name": "Lord Symbol",
+          "areaOfEffect": "varies",
+          "duration": "P",
+          "range": "100'",
+          "type": "U",
+          "description": "As Symbol I, except caster can emplace any spell of less than his own level."
+        },
+        {
+          "level": "25",
+          "name": "Inscribe Sign",
+          "areaOfEffect": "1 surface",
+          "duration": "varies",
+          "range": "10'",
+          "type": "U",
+          "description": "Allows caster to modify any imbedded symbol on this list to allow it to be emplaced on a mobile surface. The sign remains potent until triggered. Mobile surface must be non-living, weighing at least 100 lbs. Max one mobile sign per caster level."
+        },
+        {
+          "level": "30",
+          "name": "Unsymbol True",
+          "areaOfEffect": "1 symbol",
+          "duration": "P",
+          "range": "10'",
+          "type": "U",
+          "description": "As Unsymbol I, except caster can remove any spell of a level less than his own (e.g., a 50th level Runemage could remove a 49th level spell, but not a 50th level spell)."
+        },
+        {
+          "level": "50",
+          "name": "Living Sign",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "10'",
+          "type": "U",
+          "description": "As Inscribe Sign, except target must be a living creature weighing at least 50 lbs. The sign remains potent until triggered. Often disguised by incorporating into existing tattoos."
+        }
+      ]
+    },
+    {
+      "id": "Warding Ways",
+      "name": "Warding Ways",
+      "realm": "Essence",
+      "category": "Runemage",
+      "profession": "Runemage",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5603 - RMSS Essence Companion",
+      "sourcePage": "114",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Essence/Runemage/Warding Ways.md",
+      "summary": "Ward magic for the Runemage. Creates magical barriers that block creatures, undead, demons, or magic realms from entering or passing through an area. Requires prepared ward signs inscribed at the centre or endpoints of the warded area.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Research Ward",
+          "areaOfEffect": "caster",
+          "duration": "varies",
+          "range": "self",
+          "type": "U",
+          "description": "Allows caster to research special ward spells for use with this list. Also grants a +25 bonus to the next Ward Lore manoeuvre."
+        },
+        {
+          "level": "2",
+          "name": "Detect Ward",
+          "areaOfEffect": "5'R",
+          "duration": "—",
+          "range": "500'",
+          "type": "U",
+          "description": "Detects all active wards within the area of effect. Caster can move the area of effect each round."
+        },
+        {
+          "level": "3",
+          "name": "Alarm Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "When cast on a prepared ward, sounds an alarm when a specified condition occurs in the area. May be silent (caster-only at 100'/level) or audible. Can sound for as long as condition exists or for up to 1 min/level before going dormant."
+        },
+        {
+          "level": "4",
+          "name": "Sense Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "Prevents the use of one designated sense through the area of effect. Caster may add additional senses by spending double the PPs (each extra sense adds one effective level to the ward for Ward Lore purposes)."
+        },
+        {
+          "level": "5",
+          "name": "Lesser Animal Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "Prevents passage of animals into or through the area. Animals that attempt to pass make an RR at -20 or go elsewhere; if forced through they suffer -25 to all actions while inside."
+        },
+        {
+          "level": "6",
+          "name": "Lesser Undead Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Animal Ward, except affects lesser spirits of the dead (Class I, II, and III)."
+        },
+        {
+          "level": "7",
+          "name": "Lesser Demon Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Animal Ward, except affects lesser demons (Type I, II, and III)."
+        },
+        {
+          "level": "8",
+          "name": "Lesser Essence Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "Prevents the casting of Essence spells through the area of effect. All Essence spells must first resist versus the level of the ward, or be cancelled. Active spells that pass through the area must make an RR or be dispelled."
+        },
+        {
+          "level": "9",
+          "name": "Lesser Mentalism Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Essence Ward, except prevents the use of Mentalism spells."
+        },
+        {
+          "level": "10",
+          "name": "Lesser Channeling Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Essence Ward, except prevents the use of Channeling spells."
+        },
+        {
+          "level": "11",
+          "name": "Multiple Ward",
+          "areaOfEffect": "1 area",
+          "duration": "varies",
+          "range": "10'",
+          "type": "U",
+          "description": "Allows caster to combine multiple wards into one prepared ward sign. All wards involved must be cast immediately after this spell (within 2 minutes)."
+        },
+        {
+          "level": "12",
+          "name": "Lesser Barrier Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "Prevents all creatures from passing into or through the area of effect. Any creature attempting to pass makes a -20 RR or is blocked. No effect on Class IV–VI undead or Type IV–VI demons."
+        },
+        {
+          "level": "13",
+          "name": "Greater Animal Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Animal Ward, except animals must make a -40 RR."
+        },
+        {
+          "level": "14",
+          "name": "Greater Undead Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Greater Animal Ward, except Class I–III undead make a -40 RR and Class IV–VI undead make a normal RR."
+        },
+        {
+          "level": "15",
+          "name": "Conceal Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "Turns the ward signs of any ward invisible. The ward is still detectable by a Detect Ward spell."
+        },
+        {
+          "level": "16",
+          "name": "Greater Demon Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Greater Animal Ward, except Type I–III demons make a -40 RR and Type IV–VI demons make a normal RR."
+        },
+        {
+          "level": "17",
+          "name": "Greater Essence Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Essence Ward, except for duration."
+        },
+        {
+          "level": "18",
+          "name": "Greater Mentalism Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Mentalism Ward, except for duration."
+        },
+        {
+          "level": "19",
+          "name": "Greater Channeling Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Channeling Ward, except for duration."
+        },
+        {
+          "level": "20",
+          "name": "Greater Barrier Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "1 hour/lvl",
+          "range": "10'",
+          "type": "U",
+          "description": "As Lesser Barrier Ward, except any creature attempting to pass makes a -40 RR. Class IV–VI undead and Type IV–VI demons resist at +10."
+        },
+        {
+          "level": "25",
+          "name": "Lord Research",
+          "areaOfEffect": "1 ward",
+          "duration": "varies",
+          "range": "10'",
+          "type": "U",
+          "description": "See Spell Law Section 7.4."
+        },
+        {
+          "level": "30",
+          "name": "Defensive Ward",
+          "areaOfEffect": "1 ward",
+          "duration": "varies",
+          "range": "100'",
+          "type": "U",
+          "description": "Enchants one ward to have an additional defence against its designated creature type. Whenever the designated creature enters the area of effect, the ward delivers an 'E' Impact critical (regardless of RR result)."
+        },
+        {
+          "level": "50",
+          "name": "Ward True",
+          "areaOfEffect": "1 ward",
+          "duration": "1 day/lvl",
+          "range": "100'",
+          "type": "U",
+          "description": "When cast on any lower-level ward, increases that ward's duration to 1 day/level of the caster."
         }
       ]
     },

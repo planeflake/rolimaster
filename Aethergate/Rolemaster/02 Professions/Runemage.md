@@ -157,7 +157,12 @@ Use this section when choosing spell lists for a [[Runemage]].
 
 ### Base Lists
 
-- Base lists for this profession are not imported yet, or are configurable by source rules.
+- [[Commanding Will]]
+- [[Inscriptions]]
+- [[Nomenclature Mastery]]
+- [[Physical Manipulations]]
+- [[Symbolism]]
+- [[Warding Ways]]
 
 ### Open Essence Lists
 
