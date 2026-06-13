@@ -5576,6 +5576,35 @@
       ],
       "chooseSpellGroups": [
         {
+          "name": "Base Lists",
+          "lists": [
+            {
+              "id": "Holy Mission",
+              "name": "Holy Mission"
+            },
+            {
+              "id": "The Defender",
+              "name": "The Defender"
+            },
+            {
+              "id": "The Eye",
+              "name": "The Eye"
+            },
+            {
+              "id": "The Mask",
+              "name": "The Mask"
+            },
+            {
+              "id": "The Will",
+              "name": "The Will"
+            },
+            {
+              "id": "Vengeance",
+              "name": "Vengeance"
+            }
+          ]
+        },
+        {
           "name": "Open Channeling Lists",
           "lists": [
             {
@@ -5667,6 +5696,12 @@
         }
       ],
       "chooseSpellListIds": [
+        "Holy Mission",
+        "The Defender",
+        "The Eye",
+        "The Mask",
+        "The Will",
+        "Vengeance",
         "Barrier Law",
         "Concussion's Ways",
         "Detection Mastery",
@@ -13103,6 +13138,1329 @@
           "range": "",
           "type": "",
           "description": ""
+        }
+      ]
+    },
+    {
+      "id": "Holy Mission",
+      "name": "Holy Mission",
+      "realm": "Channeling",
+      "category": "Mythic",
+      "profession": "Mythic",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5809 - RMFRP Channeling Companion",
+      "sourcePage": "78",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Channeling/Mythic/Holy Mission.md",
+      "summary": "Divination, guidance, and infiltration spells that help the Mythic carry out covert religious missions. Provides awareness, subtle communication, and faith-directed perception.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Urban Lore I",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+10 bonus to next maneuver using an Urban skill."
+        },
+        {
+          "level": "2",
+          "name": "Question I",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "100'",
+          "type": "F",
+          "description": "Target must answer one single-concept question they can understand."
+        },
+        {
+          "level": "3",
+          "name": "Holy Vision",
+          "areaOfEffect": "caster",
+          "duration": "varies",
+          "range": "self",
+          "type": "U",
+          "description": "Caster receives a vague dream about a mission from their deity or church."
+        },
+        {
+          "level": "4",
+          "name": "Guess",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "When facing a choice with little information, GM biases the result 25% in caster's favour."
+        },
+        {
+          "level": "5",
+          "name": "Silent Spell",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "F",
+          "description": "Caster's next spell is cast silently — no sound is made despite normal casting."
+        },
+        {
+          "level": "6",
+          "name": "Cloud Perception",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "Target becomes preoccupied; -20 to -40 penalty to Awareness group skills."
+        },
+        {
+          "level": "7",
+          "name": "Intuitions I",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Vision of what will probably happen in the next minute if caster takes a specific action."
+        },
+        {
+          "level": "8",
+          "name": "Faith's Wisdom",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+30 bonus to all Religion skill maneuvers."
+        },
+        {
+          "level": "9",
+          "name": "Urban Lore III",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Urban Lore I, except bonus is +30."
+        },
+        {
+          "level": "10",
+          "name": "Stunning",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/10 fail",
+          "range": "50'",
+          "type": "F",
+          "description": "Caster channels raw divine power at target; target is stunned."
+        },
+        {
+          "level": "11",
+          "name": "Question X",
+          "areaOfEffect": "1 target",
+          "duration": "varies",
+          "range": "100'",
+          "type": "F",
+          "description": "As Question I, except target must answer up to 10 single-concept questions."
+        },
+        {
+          "level": "12",
+          "name": "Death's Tale",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Vision of events surrounding the death of a nearby corpse, including the killer. Corpse within 10', died within caster's level in years."
+        },
+        {
+          "level": "13",
+          "name": "Channel Opening",
+          "areaOfEffect": "1 being",
+          "duration": "—",
+          "range": "1 mile/lvl",
+          "type": "U",
+          "description": "Caster makes contact with a known acquaintance and learns their direction and distance."
+        },
+        {
+          "level": "14",
+          "name": "Intuitions V",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "As Intuitions I, except caster may see 5 minutes into the future."
+        },
+        {
+          "level": "15",
+          "name": "Holy Vision True",
+          "areaOfEffect": "caster",
+          "duration": "varies",
+          "range": "self",
+          "type": "U",
+          "description": "As Holy Vision, except the caster is shown mission details and where to begin."
+        },
+        {
+          "level": "16",
+          "name": "Blinding",
+          "areaOfEffect": "1 target",
+          "duration": "1 min/10 fail",
+          "range": "10'",
+          "type": "F",
+          "description": "As Stunning, except target is blinded for the duration."
+        },
+        {
+          "level": "17",
+          "name": "Commune I",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "Receives a yes/no answer from patron deity on a single topic. Maximum once per day."
+        },
+        {
+          "level": "18",
+          "name": "Misperception",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/lvl (C)",
+          "range": "100'",
+          "type": "F",
+          "description": "Target misperceives events — sees nothing or something vague; cannot make obvious violence seem normal."
+        },
+        {
+          "level": "19",
+          "name": "Absolution",
+          "areaOfEffect": "1 target",
+          "duration": "1 day/10 fail",
+          "range": "50'",
+          "type": "F",
+          "description": "[RR Mod: -20] Target's soul is torn from body; target is unconscious and all healing suffers -75. Soul returns only via Lifegiving."
+        },
+        {
+          "level": "20",
+          "name": "Death's Tale True",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "As Death's Tale but corpse may be any age; caster learns reason of death, exact killer, and who was ultimately responsible."
+        },
+        {
+          "level": "25",
+          "name": "Commune True",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "As Commune, but caster can receive a more detailed answer (name or short phrase) on one concept."
+        },
+        {
+          "level": "30",
+          "name": "Absolution Pure",
+          "areaOfEffect": "1 target",
+          "duration": "P",
+          "range": "50'",
+          "type": "F",
+          "description": "As Absolution, except soul can only return via Lifegiving."
+        },
+        {
+          "level": "50",
+          "name": "High Prayer",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "Caster receives detailed information from deity on a single topic question."
+        }
+      ]
+    },
+    {
+      "id": "The Defender",
+      "name": "The Defender",
+      "realm": "Channeling",
+      "category": "Mythic",
+      "profession": "Mythic",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5809 - RMFRP Channeling Companion",
+      "sourcePage": "79",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Channeling/Mythic/The Defender.md",
+      "summary": "Protection and defensive magic for the Mythic. Provides elemental resistance, force shields, armour conjuration, deflection of weapons, and combat defence bonuses.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Protection I",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "-5 to elemental attacks vs caster; +5 to all RRs vs spells. Doubles to +10 vs same-faith Channeling casters."
+        },
+        {
+          "level": "2",
+          "name": "Fear Defense",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+15 bonus to fear RRs."
+        },
+        {
+          "level": "3",
+          "name": "Poison Defense",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+15 bonus to poison RRs."
+        },
+        {
+          "level": "4",
+          "name": "Shield",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Invisible force shield in front of caster; functions as a normal shield (-25 to appropriate attacks) without occupying a hand. Cannot combine with a real shield."
+        },
+        {
+          "level": "5",
+          "name": "Protection II",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Protection I, except bonuses are +10 and +15."
+        },
+        {
+          "level": "6",
+          "name": "Combat Defense I",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+10 DB vs melee and missile attacks. Not cumulative with Aura or Blur spells."
+        },
+        {
+          "level": "7",
+          "name": "Deflections I",
+          "areaOfEffect": "1 missile",
+          "duration": "—",
+          "range": "—",
+          "type": "U",
+          "description": "Caster can deflect any one visible missile within 10'; subtracts 100 from missile's attack."
+        },
+        {
+          "level": "8",
+          "name": "Mythical Armor I",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's clothing is enchanted to protect as AT 3."
+        },
+        {
+          "level": "9",
+          "name": "Bladeturn I",
+          "areaOfEffect": "1 attack",
+          "duration": "—",
+          "range": "—",
+          "type": "U",
+          "description": "Caster can deflect any one visible melee attack within range; subtracts 50 from the attack."
+        },
+        {
+          "level": "10",
+          "name": "Protection III",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Protection I, except bonuses are +15 and +20."
+        },
+        {
+          "level": "11",
+          "name": "Conversion Defense",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+30 vs attempts to convert caster; same bonus to RRs vs spells from other religions seeking conversion or corruption."
+        },
+        {
+          "level": "12",
+          "name": "Mythical Armor II",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's clothing is enchanted to protect as AT 8."
+        },
+        {
+          "level": "13",
+          "name": "Deflections II",
+          "areaOfEffect": "2 missiles",
+          "duration": "—",
+          "range": "10'",
+          "type": "U",
+          "description": "As Deflections I, except affects two missiles."
+        },
+        {
+          "level": "14",
+          "name": "Combat Defense II",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Combat Defense I, except bonus is +15."
+        },
+        {
+          "level": "15",
+          "name": "Protection IV",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Protection I, except bonuses are +20 and +30."
+        },
+        {
+          "level": "16",
+          "name": "Bladeturn II",
+          "areaOfEffect": "2 attacks",
+          "duration": "—",
+          "range": "10'",
+          "type": "U",
+          "description": "As Bladeturn I, except affects two attacks."
+        },
+        {
+          "level": "17",
+          "name": "Mythical Armor III",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's clothing is enchanted to protect as AT 12."
+        },
+        {
+          "level": "18",
+          "name": "Soul Defense",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+20 vs Absolution spells and Black Channel spells. Cumulative with other protection spells."
+        },
+        {
+          "level": "19",
+          "name": "Combat Defense III",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Combat Defense I, except bonus is +20."
+        },
+        {
+          "level": "20",
+          "name": "Mythical Armor IV",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's clothing is enchanted to protect as AT 20."
+        },
+        {
+          "level": "25",
+          "name": "Protection True",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Protection I, except bonuses are +30 and +50."
+        },
+        {
+          "level": "30",
+          "name": "Combat Defense True",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Combat Defense I, except bonus is +30."
+        },
+        {
+          "level": "50",
+          "name": "The Defender",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster may use any lower-level spell on this list once per round."
+        }
+      ]
+    },
+    {
+      "id": "The Eye",
+      "name": "The Eye",
+      "realm": "Channeling",
+      "category": "Mythic",
+      "profession": "Mythic",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5809 - RMFRP Channeling Companion",
+      "sourcePage": "80",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Channeling/Mythic/The Eye.md",
+      "summary": "Detection and tracking magic for the Mythic. Enables sensing of holy/unholy forces, enemies, magic, traps, invisible beings, and marked targets at range.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Detect Holy/Unholy",
+          "areaOfEffect": "5'R",
+          "duration": "1 min/lvl (C)",
+          "range": "100'",
+          "type": "U",
+          "description": "Senses presence of Holy/Unholy objects, consecrated ground, or Channeling works. Caster may concentrate on a different area each round."
+        },
+        {
+          "level": "2",
+          "name": "Detect Enemies I",
+          "areaOfEffect": "10'R",
+          "duration": "1 min/lvl (C)",
+          "range": "50'/lvl",
+          "type": "P",
+          "description": "Detects total number of enemies in area with approximate direction and distance; reveals most heavily represented enemy type. Will reveal if caster's Mark is present."
+        },
+        {
+          "level": "3",
+          "name": "Mark",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "50'",
+          "type": "P",
+          "description": "Caster places a mental mark on one target, enabling use of spells on The Eye and Vengeance lists vs that target. Max one Mark per three levels (round up)."
+        },
+        {
+          "level": "4",
+          "name": "Detect Magic",
+          "areaOfEffect": "5'R",
+          "duration": "1 min/lvl (C)",
+          "range": "50'",
+          "type": "P",
+          "description": "Detects any active spell or item from any realm. Caster learns realm and type of spells in the area."
+        },
+        {
+          "level": "5",
+          "name": "Detect Traps",
+          "areaOfEffect": "5'R",
+          "duration": "1 min/lvl (C)",
+          "range": "50'",
+          "type": "P",
+          "description": "75% chance of detecting a trap in the area; trap sophistication may modify the chance."
+        },
+        {
+          "level": "6",
+          "name": "Tracking",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "I",
+          "description": "All Tracking maneuvers receive a +50 bonus."
+        },
+        {
+          "level": "7",
+          "name": "Detect Invisible",
+          "areaOfEffect": "10'R",
+          "duration": "1 min/lvl (C)",
+          "range": "100'",
+          "type": "P",
+          "description": "Detects all invisible objects or beings in area. Attacks against detected targets are modified by -50."
+        },
+        {
+          "level": "8",
+          "name": "Detect Illusion",
+          "areaOfEffect": "10'R",
+          "duration": "—",
+          "range": "100'",
+          "type": "P",
+          "description": "Caster can check one object or place (up to 10'R) and determine if it is or bears an illusion."
+        },
+        {
+          "level": "9",
+          "name": "Perceive Power",
+          "areaOfEffect": "5'R",
+          "duration": "1 min/lvl (C)",
+          "range": "50'",
+          "type": "P",
+          "description": "As Detect Magic, and also gives an estimate of the power level of person, item, or spell examined."
+        },
+        {
+          "level": "10",
+          "name": "Detect Enemies II",
+          "areaOfEffect": "50'R",
+          "duration": "1 min/lvl (C)",
+          "range": "100'/lvl",
+          "type": "P",
+          "description": "As Detect Enemies I, except for range and area of effect."
+        },
+        {
+          "level": "11",
+          "name": "Detect Poison",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "50'",
+          "type": "P",
+          "description": "Detects any poisons on a single object or being."
+        },
+        {
+          "level": "12",
+          "name": "Detect Holy/Unholy True",
+          "areaOfEffect": "500'R",
+          "duration": "1 min/lvl (C)",
+          "range": "500'",
+          "type": "U",
+          "description": "As Detect Holy/Unholy, except for range and duration."
+        },
+        {
+          "level": "13",
+          "name": "Direction",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Caster learns direction and distance to any one of his Marks."
+        },
+        {
+          "level": "14",
+          "name": "Detect Status",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "100'",
+          "type": "F",
+          "description": "Attempts to learn the target's Divine Status level from their mind."
+        },
+        {
+          "level": "15",
+          "name": "Memory's Path",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster can remember an exact route travelled, even if senses were impaired; must be cast within one month of the journey. Duration equals caster's level in hours."
+        },
+        {
+          "level": "16",
+          "name": "The Eye",
+          "areaOfEffect": "caster",
+          "duration": "varies",
+          "range": "100'",
+          "type": "I",
+          "description": "Caster receives a divine vision of one of his Marks; reveals only general activities (sleeping, fighting, etc.); Mark must be within range."
+        },
+        {
+          "level": "17",
+          "name": "Tracking True",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "I",
+          "description": "As Tracking, except bonus is +75."
+        },
+        {
+          "level": "18",
+          "name": "Perceive Power True",
+          "areaOfEffect": "50'R",
+          "duration": "1 min/lvl (C)",
+          "range": "500'",
+          "type": "P",
+          "description": "As Perceive Power, except for range and area of effect."
+        },
+        {
+          "level": "19",
+          "name": "Location",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "300'",
+          "type": "P",
+          "description": "Gives direction and distance to a specific object or place caster is familiar with, provided caster knows its dimensions within 10% and at least two unique attributes."
+        },
+        {
+          "level": "20",
+          "name": "Detect Enemies True",
+          "areaOfEffect": "100'R",
+          "duration": "1 min/lvl (C)",
+          "range": "500'/lvl",
+          "type": "P",
+          "description": "As Detect Enemies I, except for range and area of effect."
+        },
+        {
+          "level": "25",
+          "name": "Divine Sight",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster sees through illusions, facades, invisibility, and other misrepresentations of the truth."
+        },
+        {
+          "level": "30",
+          "name": "Divine Eye",
+          "areaOfEffect": "caster",
+          "duration": "varies",
+          "range": "self",
+          "type": "I",
+          "description": "As The Eye, except caster does not need to know exactly where the target is located."
+        },
+        {
+          "level": "50",
+          "name": "True Eye",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "F",
+          "description": "Caster may use any one lower-level spell on this list once per round."
+        }
+      ]
+    },
+    {
+      "id": "The Mask",
+      "name": "The Mask",
+      "realm": "Channeling",
+      "category": "Mythic",
+      "profession": "Mythic",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5809 - RMFRP Channeling Companion",
+      "sourcePage": "81",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Channeling/Mythic/The Mask.md",
+      "summary": "Deception, disguise, and concealment magic for the Mythic. Enables the caster to change appearance, conceal aura and alignment, mislead pursuers, and take on other identities.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Conceal Aura",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Hides caster's Channeling aura from Detect Holy/Unholy and similar spells."
+        },
+        {
+          "level": "2",
+          "name": "Alter Feature I",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Changes a single minor facial feature (hair colour, eye colour, small scar, etc.)."
+        },
+        {
+          "level": "3",
+          "name": "False Scent",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster has a different scent; animals and Tracking rolls that rely on scent are confused or misled."
+        },
+        {
+          "level": "4",
+          "name": "Alter Voice",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster can mimic any voice heard for at least 1 round; +40 to impersonation attempts."
+        },
+        {
+          "level": "5",
+          "name": "Conceal Alignment",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's divine alignment registers as Neutral to detection spells."
+        },
+        {
+          "level": "6",
+          "name": "Alter Feature II",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Alter Feature I, except multiple features may be changed."
+        },
+        {
+          "level": "7",
+          "name": "Mislead",
+          "areaOfEffect": "1 group",
+          "duration": "1 hr",
+          "range": "100'",
+          "type": "F",
+          "description": "Leaves a false trail, misdirecting pursuers; Tracking rolls against caster suffer -50 for duration."
+        },
+        {
+          "level": "8",
+          "name": "Disguise",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Changes caster's apparent race, sex, and general body shape; does not alter height or mass by more than 10%."
+        },
+        {
+          "level": "9",
+          "name": "False Thoughts",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's surface thoughts appear mundane and harmless to telepathic probing; +40 to RR vs mind-reading."
+        },
+        {
+          "level": "10",
+          "name": "Conceal Aura True",
+          "areaOfEffect": "caster",
+          "duration": "1 day/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Conceal Aura, except also masks any unique divine signature even to True Detection."
+        },
+        {
+          "level": "11",
+          "name": "Alter Feature True",
+          "areaOfEffect": "caster",
+          "duration": "1 day/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Alter Feature II, except changes are permanent until dispelled."
+        },
+        {
+          "level": "12",
+          "name": "False Identity",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Complete appearance change; caster perfectly mimics a specific person seen for at least 1 hour; +60 to impersonation."
+        },
+        {
+          "level": "13",
+          "name": "Shadow Walk",
+          "areaOfEffect": "caster",
+          "duration": "C",
+          "range": "self",
+          "type": "U",
+          "description": "Caster moves without casting a shadow and makes no sound; -40 to perception rolls to detect movement."
+        },
+        {
+          "level": "14",
+          "name": "Mislead True",
+          "areaOfEffect": "1 group",
+          "duration": "1 day",
+          "range": "100'",
+          "type": "F",
+          "description": "As Mislead, except Tracking rolls suffer -75 and false trail is much more convincing."
+        },
+        {
+          "level": "15",
+          "name": "Conceal History",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's past actions are concealed from Commune, Detect Status, and divine inquiry spells."
+        },
+        {
+          "level": "16",
+          "name": "Vanish",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl (C)",
+          "range": "self",
+          "type": "U",
+          "description": "Caster becomes invisible; invisibility ends if caster attacks or casts a spell."
+        },
+        {
+          "level": "17",
+          "name": "False Identity True",
+          "areaOfEffect": "caster",
+          "duration": "1 day/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As False Identity, but also copies voice, scent, and mannerisms; +80 to impersonation."
+        },
+        {
+          "level": "18",
+          "name": "Mind Blank",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's mind is completely hidden; immune to telepathy, scrying, and Commune spells targeting caster."
+        },
+        {
+          "level": "20",
+          "name": "False Aura",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster can assume any divine alignment for detection purposes; doubles conceal bonuses from lower spells on this list."
+        },
+        {
+          "level": "25",
+          "name": "The Mask",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster becomes a perfect double of a target they have observed for at least 1 day; all attributes, voice, scent, and mannerisms are replicated."
+        },
+        {
+          "level": "30",
+          "name": "Vanish True",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Vanish, but invisibility is maintained even while attacking; does not end unless caster chooses or spell expires."
+        },
+        {
+          "level": "50",
+          "name": "Perfect Mask",
+          "areaOfEffect": "caster",
+          "duration": "1 day/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As The Mask, except perfect replication; even divine detection requires an Absurd maneuver to pierce the disguise."
+        }
+      ]
+    },
+    {
+      "id": "The Will",
+      "name": "The Will",
+      "realm": "Channeling",
+      "category": "Mythic",
+      "profession": "Mythic",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5809 - RMFRP Channeling Companion",
+      "sourcePage": "82",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Channeling/Mythic/The Will.md",
+      "summary": "Endurance, self-healing, and mental fortitude magic for the Mythic. Enables the caster to resist fatigue, recover from wounds, ignore pain, and push the body beyond normal limits through divine will.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Resist Pain I",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster ignores up to -5 penalty from wounds/pain."
+        },
+        {
+          "level": "2",
+          "name": "Endurance I",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster does not tire; Exhaustion Points are not lost for 1 hour."
+        },
+        {
+          "level": "3",
+          "name": "Steady",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster stabilises at 0 hits; will not lose additional hits from a bleeding wound for the duration."
+        },
+        {
+          "level": "4",
+          "name": "Calm",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+20 bonus to all RRs vs fear and emotional manipulation."
+        },
+        {
+          "level": "5",
+          "name": "Resist Pain II",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Resist Pain I, except penalty ignored is up to -15."
+        },
+        {
+          "level": "6",
+          "name": "Minor Recovery",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Caster recovers 5 concussion hits instantly."
+        },
+        {
+          "level": "7",
+          "name": "Endurance II",
+          "areaOfEffect": "caster",
+          "duration": "1 day/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Endurance I, except duration is 1 day/level; Exhaustion Points lost at half normal rate."
+        },
+        {
+          "level": "8",
+          "name": "Focus",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+25 to all RRs; caster must concentrate each round (C)."
+        },
+        {
+          "level": "9",
+          "name": "Resist Pain True",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Resist Pain I, except all wound/pain penalties are ignored."
+        },
+        {
+          "level": "10",
+          "name": "Moderate Recovery",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Caster recovers 10 concussion hits instantly."
+        },
+        {
+          "level": "11",
+          "name": "Calm True",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Calm, except bonus is +40 and covers all mental attack RRs."
+        },
+        {
+          "level": "12",
+          "name": "Iron Mind",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Immune to all compulsion, charm, and domination effects."
+        },
+        {
+          "level": "13",
+          "name": "Endurance True",
+          "areaOfEffect": "caster",
+          "duration": "1 day/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Endurance II, except Exhaustion Points are not lost at all; caster does not need sleep."
+        },
+        {
+          "level": "14",
+          "name": "Major Recovery",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Caster recovers 20 concussion hits instantly."
+        },
+        {
+          "level": "15",
+          "name": "Fortitude",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster's body hits are treated as double for purposes of critical threshold; does not actually increase hits."
+        },
+        {
+          "level": "16",
+          "name": "Resist Stun",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster is not stunned by concussion hits below 50% of max hits in a single round."
+        },
+        {
+          "level": "17",
+          "name": "Regenerate I",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster regenerates 2 hits per round."
+        },
+        {
+          "level": "18",
+          "name": "Iron Will",
+          "areaOfEffect": "caster",
+          "duration": "1 hr/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "+50 to all RRs; all stun effects are halved (round down)."
+        },
+        {
+          "level": "19",
+          "name": "True Recovery",
+          "areaOfEffect": "caster",
+          "duration": "—",
+          "range": "self",
+          "type": "I",
+          "description": "Caster fully recovers all concussion hits instantly."
+        },
+        {
+          "level": "20",
+          "name": "Regenerate II",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "As Regenerate I, except caster regenerates 5 hits per round."
+        },
+        {
+          "level": "25",
+          "name": "The Will",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster ignores all wound and pain penalties; immune to stun, fear, charm, and compulsion."
+        },
+        {
+          "level": "30",
+          "name": "Regenerate True",
+          "areaOfEffect": "caster",
+          "duration": "1 rnd/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster regenerates 10 hits per round and removes one negative status per round (bleeding, stunned, etc.)."
+        },
+        {
+          "level": "50",
+          "name": "Undying",
+          "areaOfEffect": "caster",
+          "duration": "1 min/lvl",
+          "range": "self",
+          "type": "U",
+          "description": "Caster cannot be reduced below 1 hit; while active, caster cannot die from concussion."
+        }
+      ]
+    },
+    {
+      "id": "Vengeance",
+      "name": "Vengeance",
+      "realm": "Channeling",
+      "category": "Mythic",
+      "profession": "Mythic",
+      "listType": "Base List",
+      "status": "imported",
+      "source": "ICE 5809 - RMFRP Channeling Companion",
+      "sourcePage": "83",
+      "path": "Aethergate/Rolemaster/03 Spell Lists/Channeling/Mythic/Vengeance.md",
+      "summary": "Offensive combat magic for the Mythic, focused on striking marked targets, disrupting enemy spellcasters, and delivering divine punishment. Most powerful spells require a Mark (from The Eye list) on the target.",
+      "spells": [
+        {
+          "level": "1",
+          "name": "Strike I",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "50'",
+          "type": "F",
+          "description": "Delivers a Holy Channeling attack: 1d100 + 20 vs target's AT."
+        },
+        {
+          "level": "2",
+          "name": "Weaken I",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "Target suffers -10 to all attacks and RRs."
+        },
+        {
+          "level": "3",
+          "name": "Disrupt Spell I",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "50'",
+          "type": "F",
+          "description": "Interrupts a spell being cast; caster's target loses their action this round and must re-cast next round."
+        },
+        {
+          "level": "4",
+          "name": "Holy Wound I",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "100'",
+          "type": "F",
+          "description": "Delivers a Holy Channeling critical strike (A severity) to a Marked target; bypasses normal AT."
+        },
+        {
+          "level": "5",
+          "name": "Strike II",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "100'",
+          "type": "F",
+          "description": "As Strike I, except attack is 1d100 + 40."
+        },
+        {
+          "level": "6",
+          "name": "Weaken II",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/lvl",
+          "range": "100'",
+          "type": "F",
+          "description": "As Weaken I, except penalty is -20."
+        },
+        {
+          "level": "7",
+          "name": "Blind",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "1 rnd/10 fail",
+          "range": "100'",
+          "type": "F",
+          "description": "Marked target is blinded; RR Mod -10."
+        },
+        {
+          "level": "8",
+          "name": "Disrupt Spell II",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "100'",
+          "type": "F",
+          "description": "As Disrupt Spell I, except target loses the spell and PP used."
+        },
+        {
+          "level": "9",
+          "name": "Strike True",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "200'",
+          "type": "F",
+          "description": "As Strike I, except attack is 1d100 + 60 and delivers a Holy critical."
+        },
+        {
+          "level": "10",
+          "name": "Holy Wound II",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "200'",
+          "type": "F",
+          "description": "As Holy Wound I, except critical severity is B."
+        },
+        {
+          "level": "11",
+          "name": "Cripple",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "1 hr/10 fail",
+          "range": "100'",
+          "type": "F",
+          "description": "Marked target's movement is reduced to 25%; RR Mod -20."
+        },
+        {
+          "level": "12",
+          "name": "Weaken True",
+          "areaOfEffect": "1 target",
+          "duration": "1 rnd/lvl",
+          "range": "200'",
+          "type": "F",
+          "description": "As Weaken I, except penalty is -30 to all actions."
+        },
+        {
+          "level": "13",
+          "name": "Disrupt Spell True",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "200'",
+          "type": "F",
+          "description": "As Disrupt Spell II, except target is stunned for 1 round per 10 failure."
+        },
+        {
+          "level": "14",
+          "name": "Holy Wound III",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "300'",
+          "type": "F",
+          "description": "As Holy Wound I, except critical severity is C."
+        },
+        {
+          "level": "15",
+          "name": "Divine Strike",
+          "areaOfEffect": "1 target",
+          "duration": "—",
+          "range": "300'",
+          "type": "F",
+          "description": "As Strike True, except attack is 1d100 + 80; ignores up to 10 points of AT protection."
+        },
+        {
+          "level": "16",
+          "name": "Seize",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "1 rnd/lvl (C)",
+          "range": "200'",
+          "type": "F",
+          "description": "Marked target is held motionless; RR Mod -20; target may attempt RR each round."
+        },
+        {
+          "level": "17",
+          "name": "Holy Wound IV",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "400'",
+          "type": "F",
+          "description": "As Holy Wound I, except critical severity is D."
+        },
+        {
+          "level": "18",
+          "name": "Wither",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "1 day/10 fail",
+          "range": "100'",
+          "type": "F",
+          "description": "Marked target loses half their remaining hits over 1 day; RR Mod -30."
+        },
+        {
+          "level": "19",
+          "name": "Smite",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "500'",
+          "type": "F",
+          "description": "As Divine Strike, except delivers a Holy critical at D severity automatically in addition to the attack."
+        },
+        {
+          "level": "20",
+          "name": "Holy Wound True",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "500'",
+          "type": "F",
+          "description": "As Holy Wound I, except critical severity is E; no RR allowed."
+        },
+        {
+          "level": "25",
+          "name": "Vengeance",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "1000'",
+          "type": "F",
+          "description": "Full divine punishment: 1d100 + 100 Holy attack, plus E-severity critical; bypasses all AT and 50% of magic protection."
+        },
+        {
+          "level": "30",
+          "name": "Divine Wrath",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "—",
+          "range": "sight",
+          "type": "F",
+          "description": "As Vengeance, except target is knocked back 50' and stunned for 1 round per 10 failure even if RR succeeds."
+        },
+        {
+          "level": "50",
+          "name": "Judgment",
+          "areaOfEffect": "1 target (Marked)",
+          "duration": "P",
+          "range": "sight",
+          "type": "F",
+          "description": "Target's soul is judged; on failure, target is destroyed (no resurrection); RR Mod -50. Irreversible."
         }
       ]
     },

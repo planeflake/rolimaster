@@ -56,7 +56,12 @@ Use this section when choosing spell lists for a [[Mythic]].
 
 ### Base Lists
 
-- Base lists for this profession are not imported yet, or are configurable by source rules.
+- [[Holy Mission]]
+- [[The Defender]]
+- [[The Eye]]
+- [[The Mask]]
+- [[The Will]]
+- [[Vengeance]]
 
 ### Open Channeling Lists
 
