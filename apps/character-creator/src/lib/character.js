@@ -40,6 +40,7 @@ export function blankCharacter() {
     currentHp: null,
     skillTiers: {},
     skillRanks: {},
+    favoriteSkills: [],
     directedSpells: {},
     statPool: 700,
     statPoints: {},

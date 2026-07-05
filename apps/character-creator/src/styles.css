@@ -2315,6 +2315,26 @@ td {
   text-align: center;
 }
 
+.sheet-skill-fav {
+  width: 1.6rem;
+  text-align: center;
+}
+
+.fav-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: #9a9080;
+}
+
+.fav-btn:hover,
+.fav-btn.active {
+  color: #e8b64c;
+}
+
 .skill-badge {
   display: inline-block;
   border-radius: 999px;

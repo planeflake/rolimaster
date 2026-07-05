@@ -268,6 +268,7 @@
   // The arguments exist only to make the reactive dependencies visible to the
   // compiler; the helpers read the same values via closure.
   $: summarySkills = summarySkillEntries(character, selectedCulture, knownSkills);
+  $: favoriteSkillEntries = summarySkills.filter(([name]) => (character.favoriteSkills ?? []).includes(name));
   $: directedSpellRows = activeDirectedSpellRows(character);
   $: sheetSpellRows = selectedSpellRows(selectedSpellLists, character);
   $: knownSkills = skillOptions(data.skills, packageRanks, selectedProfession, selectedCulture);
@@ -379,7 +380,8 @@
       spellRanks: normalized.spellRanks && typeof normalized.spellRanks === "object" ? normalized.spellRanks : {},
       directedSpells: normalized.directedSpells && typeof normalized.directedSpells === "object" ? normalized.directedSpells : {},
       inventory: Array.isArray(normalized.inventory) ? normalized.inventory : [],
-      flawIds: Array.isArray(normalized.flawIds) ? normalized.flawIds : []
+      flawIds: Array.isArray(normalized.flawIds) ? normalized.flawIds : [],
+      favoriteSkills: Array.isArray(normalized.favoriteSkills) ? normalized.favoriteSkills : []
     };
   }
 
@@ -393,7 +395,7 @@
   const SECTION_MAP = {
     core:             { url: (id) => `/api/characters/${id}`,                  body: (c) => ({ name: c.name, raceId: c.raceId, cultureId: c.cultureId, professionId: c.professionId }) },
     stats:            { url: (id) => `/api/characters/${id}/stats`,            body: (c) => ({ statPool: c.statPool, statPoints: c.statPoints }) },
-    skills:           { url: (id) => `/api/characters/${id}/skills`,           body: (c) => ({ skillRanks: c.skillRanks, skillTiers: c.skillTiers, xp: c.xp, spentXp: c.spentXp }) },
+    skills:           { url: (id) => `/api/characters/${id}/skills`,           body: (c) => ({ skillRanks: c.skillRanks, skillTiers: c.skillTiers, xp: c.xp, spentXp: c.spentXp, favoriteSkills: c.favoriteSkills ?? [] }) },
     spells:           { url: (id) => `/api/characters/${id}/spells`,           body: (c) => ({ spellListIds: c.spellListIds, spellRanks: c.spellRanks, spellPool: c.spellPool }) },
     talents:          { url: (id) => `/api/characters/${id}/talents`,          body: (c) => ({ talentIds: c.talentIds, talentPool: c.talentPool }) },
     flaws:            { url: (id) => `/api/characters/${id}/flaws`,            body: (c) => ({ flawIds: c.flawIds }) },
@@ -412,7 +414,7 @@
     const changed = [];
     if (prev.name !== next.name || prev.raceId !== next.raceId || prev.cultureId !== next.cultureId || prev.professionId !== next.professionId) changed.push("core");
     if (prev.statPool !== next.statPool || s(prev.statPoints) !== s(next.statPoints)) changed.push("stats");
-    if (prev.xp !== next.xp || prev.spentXp !== next.spentXp || s(prev.skillRanks) !== s(next.skillRanks) || s(prev.skillTiers) !== s(next.skillTiers)) changed.push("skills");
+    if (prev.xp !== next.xp || prev.spentXp !== next.spentXp || s(prev.skillRanks) !== s(next.skillRanks) || s(prev.skillTiers) !== s(next.skillTiers) || s(prev.favoriteSkills) !== s(next.favoriteSkills)) changed.push("skills");
     if (s(prev.spellListIds) !== s(next.spellListIds) || s(prev.spellRanks) !== s(next.spellRanks) || prev.spellPool !== next.spellPool) changed.push("spells");
     if (s(prev.talentIds) !== s(next.talentIds) || prev.talentPool !== next.talentPool) changed.push("talents");
     if (s(prev.flawIds) !== s(next.flawIds)) changed.push("flaws");
@@ -1272,6 +1274,14 @@
         const cb = skillByName(b)?.category ?? "";
         return ca.localeCompare(cb) || a.localeCompare(b);
       });
+  }
+
+  function toggleFavoriteSkill(skillName) {
+    const current = character.favoriteSkills ?? [];
+    const favoriteSkills = current.includes(skillName)
+      ? current.filter((name) => name !== skillName)
+      : [...current, skillName];
+    character = { ...character, favoriteSkills };
   }
 
   function startsNewSkillCategory(index) {
@@ -3110,13 +3120,54 @@
               </section>
 
               <section class="summary-panel">
-                <h2 class="sheet-section-title">Skills</h2>
+                <h2 class="sheet-section-title">Favourite Skills <span class="sheet-section-count">{favoriteSkillEntries.length}</span></h2>
+                {#if favoriteSkillEntries.length === 0}
+                  <p class="sheet-empty-hint">No favourites yet. Star a skill below to pin it here.</p>
+                {:else}
+                  <table class="sheet-skill-table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Skill</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th>Ranks</th>
+                        <th>Stats</th>
+                        <th>Pair Bonus</th>
+                        <th>Cat Bonus</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {#each favoriteSkillEntries as [skillName, ranks]}
+                        {@const rowSkill = skillByName(skillName)}
+                        {@const level = skillLevel(skillName)}
+                        <tr>
+                          <td class="sheet-skill-fav"><button class="fav-btn active" title="Remove from favourites" aria-label={`Remove ${skillName} from favourites`} on:click={() => toggleFavoriteSkill(skillName)}>★</button></td>
+                          <td class="sheet-skill-name">{skillName}</td>
+                          <td class="sheet-skill-cat">{rowSkill?.category ?? '-'}</td>
+                          <td><span class="skill-badge skill-badge--{level.toLowerCase()}">{level}</span></td>
+                          <td class="sheet-skill-num">{ranks}</td>
+                          <td class="sheet-skill-num">{rowSkill?.statPair ?? '-'}</td>
+                          <td class="sheet-skill-num">{formatBonus(statPairBonus(rowSkill?.statPair))}</td>
+                          <td class="sheet-skill-num">{formatBonus(professionCategoryBonus(rowSkill))}</td>
+                          <td class="sheet-skill-num"><b>{formatBonus(skillTotalBonus(rowSkill))}</b></td>
+                        </tr>
+                      {/each}
+                    </tbody>
+                  </table>
+                {/if}
+              </section>
+
+              <section class="summary-panel">
+                <h2 class="sheet-section-title">All Skills <span class="sheet-section-count">{summarySkills.length}</span></h2>
                 {#if summarySkills.length === 0}
                   <p class="sheet-empty-hint">No skill ranks yet.</p>
                 {:else}
                   <table class="sheet-skill-table">
                     <thead>
                       <tr>
+                        <th></th>
                         <th>Skill</th>
                         <th>Category</th>
                         <th>Level</th>
@@ -3132,6 +3183,7 @@
                         {@const rowSkill = skillByName(skillName)}
                         {@const level = skillLevel(skillName)}
                         <tr>
+                          <td class="sheet-skill-fav"><button class="fav-btn" class:active={(character.favoriteSkills ?? []).includes(skillName)} title="Toggle favourite" aria-label={`Toggle favourite for ${skillName}`} on:click={() => toggleFavoriteSkill(skillName)}>{(character.favoriteSkills ?? []).includes(skillName) ? '★' : '☆'}</button></td>
                           <td class="sheet-skill-name">{skillName}</td>
                           <td class="sheet-skill-cat">{rowSkill?.category ?? '-'}</td>
                           <td><span class="skill-badge skill-badge--{level.toLowerCase()}">{level}</span></td>
@@ -3507,12 +3559,51 @@
             </section>
           {/if}
 
-          {#if summarySkills.length > 0}
+          {#if favoriteSkillEntries.length > 0}
             <section class="sheet-section">
-              <h2 class="sheet-section-title">Skills</h2>
+              <h2 class="sheet-section-title">Favourite Skills <span class="sheet-section-count">{favoriteSkillEntries.length}</span></h2>
               <table class="sheet-skill-table">
                 <thead>
                   <tr>
+                    <th></th>
+                    <th>Skill</th>
+                    <th>Category</th>
+                    <th>Level</th>
+                    <th>Ranks</th>
+                    <th>Stats</th>
+                    <th>Pair Bonus</th>
+                    <th>Cat Bonus</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {#each favoriteSkillEntries as [skillName, ranks]}
+                    {@const rowSkill = skillByName(skillName)}
+                    {@const level = skillLevel(skillName)}
+                    <tr>
+                      <td class="sheet-skill-fav"><button class="fav-btn active" title="Remove from favourites" aria-label={`Remove ${skillName} from favourites`} on:click={() => toggleFavoriteSkill(skillName)}>★</button></td>
+                      <td class="sheet-skill-name">{skillName}</td>
+                      <td class="sheet-skill-cat">{rowSkill?.category ?? '—'}</td>
+                      <td><span class="skill-badge skill-badge--{level.toLowerCase()}">{level}</span></td>
+                      <td class="sheet-skill-num">{ranks}</td>
+                      <td class="sheet-skill-num">{rowSkill?.statPair ?? '-'}</td>
+                      <td class="sheet-skill-num">{formatBonus(statPairBonus(rowSkill?.statPair))}</td>
+                      <td class="sheet-skill-num">{formatBonus(professionCategoryBonus(rowSkill))}</td>
+                      <td class="sheet-skill-num"><b>{formatBonus(skillTotalBonus(rowSkill))}</b></td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </section>
+          {/if}
+
+          {#if summarySkills.length > 0}
+            <section class="sheet-section">
+              <h2 class="sheet-section-title">All Skills <span class="sheet-section-count">{summarySkills.length}</span></h2>
+              <table class="sheet-skill-table">
+                <thead>
+                  <tr>
+                    <th></th>
                     <th>Skill</th>
                     <th>Category</th>
                     <th>Level</th>
@@ -3528,6 +3619,7 @@
                     {@const rowSkill = skillByName(skillName)}
                     {@const level = skillLevel(skillName)}
                     <tr>
+                      <td class="sheet-skill-fav"><button class="fav-btn" class:active={(character.favoriteSkills ?? []).includes(skillName)} title="Toggle favourite" aria-label={`Toggle favourite for ${skillName}`} on:click={() => toggleFavoriteSkill(skillName)}>{(character.favoriteSkills ?? []).includes(skillName) ? '★' : '☆'}</button></td>
                       <td class="sheet-skill-name">{skillName}</td>
                       <td class="sheet-skill-cat">{rowSkill?.category ?? '—'}</td>
                       <td><span class="skill-badge skill-badge--{level.toLowerCase()}">{level}</span></td>

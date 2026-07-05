@@ -71,6 +71,7 @@ async function initDb() {
         xp INTEGER NOT NULL DEFAULT 45, spent_xp INTEGER NOT NULL DEFAULT 0, current_hp INTEGER,
         stat_points JSONB NOT NULL DEFAULT '{}', skill_ranks JSONB NOT NULL DEFAULT '{}',
         skill_tiers JSONB NOT NULL DEFAULT '{}',
+        favorite_skills TEXT[] NOT NULL DEFAULT '{}',
         pp_ranks JSONB NOT NULL DEFAULT '{"arcane":0,"channeling":0,"essence":0,"mentalism":0,"psionic":0}',
         spell_ranks JSONB NOT NULL DEFAULT '{}', directed_spells JSONB NOT NULL DEFAULT '{}',
         spell_list_ids TEXT[] NOT NULL DEFAULT '{}', talent_ids TEXT[] NOT NULL DEFAULT '{}',
@@ -79,6 +80,8 @@ async function initDb() {
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `);
+    // Migration for tables created before favourites existed
+    await pool.query(`ALTER TABLE characters ADD COLUMN IF NOT EXISTS favorite_skills TEXT[] NOT NULL DEFAULT '{}'`);
     await pool.query(`
       CREATE TABLE IF NOT EXISTS character_languages (
         id SERIAL PRIMARY KEY, character_id TEXT NOT NULL REFERENCES characters(id) ON DELETE CASCADE,
@@ -163,6 +166,7 @@ function rowToCharacter(row) {
     statPoints:          row.stat_points   ?? {},
     skillRanks:          row.skill_ranks   ?? {},
     skillTiers:          row.skill_tiers   ?? {},
+    favoriteSkills:      row.favorite_skills ?? [],
     ppRanks:             row.pp_ranks      ?? { arcane:0, channeling:0, essence:0, mentalism:0, psionic:0 },
     spellRanks:          row.spell_ranks   ?? {},
     directedSpells:      row.directed_spells ?? {},
@@ -239,8 +243,8 @@ const SECTION_PATCHES = {
     params: (id) => [id, b.statPool ?? 700, JSON.stringify(b.statPoints ?? {})]
   }),
   skills: (b) => ({
-    sql: `UPDATE characters SET skill_ranks=$2, skill_tiers=$3, xp=$4, spent_xp=$5, updated_at=NOW() WHERE id=$1`,
-    params: (id) => [id, JSON.stringify(b.skillRanks ?? {}), JSON.stringify(b.skillTiers ?? {}), b.xp ?? 45, b.spentXp ?? 0]
+    sql: `UPDATE characters SET skill_ranks=$2, skill_tiers=$3, xp=$4, spent_xp=$5, favorite_skills=$6, updated_at=NOW() WHERE id=$1`,
+    params: (id) => [id, JSON.stringify(b.skillRanks ?? {}), JSON.stringify(b.skillTiers ?? {}), b.xp ?? 45, b.spentXp ?? 0, b.favoriteSkills ?? []]
   }),
   spells: (b) => ({
     sql: `UPDATE characters SET spell_list_ids=$2, spell_ranks=$3, spell_pool=$4, updated_at=NOW() WHERE id=$1`,
