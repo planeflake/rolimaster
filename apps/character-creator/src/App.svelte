@@ -1,10 +1,71 @@
 <script>
   import { onMount, tick } from "svelte";
-  import { data } from "./lib/markdownData.js";
   import { blankCharacter, DEFAULT_CREATION_XP, DEFAULT_TALENT_POINTS, DEFAULT_TRAINING_POINTS, rankGainFor, skillTiers, STATS } from "./lib/character.js";
 
-  const legacyStorageKey = "aethergate-character-creator";
-  const libraryStorageKey = "aethergate-character-library";
+  let data = { races: [], cultures: [], professions: [], spellLists: [], talents: [], flaws: [], trainingPackages: [], skills: [], encyclopedia: [], maps: [] };
+
+  const resourceEndpoints = {
+    races:            "/api/races",
+    cultures:         "/api/cultures",
+    professions:      "/api/professions",
+    talents:          "/api/talents",
+    flaws:            "/api/flaws",
+    trainingPackages: "/api/training-packages",
+    skills:           "/api/skills",
+    encyclopedia:     "/api/encyclopedia",
+    maps:             "/api/maps",
+  };
+
+  const tabNeeds = {
+    Race:            ["races"],
+    Adolescence:     ["cultures"],
+    Profession:      ["professions"],
+    Stats:           ["professions"],
+    Spells:          ["professions"],
+    Talents:         ["talents", "flaws"],
+    Training:        ["trainingPackages"],
+    Skills:          ["skills", "professions"],
+    "Custom Rules":  [],
+    Summary:         ["races", "cultures", "professions", "talents", "flaws", "trainingPackages", "skills", "encyclopedia"],
+  };
+
+  const loadedResources = new Set();
+  let loadedSpellProfession = "";
+
+  async function loadResource(key, force = false) {
+    if (loadedResources.has(key) && !force) return;
+    loadedResources.add(key);
+    try {
+      const res = await fetch(resourceEndpoints[key], { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const value = await res.json();
+      if (!Array.isArray(value)) throw new Error("expected an array");
+      data = { ...data, [key]: value };
+    } catch (e) {
+      loadedResources.delete(key);
+      console.error(`Failed to load ${key}:`, e);
+    }
+  }
+
+  async function loadSpellLists(professionId) {
+    if (!professionId || professionId === loadedSpellProfession) return;
+    loadedSpellProfession = professionId;
+    try {
+      const res = await fetch(`/api/spell-lists?profession=${encodeURIComponent(professionId)}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const value = await res.json();
+      if (!Array.isArray(value)) throw new Error("expected an array");
+      data = { ...data, spellLists: value };
+    } catch (e) {
+      loadedSpellProfession = "";
+      console.error("Failed to load spell lists:", e);
+    }
+  }
+
+  function loadResourcesForTab(tab) {
+    for (const key of tabNeeds[tab] ?? []) loadResource(key);
+  }
+
   const players = [
     { id: "chris", name: "Chris" },
     { id: "sigbjorn", name: "Sigbjørn" },
@@ -39,7 +100,7 @@
     Force: "F", Passive: "P", Utility: "U", Informational: "I"
   };
   const directedSpellCategories = ["Fire", "Cold", "Electricity", "Water", "Mana", "Void", "Custom"];
-  const summaryPanels = ["Languages", "Skills", "Directed Spells", "Custom Rules", "Inventory"];
+  const summaryPanels = ["Languages", "Spells", "Skills", "Directed Spells", "Custom Rules", "Inventory", "Encyclopedia"];
   const inventoryTestItems = [
     { name: "Travelling Cloak", qty: 1, location: "Worn", status: "Equipped", weight: 4, value: 8, notes: "Weather-stained wool cloak." },
     { name: "Iron Dagger", qty: 1, location: "Belt", status: "Equipped", weight: 1, value: 12, notes: "Simple backup blade." },
@@ -83,6 +144,40 @@
       ]
     },
     {
+      id: "runic-eyes",
+      name: "Runic Eyes",
+      player: "Any",
+      summary: "The character's eyes have been replaced with runic stones. Sight requires power points to maintain, and extended or failed observation draws deeper on the reserves — with effects that vary by realm.",
+      description:
+        "Your eyes have been replaced with runic stones. These stones require a steady supply of power points to maintain active sight — without them you are effectively blind until fed. Extended use of observation-intensive skills (Observation, Surveillance, Tracking, and similar) consumes additional power points over time, as the stones work harder to sustain focus. A failed roll on such activities causes an overexertion burst, draining a larger amount immediately. The realm from which you draw power shapes not only the cost but what you perceive.",
+      schools: [
+        {
+          name: "Essence",
+          vision: "Structural sight. Magical auras, active spells, wards, and enchantments become visible as geometric overlays on the world. Illusions show seams and edges where they fail to account for the full spectrum the stones perceive.",
+          extended: "Geometric rune-patterns begin appearing over mundane surfaces as well, making normal reading and fine detail work difficult until the effect fades.",
+          failure: "A flash-blindness rather than darkness — the stones overload on ambient Essence and white out momentarily before resetting."
+        },
+        {
+          name: "Mentalism",
+          vision: "Mind-linked sight. Micro-expressions and body language become hyper-legible; you read surface emotion and intent at a glance. Strong past emotions leave faint residue on objects and rooms — visible impression-echoes that speak to what happened there.",
+          extended: "Involuntary bleedthrough begins — you briefly see through the perspective of a nearby person without choosing to, then snap back.",
+          failure: "An empathic surge: every mind within range registers simultaneously, an overwhelming rush of emotional data before the stones recalibrate."
+        },
+        {
+          name: "Channeling",
+          vision: "Spirit sight. The recently dead are visible as echoes, divine marks appear on people and places, and the weight of fate on living creatures shows as a faint aura — brightest on those marked for death or bound to a divine purpose.",
+          extended: "The dead begin to seek your gaze. They can perceive the channeled light within the stones and are drawn toward it, increasingly competing for your attention.",
+          failure: "Every soul in proximity snaps into sharp simultaneous focus — a sudden awareness of the full spiritual weight of the room, lasting until the stones can filter it back down."
+        },
+        {
+          name: "Arcane",
+          vision: "Time-layered sight. Locations carry visible echoes of past events, strongest where trauma or great significance occurred. Mana flows, Font currents, and ley lines appear as luminous threads running through the world.",
+          extended: "Possible near-futures begin appearing as transparent overlays on the present — ghost-images of things that might happen in the next few moments, making it harder to act cleanly on current information.",
+          failure: "A perceptual break: vision briefly disconnects from the present and locks to a moment slightly in the past or future. You act on what you see, which may no longer be accurate."
+        }
+      ]
+    },
+    {
       id: "you-no-take-candle",
       name: "You no take candle",
       player: "Any",
@@ -111,14 +206,16 @@
   let activeSummaryPanelIndex = 0;
   let previousSummaryPanel = "";
   let nextSummaryPanel = "";
-  let sharedSaveEnabled = false;
-  let sharedLibraryLoaded = false;
-  let sharedSaveTimer = null;
-  let lastSharedPayload = "";
+  let apiEnabled = false;
+  let apiSaveTimer = null;
+  let lastSavedCharacter = null;
   let saveStatus = "Local";
   let talentSearch = "";
   let selectedTalentGroups = new Set();
   let selectedTalentCategories = new Set();
+  let flawSearch = "";
+  let selectedFlawTypes = new Set();
+  let talentTabMode = "talents";
   let packageSearch = "";
   let selectedPackageGroups = new Set();
   let skillSearch = "";
@@ -129,11 +226,25 @@
   let professionModal = null;
   let professionInspector = null;
 
-  let library = loadLibrary();
-  let activeUserId = library.selectedUserId;
-  let activeCharacterId = charactersFor(activeUserId).some((item) => item.id === library.selectedCharacterId) ? library.selectedCharacterId : "";
-  let currentView = activeUserId && activeCharacterId ? "editor" : activeUserId ? "characters" : "users";
+  let library = makeEmptyLibrary();
+  let activeUserId = "";
+  let activeCharacterId = "";
+  let currentView = "users";
   let character = activeCharacter() ?? blankCharacter();
+  let dmLoginPassword = "";
+  let dmLoginError = "";
+  let encyclopediaReveals = { version: 1, revealed: {} };
+
+  // DM Atlas navigation + editing
+  let atlasMapId = "world";
+  let atlasEntryId = "";
+  let atlasSearch = "";
+  let atlasEditMode = false;
+  let atlasPlacingId = "";
+  let atlasMarkers = { version: 1, markers: {} };
+  let atlasMapEl = null;
+  let draggingMarker = null;
+  let atlasLightbox = null;
 
   $: selectedUser = players.find((player) => player.id === activeUserId);
   $: activeCharacters = charactersFor(activeUserId);
@@ -144,19 +255,25 @@
   $: availableSpellLists = spellOptionsForProfession(selectedProfession);
   $: selectedSpellLists = data.spellLists.filter((spellList) => character.spellListIds.includes(spellList.id));
   $: selectedTalents = data.talents.filter((talent) => character.talentIds.includes(talent.id));
+  $: selectedFlaws = (data.flaws ?? []).filter((flaw) => (character.flawIds ?? []).includes(flaw.id));
   $: selectedPackages = data.trainingPackages.filter((trainingPackage) => character.trainingPackageIds.includes(trainingPackage.id));
   $: totalTalentCost = selectedTalents.reduce((sum, talent) => sum + firstNumber(talent.cost), 0);
+  $: totalFlawGain = selectedFlaws.reduce((sum, flaw) => sum + flaw.pointGain, 0);
+  $: effectiveTalentPool = Number(character.talentPool || 0) + totalFlawGain;
   $: totalPackageCost = selectedPackages.reduce((sum, trainingPackage) => sum + packageCost(trainingPackage, selectedProfession), 0);
-  $: remainingTalentPoints = Number(character.talentPool || 0) - totalTalentCost;
+  $: remainingTalentPoints = effectiveTalentPool - totalTalentCost;
   $: remainingTrainingPoints = Number(character.trainingPool || 0) - totalPackageCost;
   $: remainingXp = Math.max(0, Number(character.xp || 0) - Number(character.spentXp || 0));
   $: packageRanks = selectedPackages.flatMap((trainingPackage) => trainingPackage.ranks.filter((rank) => rank.ranks > 0));
-  $: knownSkills = skillOptions();
+  $: knownSkills = skillOptions(data.skills, packageRanks, selectedProfession, selectedCulture);
   $: spellGroups = [...new Set(availableSpellLists.map((spellList) => spellList.group).filter(Boolean))];
   $: talentGroups = [...new Set(data.talents.map((talent) => talent.group).filter(Boolean))];
   $: talentCategories = [...new Set(data.talents.map((talent) => talent.category).filter(Boolean))];
+  $: flawTypes = [...new Set((data.flaws ?? []).map((flaw) => flaw.type).filter(Boolean))];
+  $: filteredFlaws = filterFlaws(data.flaws ?? [], selectedFlawTypes, flawSearch);
   $: trainingPackageGroups = [...new Set(data.trainingPackages.map((trainingPackage) => trainingPackage.group).filter(Boolean))];
   $: skillGroups = [...new Set(knownSkills.map((skill) => skill.category).filter(Boolean))];
+  $: selectedSkillGroups = pruneSelection(selectedSkillGroups, skillGroups);
   $: filteredRaces = filterBy(data.races, raceSearch, ["name", "summary", "source"]);
   $: filteredCultures = filterBy(data.cultures ?? [], cultureSearch, ["name", "summary", "source"]);
   $: filteredProfessions = filterBy(data.professions, professionSearch, ["name", "realm", "secondaryRealm", "summary"]);
@@ -164,9 +281,17 @@
   $: filteredTalents = filterTalents(data.talents, selectedTalentGroups, selectedTalentCategories, talentSearch);
   $: filteredPackages = filterTrainingPackages(data.trainingPackages, selectedPackageGroups, packageSearch);
   $: filteredSkills = filterSkills(knownSkills, selectedSkillGroups, skillSearch, skillSortMode);
+  $: atlasEntries = data.encyclopedia ?? [];
+  $: atlasMaps = data.maps ?? [];
+  $: atlasCurrentMap = atlasMaps.find((map) => map.id === atlasMapId) ?? atlasMaps[0] ?? null;
+  $: atlasEntry = atlasEntries.find((entry) => entry.id === atlasEntryId) ?? null;
+  $: atlasSearchResults = atlasSearch.trim()
+    ? filterEncyclopedia(atlasEntries, atlasSearch, "all").slice(0, 30)
+    : [];
+  $: visiblePlayerEncyclopedia = atlasEntries.filter((entry) => isEntryRevealed(entry));
   $: selectedCustomRules = customRuleTemplates.filter((template) => character.customRuleIds?.includes(template.id));
   $: totalStatPoints = STATS.reduce((sum, stat) => sum + Number(character.statPoints?.[stat.id] ?? 0), 0);
-  $: remainingStatPoints = Number(character.statPool ?? 550) - totalStatPoints;
+  $: remainingStatPoints = Number(character.statPool ?? 700) - totalStatPoints;
   $: totalSpellsSpent = (character.spellListIds ?? []).reduce((sum, listId) => sum + Number(character.spellRanks?.[listId] ?? 0), 0);
   $: remainingSpellPool = Number(character.spellPool ?? 0) - totalSpellsSpent;
   $: inventoryWeight = inventoryTotal("weight");
@@ -194,7 +319,7 @@
     Profession: character.professionId ? "done" : "todo",
     Stats: remainingStatPoints < 0 ? "warn" : totalStatPoints > 0 && remainingStatPoints === 0 ? "done" : totalStatPoints > 0 ? "progress" : "todo",
     Spells: remainingSpellPool < 0 ? "warn" : totalSpellsSpent > 0 ? "done" : selectedSpellLists.length > 0 ? "progress" : "todo",
-    Talents: remainingTalentPoints < 0 ? "warn" : selectedTalents.length > 0 ? "done" : "todo",
+    Talents: remainingTalentPoints < 0 ? "warn" : (selectedTalents.length > 0 || selectedFlaws.length > 0) ? "done" : "todo",
     Training: remainingTrainingPoints < 0 ? "warn" : selectedPackages.length > 0 ? "done" : "todo",
     Skills: skillsOverspent ? "warn" : Number(character.spentXp || 0) > 0 ? "done" : "todo",
     "Custom Rules": (character.customRuleIds?.length ?? 0) > 0 ? "done" : "todo",
@@ -209,12 +334,17 @@
   };
   $: if (selectedCustomRules.length > 0 && !selectedCustomRules.find(rule => rule.id === activeCustomRuleId)) activeCustomRuleId = selectedCustomRules[0].id;
   $: syncOpenCharacter(character);
-  $: browserSaveLibrary(library);
-  $: queueSharedSave(library);
+  $: if (apiEnabled && activeCharacterId) queueApiSave(character);
 
   onMount(() => {
-    loadSharedLibrary();
+    loadUsersFromApi();
+    loadEncyclopediaReveals();
+    loadResourcesForTab(activeTab);
   });
+
+  $: loadResourcesForTab(activeTab);
+  $: if (["Spells", "Summary"].includes(activeTab)) loadSpellLists(character.professionId);
+  $: if (character.professionId) loadSpellLists(character.professionId);
 
   function makeEmptyLibrary() {
     return {
@@ -243,52 +373,9 @@
       skillRanks: normalized.skillRanks && typeof normalized.skillRanks === "object" ? normalized.skillRanks : {},
       spellRanks: normalized.spellRanks && typeof normalized.spellRanks === "object" ? normalized.spellRanks : {},
       directedSpells: normalized.directedSpells && typeof normalized.directedSpells === "object" ? normalized.directedSpells : {},
-      inventory: Array.isArray(normalized.inventory) ? normalized.inventory : []
+      inventory: Array.isArray(normalized.inventory) ? normalized.inventory : [],
+      flawIds: Array.isArray(normalized.flawIds) ? normalized.flawIds : []
     };
-  }
-
-  function normalizeLibrary(value) {
-    const base = makeEmptyLibrary();
-    const users = { ...base.users };
-    for (const player of players) {
-      const existing = value?.users?.[player.id];
-      users[player.id] = {
-        ...player,
-        characters: (existing?.characters ?? []).map((item) => normalizeCharacter(item, player.id))
-      };
-    }
-
-    return {
-      ...base,
-      ...value,
-      users,
-      selectedUserId: players.some((player) => player.id === value?.selectedUserId) ? value.selectedUserId : "",
-      selectedCharacterId: value?.selectedCharacterId ?? ""
-    };
-  }
-
-  function loadLibrary() {
-    try {
-      const stored = localStorage.getItem(libraryStorageKey);
-      if (stored) return normalizeLibrary(JSON.parse(stored));
-
-      const legacy = localStorage.getItem(legacyStorageKey);
-      if (legacy) {
-        const migrated = normalizeCharacter(JSON.parse(legacy), "chris");
-        migrated.name = migrated.name || "Imported Character";
-        const next = makeEmptyLibrary();
-        next.users.chris.characters = [migrated];
-        return next;
-      }
-
-      return makeEmptyLibrary();
-    } catch {
-      return makeEmptyLibrary();
-    }
-  }
-
-  function browserSaveLibrary(value) {
-    localStorage.setItem(libraryStorageKey, JSON.stringify(value));
   }
 
   function creationBudget(value, fallback) {
@@ -296,57 +383,359 @@
     return Number.isFinite(number) && number > 0 ? number : fallback;
   }
 
-  function sharedLibraryPayload(value) {
-    return {
-      version: value.version ?? 1,
-      users: value.users ?? makeEmptyLibrary().users
-    };
+  // ── API section map ────────────────────────────────────────────────────────
+
+  const SECTION_MAP = {
+    core:             { url: (id) => `/api/characters/${id}`,                  body: (c) => ({ name: c.name, raceId: c.raceId, cultureId: c.cultureId, professionId: c.professionId }) },
+    stats:            { url: (id) => `/api/characters/${id}/stats`,            body: (c) => ({ statPool: c.statPool, statPoints: c.statPoints }) },
+    skills:           { url: (id) => `/api/characters/${id}/skills`,           body: (c) => ({ skillRanks: c.skillRanks, skillTiers: c.skillTiers, xp: c.xp, spentXp: c.spentXp }) },
+    spells:           { url: (id) => `/api/characters/${id}/spells`,           body: (c) => ({ spellListIds: c.spellListIds, spellRanks: c.spellRanks, spellPool: c.spellPool }) },
+    talents:          { url: (id) => `/api/characters/${id}/talents`,          body: (c) => ({ talentIds: c.talentIds, talentPool: c.talentPool }) },
+    flaws:            { url: (id) => `/api/characters/${id}/flaws`,            body: (c) => ({ flawIds: c.flawIds }) },
+    training:         { url: (id) => `/api/characters/${id}/training`,         body: (c) => ({ trainingPackageIds: c.trainingPackageIds, trainingPool: c.trainingPool }) },
+    "directed-spells":{ url: (id) => `/api/characters/${id}/directed-spells`, body: (c) => ({ directedSpells: c.directedSpells }) },
+    pp:               { url: (id) => `/api/characters/${id}/pp`,               body: (c) => ({ ppRanks: c.ppRanks }) },
+    hp:               { url: (id) => `/api/characters/${id}/hp`,               body: (c) => ({ currentHp: c.currentHp }) },
+    "custom-rules":   { url: (id) => `/api/characters/${id}/custom-rules`,     body: (c) => ({ customRuleIds: c.customRuleIds, customRules: c.customRules }) },
+    languages:        { url: (id) => `/api/characters/${id}/languages`,  method: "PUT", body: (c) => c.languages ?? [] },
+    inventory:        { url: (id) => `/api/characters/${id}/inventory`,  method: "PUT", body: (c) => c.inventory ?? [] },
+  };
+
+  function detectChangedSections(prev, next) {
+    if (!prev) return Object.keys(SECTION_MAP);
+    const s = JSON.stringify;
+    const changed = [];
+    if (prev.name !== next.name || prev.raceId !== next.raceId || prev.cultureId !== next.cultureId || prev.professionId !== next.professionId) changed.push("core");
+    if (prev.statPool !== next.statPool || s(prev.statPoints) !== s(next.statPoints)) changed.push("stats");
+    if (prev.xp !== next.xp || prev.spentXp !== next.spentXp || s(prev.skillRanks) !== s(next.skillRanks) || s(prev.skillTiers) !== s(next.skillTiers)) changed.push("skills");
+    if (s(prev.spellListIds) !== s(next.spellListIds) || s(prev.spellRanks) !== s(next.spellRanks) || prev.spellPool !== next.spellPool) changed.push("spells");
+    if (s(prev.talentIds) !== s(next.talentIds) || prev.talentPool !== next.talentPool) changed.push("talents");
+    if (s(prev.flawIds) !== s(next.flawIds)) changed.push("flaws");
+    if (s(prev.trainingPackageIds) !== s(next.trainingPackageIds) || prev.trainingPool !== next.trainingPool) changed.push("training");
+    if (s(prev.directedSpells) !== s(next.directedSpells)) changed.push("directed-spells");
+    if (s(prev.ppRanks) !== s(next.ppRanks)) changed.push("pp");
+    if (prev.currentHp !== next.currentHp) changed.push("hp");
+    if (s(prev.customRuleIds) !== s(next.customRuleIds) || prev.customRules !== next.customRules) changed.push("custom-rules");
+    if (s(prev.languages) !== s(next.languages)) changed.push("languages");
+    if (s(prev.inventory) !== s(next.inventory)) changed.push("inventory");
+    return changed;
   }
 
-  async function loadSharedLibrary() {
+  function queueApiSave(char) {
+    clearTimeout(apiSaveTimer);
+    apiSaveTimer = setTimeout(() => doApiSave(char, activeCharacterId), 600);
+  }
+
+  async function doApiSave(char, charId) {
+    const sections = detectChangedSections(lastSavedCharacter, char);
+    if (!sections.length || !charId) return;
+    const results = await Promise.allSettled(
+      sections.map(section => {
+        const { url, method = "PATCH", body } = SECTION_MAP[section];
+        return fetch(url(charId), { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body(char)) })
+          .then(r => { if (!r.ok) throw new Error(section); });
+      })
+    );
+    if (results.every(r => r.status === "fulfilled")) {
+      lastSavedCharacter = char;
+      saveStatus = "Shared";
+    } else {
+      saveStatus = "Local";
+    }
+  }
+
+  async function loadUsersFromApi() {
     try {
-      const response = await fetch("/api/library", { cache: "no-store" });
-      if (!response.ok) throw new Error("Shared library unavailable");
-      const shared = await response.json();
-      const selectedUserId = activeUserId;
-      const selectedCharacterId = activeCharacterId;
-      library = normalizeLibrary({ ...shared, selectedUserId, selectedCharacterId });
-      activeUserId = players.some((player) => player.id === selectedUserId) ? selectedUserId : "";
-      activeCharacterId = charactersFor(activeUserId).some((item) => item.id === selectedCharacterId) ? selectedCharacterId : "";
-      currentView = activeUserId && activeCharacterId ? "editor" : activeUserId ? "characters" : "users";
+      const res = await fetch("/api/users", { cache: "no-store" });
+      if (!res.ok) throw new Error("API unavailable");
+      const apiUsers = await res.json();
+
+      const newUsers = {};
+      for (const apiUser of apiUsers) {
+        newUsers[apiUser.id] = {
+          id: apiUser.id,
+          name: apiUser.name,
+          characters: (apiUser.characters ?? []).map(c => normalizeCharacter(c, apiUser.id))
+        };
+      }
+      for (const player of players) {
+        if (!newUsers[player.id]) newUsers[player.id] = { ...player, characters: [] };
+      }
+
+      library = { ...makeEmptyLibrary(), users: newUsers };
+      apiEnabled = true;
+      saveStatus = "Shared";
+    } catch {
+      apiEnabled = false;
+      saveStatus = "Local";
+    }
+  }
+
+  async function loadCharacterFromApi(charId) {
+    try {
+      const res = await fetch(`/api/characters/${charId}`, { cache: "no-store" });
+      if (!res.ok) throw new Error();
+      const apiChar = await res.json();
+      character = normalizeCharacter(apiChar, activeUserId);
+      lastSavedCharacter = character;
+      syncOpenCharacter(character);
+    } catch {
       character = activeCharacter() ?? blankCharacter();
-      lastSharedPayload = JSON.stringify(sharedLibraryPayload(library));
-      sharedSaveEnabled = true;
-      sharedLibraryLoaded = true;
-      saveStatus = "Shared";
-    } catch {
-      sharedSaveEnabled = false;
-      sharedLibraryLoaded = false;
-      saveStatus = "Local";
+      lastSavedCharacter = character;
     }
   }
 
-  function queueSharedSave(value) {
-    if (!sharedSaveEnabled || !sharedLibraryLoaded) return;
-    const payload = JSON.stringify(sharedLibraryPayload(value));
-    if (payload === lastSharedPayload) return;
-    clearTimeout(sharedSaveTimer);
-    sharedSaveTimer = setTimeout(() => saveSharedLibrary(payload), 600);
-  }
-
-  async function saveSharedLibrary(payload) {
+  async function loadEncyclopediaReveals() {
     try {
-      const response = await fetch("/api/library", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: payload
-      });
-      if (!response.ok) throw new Error("Shared save failed");
-      lastSharedPayload = payload;
-      saveStatus = "Shared";
+      const res = await fetch("/api/encyclopedia/reveals", { cache: "no-store" });
+      if (!res.ok) throw new Error();
+      encyclopediaReveals = await res.json();
     } catch {
-      saveStatus = "Local";
+      encyclopediaReveals = { version: 1, revealed: {} };
     }
+  }
+
+  async function loadAtlasMarkers() {
+    try {
+      const res = await fetch("/api/atlas/markers", { cache: "no-store" });
+      if (!res.ok) throw new Error();
+      atlasMarkers = await res.json();
+    } catch {
+      atlasMarkers = { version: 1, markers: {} };
+    }
+  }
+
+  function openDmLogin() {
+    dmLoginPassword = "";
+    dmLoginError = "";
+    currentView = "dm-login";
+  }
+
+  function submitDmLogin() {
+    if (dmLoginPassword !== "dm") {
+      dmLoginError = "Incorrect DM password.";
+      return;
+    }
+    dmLoginError = "";
+    loadResource("encyclopedia", true);
+    loadResource("maps", true);
+    loadEncyclopediaReveals();
+    loadAtlasMarkers();
+    atlasMapId = "world";
+    atlasEntryId = "";
+    atlasEditMode = false;
+    currentView = "dm-atlas";
+  }
+
+  function backFromDm() {
+    currentView = "users";
+    dmLoginPassword = "";
+    dmLoginError = "";
+  }
+
+  // ── Atlas navigation ──────────────────────────────────────────────────────
+  function atlasGotoMap(mapId) {
+    atlasMapId = mapId;
+    atlasEntryId = "";
+    atlasPlacingId = "";
+  }
+
+  function atlasOpenEntry(entryId) {
+    atlasEntryId = entryId;
+  }
+
+  function atlasMapForCity(cityName) {
+    return atlasMaps.find((map) => map.scope === "city" && map.city === cityName) ?? null;
+  }
+
+  // Clicking a marker: drill into a city's map if one exists, otherwise open the entry.
+  function atlasFollowEntry(entry) {
+    const subMap = atlasMapForCity(entry.name);
+    if (subMap) atlasGotoMap(subMap.id);
+    else atlasOpenEntry(entry.id);
+  }
+
+  function atlasGotoSearchResult(entry) {
+    const cityMap = entry.city ? atlasMapForCity(entry.city) : null;
+    atlasMapId = cityMap ? cityMap.id : "world";
+    atlasEntryId = entry.id;
+    atlasSearch = "";
+  }
+
+  $: atlasEntryRelated = atlasEntry
+    ? (atlasEntry.related ?? [])
+        .map((name) => atlasEntries.find((entry) => entry.name === name))
+        .filter(Boolean)
+    : [];
+  $: atlasEntryMembers = atlasEntry
+    ? atlasEntries.filter((entry) => entry.kind === "npc" && entry.location === atlasEntry.name)
+    : [];
+  $: atlasEntryQuests = atlasEntry
+    ? atlasEntries.filter((entry) => entry.kind === "quest" && entry.location === atlasEntry.name)
+    : [];
+  // The entity an entry belongs to (e.g. an NPC's guild/location), for the breadcrumb.
+  $: atlasEntryParent = atlasEntry?.location
+    ? atlasEntries.find((entry) => entry.name === atlasEntry.location && entry.id !== atlasEntry.id)
+    : null;
+
+  // Sidebar groupings for the current map
+  $: atlasWorldCities = atlasMaps
+    .filter((map) => map.scope === "city")
+    .map((map) => ({ map, entry: atlasEntries.find((entry) => entry.name === map.city && entry.kind === "location") }));
+  $: atlasWorldLocations = atlasEntries
+    .filter((entry) => entry.kind === "location" && !entry.city)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  $: atlasCityEntries = atlasCurrentMap?.city
+    ? atlasEntries.filter((entry) => entry.city === atlasCurrentMap.city)
+    : [];
+  $: atlasCityLocations = atlasCityEntries
+    .filter((entry) => entry.kind === "location")
+    .sort((a, b) => a.name.localeCompare(b.name));
+  $: atlasCityGuildEntries = atlasCityEntries
+    .filter((entry) => entry.kind === "guild")
+    .sort((a, b) => a.name.localeCompare(b.name));
+  // Guild members live on the guild page; group only the NPCs no guild page covers.
+  $: atlasGuildNames = new Set(atlasEntries.filter((entry) => entry.kind === "guild").map((entry) => entry.name));
+  $: atlasCityOtherNpcs = groupBy(
+    atlasCityEntries.filter((entry) => entry.kind === "npc" && !atlasGuildNames.has(entry.location)),
+    (entry) => entry.location || "Unaffiliated"
+  );
+
+  function groupBy(items, keyOf) {
+    const map = new Map();
+    for (const item of items) {
+      const key = keyOf(item);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(item);
+    }
+    return [...map.entries()].map(([key, value]) => ({ key, items: value })).sort((a, b) => a.key.localeCompare(b.key));
+  }
+
+  // ── Reveals (party-wide) ──────────────────────────────────────────────────
+  function isEntryRevealed(entry) {
+    return !!encyclopediaReveals.revealed?.[entry.id];
+  }
+
+  async function toggleEntryRevealed(entry, checked) {
+    const revealed = { ...(encyclopediaReveals.revealed ?? {}) };
+    if (checked) revealed[entry.id] = true;
+    else delete revealed[entry.id];
+    encyclopediaReveals = { version: 1, revealed };
+
+    try {
+      const res = await fetch("/api/encyclopedia/reveals", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ entryId: entry.id, revealed: checked })
+      });
+      if (res.ok) encyclopediaReveals = await res.json();
+    } catch {}
+  }
+
+  // ── Marker editing ────────────────────────────────────────────────────────
+  function atlasKindLabel(kind) {
+    return kind === "npc" ? "NPC" : kind === "guild" ? "Guild" : kind === "quest" ? "Quest" : "Place";
+  }
+
+  // Turn a section's plain text into paragraph + bullet-list blocks for tidy rendering.
+  function atlasBlocks(text) {
+    const blocks = [];
+    let para = [];
+    let list = [];
+    const flushPara = () => { if (para.length) { blocks.push({ type: "p", text: para.join(" ") }); para = []; } };
+    const flushList = () => { if (list.length) { blocks.push({ type: "ul", items: list }); list = []; } };
+    for (const raw of (text ?? "").split(/\n/)) {
+      const line = raw.trim();
+      if (!line) { flushPara(); flushList(); continue; }
+      const bullet = line.match(/^[-*]\s+(.*)$/);
+      if (bullet) { flushPara(); list.push(bullet[1]); }
+      else { flushList(); para.push(line); }
+    }
+    flushPara();
+    flushList();
+    return blocks;
+  }
+
+  function atlasMapMarkers(mapId) {
+    return atlasMarkers.markers?.[mapId] ?? [];
+  }
+
+  $: atlasMarkersHere = (atlasMarkers.markers?.[atlasMapId] ?? [])
+    .map((marker) => ({ ...marker, entry: atlasEntries.find((entry) => entry.id === marker.entryId) }))
+    .filter((marker) => marker.entry);
+
+  // Entries available to place on the current map that aren't pinned yet.
+  $: atlasPlaceableEntries = (() => {
+    if (!atlasCurrentMap) return [];
+    const pinned = new Set(atlasMapMarkers(atlasMapId).map((m) => m.entryId));
+    const pool = atlasCurrentMap.scope === "world"
+      ? atlasEntries.filter((entry) => entry.kind === "location" && (!entry.city || entry.name === entry.city))
+      : atlasEntries.filter((entry) => entry.city === atlasCurrentMap.city && entry.kind !== "quest");
+    return pool.filter((entry) => !pinned.has(entry.id)).sort((a, b) => a.name.localeCompare(b.name));
+  })();
+
+  async function saveMapMarkers(mapId) {
+    const list = atlasMarkers.markers?.[mapId] ?? [];
+    try {
+      const res = await fetch(`/api/atlas/markers/${encodeURIComponent(mapId)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(list)
+      });
+      if (res.ok) atlasMarkers = await res.json();
+    } catch {}
+  }
+
+  function setMapMarkers(mapId, list) {
+    atlasMarkers = { version: 1, markers: { ...(atlasMarkers.markers ?? {}), [mapId]: list } };
+  }
+
+  function relativeMapPoint(event) {
+    const rect = atlasMapEl.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    return { x: Math.min(100, Math.max(0, x)), y: Math.min(100, Math.max(0, y)) };
+  }
+
+  function onMapClick(event) {
+    if (!atlasEditMode || !atlasPlacingId || draggingMarker) return;
+    const point = relativeMapPoint(event);
+    const list = [...atlasMapMarkers(atlasMapId), { entryId: atlasPlacingId, x: point.x, y: point.y }];
+    setMapMarkers(atlasMapId, list);
+    atlasPlacingId = "";
+    saveMapMarkers(atlasMapId);
+  }
+
+  function removeMarker(entryId) {
+    setMapMarkers(atlasMapId, atlasMapMarkers(atlasMapId).filter((m) => m.entryId !== entryId));
+    saveMapMarkers(atlasMapId);
+  }
+
+  function startMarkerDrag(event, entryId) {
+    if (!atlasEditMode) return;
+    event.stopPropagation();
+    draggingMarker = entryId;
+  }
+
+  function onMapPointerMove(event) {
+    if (!draggingMarker) return;
+    const point = relativeMapPoint(event);
+    setMapMarkers(
+      atlasMapId,
+      atlasMapMarkers(atlasMapId).map((m) => (m.entryId === draggingMarker ? { ...m, x: point.x, y: point.y } : m))
+    );
+  }
+
+  function endMarkerDrag() {
+    if (!draggingMarker) return;
+    const mapId = atlasMapId;
+    draggingMarker = null;
+    saveMapMarkers(mapId);
+  }
+
+  function onMarkerActivate(entry) {
+    if (atlasEditMode) return;
+    atlasFollowEntry(entry);
   }
 
   function createId(prefix) {
@@ -386,14 +775,18 @@
   function openCharacter(characterId) {
     activeCharacterId = characterId;
     character = activeCharacter() ?? blankCharacter();
+    lastSavedCharacter = null;
     activeTab = "Race";
+    resetSkillFilters();
     currentView = "editor";
     library = { ...library, selectedUserId: activeUserId, selectedCharacterId: characterId };
+    if (apiEnabled) loadCharacterFromApi(characterId);
   }
 
-  function createCharacter() {
+  async function createCharacter() {
     const now = new Date().toISOString();
-    const nextCharacter = normalizeCharacter({ id: createId("char"), ownerId: activeUserId, createdAt: now, updatedAt: now }, activeUserId);
+    const newId = createId("char");
+    const nextCharacter = normalizeCharacter({ id: newId, ownerId: activeUserId, createdAt: now, updatedAt: now }, activeUserId);
     const user = library.users[activeUserId];
     library = {
       ...library,
@@ -401,24 +794,33 @@
       selectedCharacterId: nextCharacter.id,
       users: {
         ...library.users,
-        [activeUserId]: {
-          ...user,
-          characters: [...user.characters, nextCharacter]
-        }
+        [activeUserId]: { ...user, characters: [...user.characters, nextCharacter] }
       }
     };
     activeCharacterId = nextCharacter.id;
     character = nextCharacter;
+    lastSavedCharacter = null;
     activeTab = "Race";
+    resetSkillFilters();
     currentView = "editor";
+    if (apiEnabled) {
+      try {
+        await fetch(`/api/users/${activeUserId}/characters`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: newId, name: "" })
+        });
+      } catch {}
+    }
   }
 
-  function duplicateCharacter(characterId) {
+  async function duplicateCharacter(characterId) {
     const source = charactersFor(activeUserId).find((item) => item.id === characterId);
     if (!source) return;
     const now = new Date().toISOString();
+    const newId = createId("char");
     const copy = normalizeCharacter(
-      { ...source, id: createId("char"), name: `${source.name || "Unnamed"} Copy`, ownerId: activeUserId, createdAt: now, updatedAt: now },
+      { ...source, id: newId, name: `${source.name || "Unnamed"} Copy`, ownerId: activeUserId, createdAt: now, updatedAt: now },
       activeUserId
     );
     const user = library.users[activeUserId];
@@ -429,9 +831,19 @@
         [activeUserId]: { ...user, characters: [...user.characters, copy] }
       }
     };
+    if (apiEnabled) {
+      try {
+        await fetch(`/api/users/${activeUserId}/characters`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: newId, name: copy.name })
+        });
+        await doApiSave(copy, newId);
+      } catch {}
+    }
   }
 
-  function deleteCharacter(characterId) {
+  async function deleteCharacter(characterId) {
     const source = charactersFor(activeUserId).find((item) => item.id === characterId);
     const label = source?.name || "this character";
     if (!confirm(`Delete ${label}?`)) return;
@@ -444,6 +856,9 @@
         [activeUserId]: { ...user, characters: user.characters.filter((item) => item.id !== characterId) }
       }
     };
+    if (apiEnabled) {
+      try { await fetch(`/api/characters/${characterId}`, { method: "DELETE" }); } catch {}
+    }
     if (activeCharacterId === characterId) backToCharacters();
   }
 
@@ -495,6 +910,11 @@
     return items.filter((item) => fields.some((field) => String(item[field] ?? "").toLowerCase().includes(needle)));
   }
 
+  function filterEncyclopedia(items, query, kind) {
+    const filteredKind = kind === "all" ? items : items.filter((entry) => entry.kind === kind);
+    return filterBy(filteredKind, query, ["name", "summary", "city", "district", "role", "path"]);
+  }
+
   function filterTrainingPackages(items, selectedGroups, query) {
     const grouped = selectedGroups.size === 0 ? items : items.filter((trainingPackage) => selectedGroups.has(trainingPackage.group));
     return filterBy(grouped, query, ["name", "type", "group", "summary", "tags"]);
@@ -508,6 +928,23 @@
       }
       return a.name.localeCompare(b.name);
     });
+  }
+
+  function pruneSelection(selection, allowedValues) {
+    if (selection.size === 0) return selection;
+    const allowed = new Set(allowedValues);
+    const next = [...selection].filter((value) => allowed.has(value));
+    if (next.length === selection.size) return selection;
+    return new Set(next);
+  }
+
+  function clearSkillFilters() {
+    skillSearch = "";
+    selectedSkillGroups = new Set();
+  }
+
+  function resetSkillFilters() {
+    clearSkillFilters();
   }
 
   function toggleSkillGroup(group) {
@@ -555,6 +992,21 @@
     const grouped = selectedGroups.size === 0 ? items : items.filter((talent) => selectedGroups.has(talent.group));
     const categorized = selectedCategories.size === 0 ? grouped : grouped.filter((talent) => selectedCategories.has(talent.category));
     return filterBy(categorized, query, ["name", "category", "group", "tags", "rulesSummary"]);
+  }
+
+  function filterFlaws(items, selectedTypes, query) {
+    const byType = selectedTypes.size === 0 ? items : items.filter((flaw) => selectedTypes.has(flaw.type));
+    return filterBy(byType, query, ["name", "type"]);
+  }
+
+  function toggleFlaw(id) {
+    character = { ...character, flawIds: toggle(character.flawIds ?? [], id) };
+  }
+
+  function toggleFlawType(type) {
+    const next = new Set(selectedFlawTypes);
+    next.has(type) ? next.delete(type) : next.add(type);
+    selectedFlawTypes = next;
   }
 
   function toggleTalentCategory(category) {
@@ -716,14 +1168,14 @@
     return trainingPackage.costs[profession.name] ?? 0;
   }
 
-  function skillOptions() {
-    const packageSkillNames = packageRanks.map((rank) => ({ name: rank.name, category: "Training package" }));
-    const everyman = selectedProfession?.everymanSkills.map((name) => ({ name, category: "Everyman" })) ?? [];
-    const adolescent = adolescentDirectRanks().map((rank) => {
-      const existing = data.skills.find((skill) => skill.name === rank.skillName);
+  function skillOptions(catalogSkills, ranks, profession, culture) {
+    const packageSkillNames = ranks.map((rank) => ({ name: rank.name, category: "Training package" }));
+    const everyman = profession?.everymanSkills?.map((name) => ({ name, category: "Everyman" })) ?? [];
+    const adolescent = cultureDirectRanks(culture).map((rank) => {
+      const existing = catalogSkills.find((skill) => skill.name === rank.skillName);
       return existing ?? { name: rank.skillName, category: "Adolescence" };
     });
-    const merged = [...data.skills, ...packageSkillNames, ...everyman, ...adolescent].filter((skill) => skill.name);
+    const merged = [...catalogSkills, ...packageSkillNames, ...everyman, ...adolescent].filter((skill) => skill.name);
     const seen = new Map();
     for (const skill of merged) {
       if (!seen.has(skill.name)) seen.set(skill.name, skill);
@@ -885,7 +1337,16 @@
     const count = Number(character.spellRanks?.[spellList.id] ?? 0);
     return spellList.spells
       .filter((spell) => spell.name && spell.name !== "No spell listed")
-      .slice(0, count);
+      .filter((spell) => spellRankLevel(spell) <= count);
+  }
+
+  function spellRankLevel(spell) {
+    const level = Number(spell?.level ?? 0);
+    return Number.isFinite(level) ? level : 0;
+  }
+
+  function spellListMaxLevel(spellList) {
+    return Math.max(0, ...((spellList?.spells ?? []).map(spellRankLevel)));
   }
 
   function spellListNames(group) {
@@ -1183,8 +1644,11 @@
 
   function resetCharacter() {
     character = { ...blankCharacter(), id: activeCharacterId, ownerId: activeUserId, createdAt: character.createdAt, updatedAt: new Date().toISOString() };
+    lastSavedCharacter = null;
   }
 </script>
+
+<svelte:window on:keydown={(event) => { if (event.key === "Escape" && atlasLightbox) atlasLightbox = null; }} />
 
 {#if currentView === "users"}
   <main class="portal-shell">
@@ -1193,6 +1657,7 @@
         <p>Aethergate</p>
         <h1>Choose Player</h1>
       </div>
+      <button class="primary-action" on:click={openDmLogin}>DM Login</button>
     </section>
 
     <section class="user-grid" aria-label="Players">
@@ -1207,6 +1672,309 @@
         </button>
       {/each}
     </section>
+  </main>
+{:else if currentView === "dm-login"}
+  <main class="portal-shell">
+    <section class="portal-head">
+      <button class="back-link" on:click={backFromDm}>Back</button>
+      <div>
+        <p>Aethergate</p>
+        <h1>DM Login</h1>
+      </div>
+    </section>
+
+    <form class="dm-login-card" on:submit|preventDefault={submitDmLogin}>
+      <p class="dm-login-hint">DM-only area. Players don't appear here.</p>
+      <label>
+        <span>Password</span>
+        <input type="password" bind:value={dmLoginPassword} autocomplete="current-password" />
+      </label>
+      {#if dmLoginError}
+        <p class="login-error">{dmLoginError}</p>
+      {/if}
+      <button class="primary-action" type="submit">Open DM Atlas</button>
+    </form>
+  </main>
+{:else if currentView === "dm-atlas"}
+  <main class="portal-shell atlas-shell">
+    <section class="portal-head atlas-head">
+      <button class="back-link" on:click={backFromDm}>Exit</button>
+      <nav class="atlas-breadcrumb" aria-label="Atlas location">
+        <button class:active={atlasMapId === "world" && !atlasEntry} on:click={() => atlasGotoMap("world")}>Mana World</button>
+        {#if atlasCurrentMap && atlasCurrentMap.scope === "city"}
+          <span class="crumb-sep">▸</span>
+          <button class:active={!atlasEntry} on:click={() => atlasGotoMap(atlasCurrentMap.id)}>{atlasCurrentMap.name}</button>
+        {/if}
+        {#if atlasEntry}
+          {#if atlasEntryParent}
+            <span class="crumb-sep">▸</span>
+            <button on:click={() => atlasOpenEntry(atlasEntryParent.id)}>{atlasEntryParent.name}</button>
+          {/if}
+          <span class="crumb-sep">▸</span>
+          <button class="active">{atlasEntry.name}</button>
+        {/if}
+      </nav>
+      <div class="atlas-head-tools">
+        <div class="atlas-search">
+          <input type="search" bind:value={atlasSearch} placeholder="Find any place or NPC…" />
+          {#if atlasSearchResults.length > 0}
+            <ul class="atlas-search-results">
+              {#each atlasSearchResults as entry}
+                <li>
+                  <button on:click={() => atlasGotoSearchResult(entry)}>
+                    <span class="atlas-pill {entry.kind}">{atlasKindLabel(entry.kind)}</span>
+                    {entry.name}
+                    {#if entry.city}<small>· {entry.city}</small>{/if}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
+        <label class="atlas-edit-toggle">
+          <input type="checkbox" bind:checked={atlasEditMode} />
+          <span>Edit markers</span>
+        </label>
+      </div>
+    </section>
+
+    {#if atlasEntry}
+      <!-- ── Entry detail ──────────────────────────────────────────────── -->
+      <section class="atlas-entry">
+        <header class="atlas-entry-head">
+          <div class="atlas-entry-id">
+            {#if atlasEntry.portrait}
+              <button class="atlas-zoom" on:click={() => (atlasLightbox = atlasEntry.portrait)} title="Enlarge">
+                <img class="atlas-entry-portrait" src={atlasEntry.portrait} alt={atlasEntry.name} />
+              </button>
+            {/if}
+            <div class="atlas-entry-headings">
+              <span class="atlas-pill {atlasEntry.kind}">{atlasKindLabel(atlasEntry.kind)}</span>
+              <h1>{atlasEntry.name}</h1>
+              {#if [atlasEntry.role, atlasEntry.rank, atlasEntry.ancestry, atlasEntry.location, atlasEntry.district, atlasEntry.city, atlasEntry.status].filter(Boolean).length}
+                <p class="atlas-entry-meta">
+                  {[atlasEntry.role, atlasEntry.rank, atlasEntry.ancestry, atlasEntry.location, atlasEntry.district, atlasEntry.city, atlasEntry.status].filter(Boolean).join(" · ")}
+                </p>
+              {/if}
+              {#if atlasEntry.tags?.length}
+                <div class="atlas-tags">
+                  {#each atlasEntry.tags as tag}<span class="atlas-tag">{tag}</span>{/each}
+                </div>
+              {/if}
+            </div>
+          </div>
+          <label class="atlas-reveal" class:on={isEntryRevealed(atlasEntry)}>
+            <input
+              type="checkbox"
+              checked={isEntryRevealed(atlasEntry)}
+              on:change={(event) => toggleEntryRevealed(atlasEntry, event.target.checked)}
+            />
+            <span>{isEntryRevealed(atlasEntry) ? "Revealed to party" : "Reveal to party"}</span>
+          </label>
+        </header>
+
+        <div class="atlas-entry-cols" class:with-aside={atlasEntryMembers.length}>
+          <div class="atlas-entry-main">
+            {#if atlasEntry.floorMap}
+              <button class="atlas-zoom atlas-floormap-btn" on:click={() => (atlasLightbox = atlasEntry.floorMap)} title="Enlarge floor plan">
+                <img class="atlas-floormap" src={atlasEntry.floorMap} alt={`${atlasEntry.name} floor plan`} />
+                <span class="atlas-zoom-hint">⤢ Enlarge</span>
+              </button>
+            {/if}
+
+            {#each atlasEntry.sections ?? [] as part}
+              <section class="atlas-section">
+                {#if part.heading}<h2>{part.heading}</h2>{/if}
+                {#each atlasBlocks(part.text) as block}
+                  {#if block.type === "ul"}
+                    <ul class="atlas-list">
+                      {#each block.items as item}<li>{item}</li>{/each}
+                    </ul>
+                  {:else}
+                    <p>{block.text}</p>
+                  {/if}
+                {/each}
+              </section>
+            {/each}
+            {#if !(atlasEntry.sections ?? []).length}
+              <p>{atlasEntry.summary}</p>
+            {/if}
+
+            {#if atlasEntryQuests.length}
+              <section class="atlas-section">
+                <h2>Quests &amp; hooks</h2>
+                <ul class="atlas-quest-list">
+                  {#each atlasEntryQuests as quest}
+                    <li>
+                      <button on:click={() => atlasOpenEntry(quest.id)}>
+                        <span class="atlas-quest-title">
+                          {quest.name}
+                          {#if quest.status}<span class="atlas-quest-status">{quest.status}</span>{/if}
+                        </span>
+                        <small>{quest.summary}</small>
+                      </button>
+                    </li>
+                  {/each}
+                </ul>
+              </section>
+            {/if}
+
+            {#if atlasEntryRelated.length}
+              <section class="atlas-section">
+                <h2>Linked notes</h2>
+                <div class="atlas-related">
+                  {#each atlasEntryRelated as related}
+                    <button class="atlas-chip" on:click={() => atlasOpenEntry(related.id)}>
+                      <span class="atlas-pill {related.kind}">{atlasKindLabel(related.kind)}</span>{related.name}
+                    </button>
+                  {/each}
+                </div>
+              </section>
+            {/if}
+          </div>
+
+          {#if atlasEntryMembers.length}
+            <aside class="atlas-entry-aside">
+              <h2>{atlasEntry.kind === "guild" ? "Members" : "People here"}</h2>
+              <ul class="atlas-roster">
+                {#each atlasEntryMembers as member}
+                  <li>
+                    <button class="atlas-roster-row" on:click={() => atlasOpenEntry(member.id)}>
+                      {#if member.portrait}
+                        <img src={member.portrait} alt={member.name} />
+                      {:else}
+                        <span class="atlas-roster-avatar">{member.name.slice(0, 1)}</span>
+                      {/if}
+                      <span class="atlas-roster-text">
+                        <strong>{member.name}</strong>
+                        <small>{member.role || member.rank || member.ancestry || "NPC"}</small>
+                      </span>
+                    </button>
+                  </li>
+                {/each}
+              </ul>
+            </aside>
+          {/if}
+        </div>
+
+        <p class="atlas-entry-path">{atlasEntry.path}</p>
+      </section>
+    {:else if atlasCurrentMap}
+      <!-- ── Map + sidebar ─────────────────────────────────────────────── -->
+      <section class="atlas-stage">
+        <div class="atlas-map-wrap">
+          {#if atlasEditMode}
+            <div class="atlas-edit-bar">
+              {#if atlasPlacingId}
+                <span>Click the map to place <strong>{atlasEntries.find((e) => e.id === atlasPlacingId)?.name}</strong></span>
+                <button on:click={() => (atlasPlacingId = "")}>Cancel</button>
+              {:else}
+                <span>Pick an entry, then click the map to drop a marker. Drag pins to reposition.</span>
+              {/if}
+            </div>
+          {/if}
+          <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+          <div
+            class="atlas-map"
+            class:placing={atlasEditMode && atlasPlacingId}
+            bind:this={atlasMapEl}
+            on:click={onMapClick}
+            on:mousemove={onMapPointerMove}
+            on:mouseup={endMarkerDrag}
+            on:mouseleave={endMarkerDrag}
+          >
+            <img src={atlasCurrentMap.image} alt={`${atlasCurrentMap.name} map`} draggable="false" />
+            {#each atlasMarkersHere as marker (marker.entryId)}
+              {@const hasSubMap = !!atlasMapForCity(marker.entry.name)}
+              <button
+                class="atlas-marker {marker.entry.kind}"
+                class:editing={atlasEditMode}
+                class:revealed={isEntryRevealed(marker.entry)}
+                style={`left:${marker.x}%; top:${marker.y}%;`}
+                title={marker.entry.name}
+                on:mousedown={(event) => startMarkerDrag(event, marker.entryId)}
+                on:click|stopPropagation={() => onMarkerActivate(marker.entry)}
+              >
+                <span class="atlas-marker-dot">{hasSubMap ? "★" : marker.entry.kind === "npc" ? "◍" : "◆"}</span>
+                <span class="atlas-marker-label">{marker.entry.name}</span>
+                {#if atlasEditMode}
+                  <span class="atlas-marker-remove" role="button" tabindex="-1" on:click|stopPropagation={() => removeMarker(marker.entryId)} on:mousedown|stopPropagation>×</span>
+                {/if}
+              </button>
+            {/each}
+          </div>
+        </div>
+
+        <aside class="atlas-sidebar">
+          {#if atlasEditMode}
+            <h2>Place markers</h2>
+            <p class="atlas-side-hint">Entries not yet pinned on this map.</p>
+            <ul class="atlas-place-list">
+              {#each atlasPlaceableEntries as entry}
+                <li>
+                  <button class:selected={atlasPlacingId === entry.id} on:click={() => (atlasPlacingId = entry.id)}>
+                    <span class="atlas-pill {entry.kind}">{atlasKindLabel(entry.kind)}</span>{entry.name}
+                  </button>
+                </li>
+              {/each}
+              {#if atlasPlaceableEntries.length === 0}
+                <li class="atlas-side-empty">Everything here is already pinned.</li>
+              {/if}
+            </ul>
+          {:else if atlasCurrentMap.scope === "world"}
+            <h2>Cities</h2>
+            <ul class="atlas-nav-list">
+              {#each atlasWorldCities as city}
+                <li><button on:click={() => atlasGotoMap(city.map.id)}><span class="atlas-pill city">City</span>{city.map.name}</button></li>
+              {/each}
+            </ul>
+            {#if atlasWorldLocations.length}
+              <h2>Other places</h2>
+              <ul class="atlas-nav-list">
+                {#each atlasWorldLocations as place}
+                  <li><button on:click={() => atlasOpenEntry(place.id)}><span class="atlas-pill location">Place</span>{place.name}</button></li>
+                {/each}
+              </ul>
+            {/if}
+          {:else}
+            {#if atlasCityGuildEntries.length}
+              <h2>Guilds &amp; factions</h2>
+              <ul class="atlas-nav-list">
+                {#each atlasCityGuildEntries as guild}
+                  <li><button on:click={() => atlasOpenEntry(guild.id)}><span class="atlas-pill guild">Guild</span>{guild.name}</button></li>
+                {/each}
+              </ul>
+            {/if}
+            <h2>Places in {atlasCurrentMap.name}</h2>
+            <ul class="atlas-nav-list">
+              {#each atlasCityLocations as place}
+                <li><button on:click={() => atlasOpenEntry(place.id)}><span class="atlas-pill location">Place</span>{place.name}{#if place.district}<small> · {place.district}</small>{/if}</button></li>
+              {/each}
+            </ul>
+            {#each atlasCityOtherNpcs as guild}
+              <h2>{guild.key}</h2>
+              <ul class="atlas-nav-list">
+                {#each guild.items as npc}
+                  <li><button on:click={() => atlasOpenEntry(npc.id)}><span class="atlas-pill npc">NPC</span>{npc.name}{#if npc.role}<small> · {npc.role}</small>{/if}</button></li>
+                {/each}
+              </ul>
+            {/each}
+          {/if}
+        </aside>
+      </section>
+    {:else}
+      <section class="atlas-stage">
+        <p class="atlas-side-hint">No map images found. Run <code>npm run build:data</code> to import them.</p>
+      </section>
+    {/if}
+
+    {#if atlasLightbox}
+      <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+      <div class="atlas-lightbox" on:click={() => (atlasLightbox = null)}>
+        <img src={atlasLightbox} alt="Enlarged view" />
+        <button class="atlas-lightbox-close" on:click={() => (atlasLightbox = null)} aria-label="Close">×</button>
+      </div>
+    {/if}
   </main>
 {:else if currentView === "characters"}
   <main class="portal-shell">
@@ -1600,7 +2368,7 @@
                     class="spell-list-tab"
                     class:active={activeSpellListId === spellList.id}
                     on:click={() => (activeSpellListId = spellList.id)}
-                  >{spellList.name}<span class="spell-tab-count">{character.spellRanks?.[spellList.id] ?? 0}/{spellList.spells.length}</span></button>
+                  >{spellList.name}<span class="spell-tab-count">{character.spellRanks?.[spellList.id] ?? 0}/{spellListMaxLevel(spellList)}</span></button>
                 {/each}
               </div>
             {/if}
@@ -1616,9 +2384,9 @@
                     <button class="rank-btn" on:click={() => refundSpell(spellList.id)} disabled={!(character.spellRanks?.[spellList.id] > 0)}>−</button>
                     <span class="spell-rank-display">
                       <b>{character.spellRanks?.[spellList.id] ?? 0}</b>
-                      <small>/ {spellList.spells.length}</small>
+                      <small>/ {spellListMaxLevel(spellList)}</small>
                     </span>
-                    <button class="rank-btn rank-btn--add" on:click={() => buySpell(spellList.id, spellList.spells.length)} disabled={remainingSpellPool < 1 || (character.spellRanks?.[spellList.id] ?? 0) >= spellList.spells.length}>+</button>
+                    <button class="rank-btn rank-btn--add" on:click={() => buySpell(spellList.id, spellListMaxLevel(spellList))} disabled={remainingSpellPool < 1 || (character.spellRanks?.[spellList.id] ?? 0) >= spellListMaxLevel(spellList)}>+</button>
                   </div>
                   <button class="rank-btn" aria-label={`Remove ${spellList.name}`} on:click={() => toggleSpellList(spellList.id)}>×</button>
                 </header>
@@ -1661,79 +2429,126 @@
       <header class="section-head">
         <div>
           <p>Step 6</p>
-          <h1>Choose Talents</h1>
+          <h1>Talents &amp; Flaws</h1>
         </div>
         <div class="section-actions">
-          <input class="search" bind:value={talentSearch} placeholder="Search talents" />
           <button class="inline-back" on:click={prevTab}>← Back</button>
           <button class="inline-next" on:click={nextTab}>Next →</button>
         </div>
       </header>
 
       <div class="toolbar">
-        <strong>{selectedTalents.length}</strong>
-        <span>selected</span>
-        <strong>{totalTalentCost}</strong>
-        <span>spent</span>
         <label class="toolbar-budget">
-          Talent Points
+          Base Points
           <input type="number" min="0" bind:value={character.talentPool} />
         </label>
+        {#if totalFlawGain > 0}
+          <strong class="gain">+{totalFlawGain}</strong>
+          <span>flaws</span>
+        {/if}
+        <strong>{effectiveTalentPool}</strong>
+        <span>available</span>
+        <strong>{totalTalentCost}</strong>
+        <span>spent</span>
         <strong class:over={remainingTalentPoints < 0}>{remainingTalentPoints}</strong>
         <span>left</span>
       </div>
 
-      <div class="filter-stack">
-        <div class="chip-bar">
-          <span class="chip-label">Groups</span>
-          {#each talentGroups as group}
-            <button class="chip" class:active={selectedTalentGroups.has(group)} on:click={() => toggleTalentGroup(group)}>{group}</button>
-          {/each}
-          {#if selectedTalentGroups.size > 0}
-            <button class="chip chip-clear" on:click={() => (selectedTalentGroups = new Set())}>Clear groups</button>
-          {/if}
-        </div>
-
-        <div class="chip-bar">
-          <span class="chip-label">Categories</span>
-          {#each talentCategories as category}
-            <button class="chip" class:active={selectedTalentCategories.has(category)} on:click={() => toggleTalentCategory(category)}>{category}</button>
-          {/each}
-          {#if selectedTalentCategories.size > 0}
-            <button class="chip chip-clear" on:click={() => (selectedTalentCategories = new Set())}>Clear categories</button>
-          {/if}
-          {#if selectedTalentGroups.size > 0 || selectedTalentCategories.size > 0}
-            <button class="chip chip-clear" on:click={clearTalentFilters}>Clear all</button>
-          {/if}
-          <span class="chip-count"><strong>{filteredTalents.length}</strong> shown</span>
-        </div>
+      <div class="panel-toggle">
+        <button class:active={talentTabMode === "flaws"} on:click={() => (talentTabMode = "flaws")}>
+          Flaws
+          {#if selectedFlaws.length > 0}<span class="panel-toggle-count">+{totalFlawGain} pts</span>{/if}
+        </button>
+        <button class:active={talentTabMode === "talents"} on:click={() => (talentTabMode = "talents")}>
+          Talents
+          {#if selectedTalents.length > 0}<span class="panel-toggle-count">{selectedTalents.length}</span>{/if}
+        </button>
       </div>
 
-      <div class="table-list">
-        {#each filteredTalents as talent}
-          {@const selected = character.talentIds.includes(talent.id)}
-          {@const cost = firstNumber(talent.cost)}
-          <label>
-            <input type="checkbox" checked={selected} disabled={!selected && cost > remainingTalentPoints} on:change={() => toggleTalent(talent.id)} />
-            <span class="talent-main">
-              <strong>{talent.name}</strong>
-              {#if talent.rulesSummary}
-                <small>{talent.rulesSummary}</small>
-              {/if}
-            </span>
-            <span class="talent-meta">
-              <small>{talent.group}</small>
-              <small>{talent.category}</small>
-            </span>
-            <span class="talent-cost">
-              <b>{talent.cost}</b>
-              {#if talent.detailSource}
-                <small>{talent.detailSource.replaceAll("*", "")}</small>
-              {/if}
-            </span>
-          </label>
-        {/each}
-      </div>
+      {#if talentTabMode === "flaws"}
+        <div class="chip-bar">
+          <input class="search" bind:value={flawSearch} placeholder="Search flaws" />
+          {#each flawTypes as type}
+            <button class="chip" class:active={selectedFlawTypes.has(type)} on:click={() => toggleFlawType(type)}>{type}</button>
+          {/each}
+          {#if selectedFlawTypes.size > 0}
+            <button class="chip chip-clear" on:click={() => (selectedFlawTypes = new Set())}>Clear</button>
+          {/if}
+          <span class="chip-count"><strong>{filteredFlaws.length}</strong> shown</span>
+        </div>
+
+        <div class="table-list">
+          {#each filteredFlaws as flaw}
+            {@const selected = (character.flawIds ?? []).includes(flaw.id)}
+            <label class:flaw-selected={selected}>
+              <input type="checkbox" checked={selected} on:change={() => toggleFlaw(flaw.id)} />
+              <span class="talent-main">
+                <strong>{flaw.name}</strong>
+              </span>
+              <span class="talent-meta">
+                <small>{flaw.type}</small>
+              </span>
+              <span class="talent-cost gain">
+                <b>+{flaw.pointGain}</b>
+              </span>
+            </label>
+          {/each}
+        </div>
+      {/if}
+
+      {#if talentTabMode === "talents"}
+        <div class="filter-stack">
+          <div class="chip-bar">
+            <input class="search" bind:value={talentSearch} placeholder="Search talents" />
+            <span class="chip-label">Groups</span>
+            {#each talentGroups as group}
+              <button class="chip" class:active={selectedTalentGroups.has(group)} on:click={() => toggleTalentGroup(group)}>{group}</button>
+            {/each}
+            {#if selectedTalentGroups.size > 0}
+              <button class="chip chip-clear" on:click={() => (selectedTalentGroups = new Set())}>Clear groups</button>
+            {/if}
+          </div>
+          <div class="chip-bar">
+            <span class="chip-label">Categories</span>
+            {#each talentCategories as category}
+              <button class="chip" class:active={selectedTalentCategories.has(category)} on:click={() => toggleTalentCategory(category)}>{category}</button>
+            {/each}
+            {#if selectedTalentCategories.size > 0}
+              <button class="chip chip-clear" on:click={() => (selectedTalentCategories = new Set())}>Clear categories</button>
+            {/if}
+            {#if selectedTalentGroups.size > 0 || selectedTalentCategories.size > 0}
+              <button class="chip chip-clear" on:click={clearTalentFilters}>Clear all</button>
+            {/if}
+            <span class="chip-count"><strong>{filteredTalents.length}</strong> shown</span>
+          </div>
+        </div>
+
+        <div class="table-list">
+          {#each filteredTalents as talent}
+            {@const selected = character.talentIds.includes(talent.id)}
+            {@const cost = firstNumber(talent.cost)}
+            <label>
+              <input type="checkbox" checked={selected} disabled={!selected && cost > remainingTalentPoints} on:change={() => toggleTalent(talent.id)} />
+              <span class="talent-main">
+                <strong>{talent.name}</strong>
+                {#if talent.rulesSummary}
+                  <small>{talent.rulesSummary}</small>
+                {/if}
+              </span>
+              <span class="talent-meta">
+                <small>{talent.group}</small>
+                <small>{talent.category}</small>
+              </span>
+              <span class="talent-cost">
+                <b>{talent.cost}</b>
+                {#if talent.detailSource}
+                  <small>{talent.detailSource.replaceAll("*", "")}</small>
+                {/if}
+              </span>
+            </label>
+          {/each}
+        </div>
+      {/if}
     {/if}
 
     {#if activeTab === "Training"}
@@ -1845,7 +2660,7 @@
           <button class="chip" class:active={selectedSkillGroups.has(group)} on:click={() => toggleSkillGroup(group)}>{group}</button>
         {/each}
         {#if selectedSkillGroups.size > 0}
-          <button class="chip chip-clear" on:click={() => (selectedSkillGroups = new Set())}>Clear</button>
+          <button class="chip chip-clear" on:click={clearSkillFilters}>Clear</button>
         {/if}
         <span class="chip-count"><strong>{filteredSkills.length}</strong> shown</span>
       </div>
@@ -1910,6 +2725,13 @@
         </div>
       </section>
 
+      {#if filteredSkills.length === 0}
+        <div class="empty-state">
+          <h2>No Skills Match</h2>
+          <p>Clear the current search or category filter to show the skill list again.</p>
+          <button class="primary-action" on:click={clearSkillFilters}>Clear filters</button>
+        </div>
+      {:else}
       <div class="skill-table skill-table--skills">
         <div class="skill-row header">
           <span>Skill</span>
@@ -1940,6 +2762,7 @@
           </div>
         {/each}
       </div>
+      {/if}
     {/if}
 
     {#if activeTab === "Custom Rules"}
@@ -2004,6 +2827,19 @@
                 </ul>
               {/if}
 
+              {#if rule.schools?.length}
+                <div class="rule-schools">
+                  {#each rule.schools as school}
+                    <div class="rule-school">
+                      <h3>{school.name}</h3>
+                      <p><b>Vision:</b> {school.vision}</p>
+                      <p><b>Extended use:</b> {school.extended}</p>
+                      <p><b>On failure:</b> {school.failure}</p>
+                    </div>
+                  {/each}
+                </div>
+              {/if}
+
               {#if rule.crystals?.length}
                 <div class="rules-table-wrap">
                   <table class="rules-table">
@@ -2047,47 +2883,29 @@
 
     {#if activeTab === "Summary"}
       <div class="sheet-wrap">
-        <div class="sheet-toolbar">
-          <button class="home-button" aria-label="Back to characters" title="Back to characters" on:click={backToCharacters}>⌂</button>
-          <button class="sheet-back-btn" on:click={() => jumpToTab(lastEditorTab)}>← Back to Editor</button>
-          <span class="save-pill save-pill--{saveStatus.toLowerCase()}" title={saveStatus === "Shared" ? "Saving to the shared library" : "Shared library unreachable — saving to this browser only"}>{saveStatus === "Shared" ? "● Shared" : "▲ Local only"}</span>
-        </div>
         <div class="sheet">
 
           <header class="sheet-header">
-            <div class="sheet-summary-line">
-              <div class="sheet-name-block">
-                <span class="sheet-name-value sheet-name-line">
-                  {character.name || "Unnamed"}
-                  <small>- {selectedRace?.name ?? "Race"} - {selectedCulture?.name ?? "Adolescence"} - {selectedProfession?.name ?? "Profession"}</small>
-                </span>
+            <div class="sheet-header-left">
+              <span class="sheet-name-value">{character.name || "Unnamed"}</span>
+              <span class="sheet-identity-subtitle">{selectedRace?.name ?? "Race"} · {selectedCulture?.name ?? "Adolescence"} · {selectedProfession?.name ?? "Profession"}</span>
+            </div>
+            <div class="sheet-header-right">
+              <div class="sheet-header-nav">
+                <button class="home-button" aria-label="Back to characters" title="Back to characters" on:click={backToCharacters}>⌂</button>
+                <button class="sheet-back-btn" aria-label="Back to editor" title="Back to editor" on:click={() => jumpToTab(lastEditorTab)}>✎</button>
+                <span class="save-pill save-pill--{saveStatus.toLowerCase()}" title={saveStatus === "Shared" ? "Saving to the shared library" : "Shared library unreachable — saving to this browser only"}>{saveStatus === "Shared" ? "● Shared" : "▲ Local only"}</span>
               </div>
-              <div class="sheet-field sheet-field--xp">
-                <div class="xp-level-card xp-level-card--sheet">
-                  <div>
-                    <span>Level {xpLevel}</span>
-                    <strong>{remainingXp} left</strong>
-                  </div>
-                  <div class="xp-meter" aria-label={`${xpProgress} XP toward next level`}>
-                    <span style={`width: ${xpProgressPercent}`}></span>
-                  </div>
-                  <small>{character.spentXp} spent / {character.xp || 0} total - {xpProgress} / 100 progress</small>
-                </div>
-              </div>
-              <label class="sheet-hp-card">
-                <span>Hit Points</span>
+              <div class="xp-level-card xp-level-card--sheet">
                 <div>
-                  <input
-                    type="number"
-                    min="0"
-                    max={maxHitPoints()}
-                    value={currentHitPoints()}
-                    on:input={(e) => setCurrentHitPoints(e.target.value)}
-                  />
-                  <strong>/ {maxHitPoints()}</strong>
+                  <span>Level {xpLevel}</span>
+                  <strong>{remainingXp} XP left</strong>
                 </div>
-                <small>{bodyDevelopmentRanks()} Body Development ranks</small>
-              </label>
+                <div class="xp-meter" aria-label={`${xpProgress} XP toward next level`}>
+                  <span style={`width: ${xpProgressPercent}`}></span>
+                </div>
+                <small>{character.spentXp} spent · {character.xp || 0} total · {xpProgress}/100 to next</small>
+              </div>
             </div>
           </header>
 
@@ -2108,10 +2926,28 @@
             </div>
           </section>
 
-          {#if ppRealms.length > 0}
           <section class="sheet-section">
-            <h2 class="sheet-section-title">Power Points</h2>
+            <h2 class="sheet-section-title">Vitals</h2>
             <div class="sheet-pp-row">
+              <div class="sheet-pp-tile sheet-hp-tile">
+                <span class="sheet-pp-realm">Hit Points</span>
+                <span class="sheet-pp-stat">{bodyDevelopmentRanks()} Body Development ranks</span>
+                <label class="sheet-pp-ranks-label">
+                  <span>Current</span>
+                  <input
+                    class="sheet-pp-input"
+                    type="number"
+                    min="0"
+                    max={maxHitPoints()}
+                    value={currentHitPoints()}
+                    on:input={(e) => setCurrentHitPoints(e.target.value)}
+                  />
+                </label>
+                <div class="sheet-pp-total sheet-hp-total">
+                  <strong class="sheet-pp-number">{currentHitPoints()}</strong>
+                  <small>/ {maxHitPoints()}</small>
+                </div>
+              </div>
               {#each ppRealms as realm}
                 {@const pp = ppForRealm(realm)}
                 {@const prog = selectedRace?.ppProgression?.[realm.toLowerCase()] ?? ""}
@@ -2139,7 +2975,6 @@
               {/each}
             </div>
           </section>
-          {/if}
 
           <section class="sheet-section sheet-section--carousel">
             <div class="summary-panel-tracker" aria-label="Summary panels">
@@ -2217,6 +3052,53 @@
                       {/each}
                     </tbody>
                   </table>
+                {/if}
+              </section>
+
+              <section class="summary-panel">
+                <h2 class="sheet-section-title">Spells</h2>
+                {#if selectedSpellLists.length === 0}
+                  <p class="sheet-empty-hint">No spell lists selected.</p>
+                {:else}
+                  <div class="sheet-spell-lists">
+                    {#each selectedSpellLists as list}
+                      {@const ranks = Number(character.spellRanks?.[list.id] ?? 0)}
+                      {@const known = list.spells.filter(s => Number(s.level) <= ranks)}
+                      {#if known.length > 0}
+                        <div class="sheet-spell-list">
+                          <div class="sheet-spell-list-head">
+                            <strong>{list.name}</strong>
+                            <span class="sheet-spell-realm sheet-spell-realm--{list.realm.toLowerCase()}">{list.realm}</span>
+                            <span class="sheet-spell-ranks">{ranks} rank{ranks === 1 ? "" : "s"} · {known.length} spell{known.length === 1 ? "" : "s"} known</span>
+                          </div>
+                          <table class="sheet-skill-table sheet-spell-table">
+                            <thead>
+                              <tr>
+                                <th>Lvl</th>
+                                <th>Spell</th>
+                                <th>Type</th>
+                                <th>Range</th>
+                                <th>Duration</th>
+                                <th>Area</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {#each known as spell}
+                                <tr>
+                                  <td class="sheet-skill-num">{spell.level}</td>
+                                  <td class="sheet-spell-name">{spell.name}</td>
+                                  <td class="sheet-spell-type">{spell.type}</td>
+                                  <td class="sheet-spell-meta">{spell.range || "—"}</td>
+                                  <td class="sheet-spell-meta">{spell.duration || "—"}</td>
+                                  <td class="sheet-spell-meta">{spell.areaOfEffect || "—"}</td>
+                                </tr>
+                              {/each}
+                            </tbody>
+                          </table>
+                        </div>
+                      {/if}
+                    {/each}
+                  </div>
                 {/if}
               </section>
 
@@ -2327,6 +3209,18 @@
                               <li>{effect}</li>
                             {/each}
                           </ul>
+                        {/if}
+                        {#if rule.schools?.length}
+                          <div class="rule-schools rule-schools--sheet">
+                            {#each rule.schools as school}
+                              <div class="rule-school">
+                                <h4>{school.name}</h4>
+                                <p><b>Vision:</b> {school.vision}</p>
+                                <p><b>Extended:</b> {school.extended}</p>
+                                <p><b>Failure:</b> {school.failure}</p>
+                              </div>
+                            {/each}
+                          </div>
                         {/if}
                         {#if rule.crystals?.length}
                           <div class="rules-table-wrap">
@@ -2468,6 +3362,26 @@
                       {/each}
                     </tbody>
                   </table>
+                {/if}
+              </section>
+
+              <section class="summary-panel">
+                <h2 class="sheet-section-title">Encyclopedia</h2>
+                {#if visiblePlayerEncyclopedia.length === 0}
+                  <p class="sheet-empty-hint">No people or places have been added to this character's encyclopedia yet.</p>
+                {:else}
+                  <div class="player-encyclopedia-grid">
+                    {#each visiblePlayerEncyclopedia as entry}
+                      <article class="player-encyclopedia-card">
+                        <small>{entry.kind === "npc" ? "Met NPC" : "Visited Location"}</small>
+                        <h3>{entry.name}</h3>
+                        <p>{entry.summary}</p>
+                        {#if entry.district || entry.role}
+                          <span>{entry.district || entry.role}</span>
+                        {/if}
+                      </article>
+                    {/each}
+                  </div>
                 {/if}
               </section>
             </div>
@@ -2622,8 +3536,21 @@
             </section>
           {/if}
 
-          {#if selectedTalents.length > 0 || selectedPackages.length > 0}
+          {#if selectedTalents.length > 0 || selectedFlaws.length > 0 || selectedPackages.length > 0}
             <div class="sheet-lower-grid">
+              {#if selectedFlaws.length > 0}
+                <section class="sheet-section">
+                  <h2 class="sheet-section-title">Flaws <span class="sheet-section-count">{selectedFlaws.length} · +{totalFlawGain} pts</span></h2>
+                  <ul class="sheet-list sheet-list--details">
+                    {#each selectedFlaws as flaw}
+                      <li>
+                        <span>{flaw.name}</span>
+                        <small>{flaw.type}</small>
+                      </li>
+                    {/each}
+                  </ul>
+                </section>
+              {/if}
               {#if selectedTalents.length > 0}
                 <section class="sheet-section">
                   <h2 class="sheet-section-title">Talents <span class="sheet-section-count">{selectedTalents.length}</span></h2>

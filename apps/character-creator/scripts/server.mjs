@@ -406,6 +406,17 @@ const GAME_ROUTES = {
 
 let gameDataFallback = null;
 let gameDataFallbackMtime = 0;
+let lastFallbackWarn = 0;
+
+// Warn (at most once a minute) when game data is served from the JSON fallback
+// because Postgres is down — otherwise stale data gets served silently.
+function warnGameDataFallback(what) {
+  const now = Date.now();
+  if (now - lastFallbackWarn > 60_000) {
+    lastFallbackWarn = now;
+    console.warn(`Serving ${what} from generated-data.json fallback — Postgres is unavailable.`);
+  }
+}
 
 // Re-read generated-data.json whenever it changes on disk so a rebuild is picked
 // up without restarting the server (encyclopedia/maps are served only from here).
@@ -432,6 +443,7 @@ async function readGameResource(pathname) {
       console.warn(`Postgres read error for ${table}:`, err.message);
     }
   }
+  warnGameDataFallback(table);
   const fb = await getGameDataFallback();
   return fb[fallbackKey] ?? [];
 }
@@ -459,6 +471,7 @@ async function readSpellListsForProfession(professionId) {
       console.warn("Postgres spell list filter error:", err.message);
     }
   }
+  warnGameDataFallback("spell_lists");
   const fb = await getGameDataFallback();
   const all = fb.spellLists ?? [];
   const prof = (fb.professions ?? []).find(p => p.id === professionId);
