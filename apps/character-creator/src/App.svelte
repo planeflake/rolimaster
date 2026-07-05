@@ -755,6 +755,8 @@
     activeCharacterId = "";
     currentView = "characters";
     library = { ...library, selectedUserId: userId, selectedCharacterId: "" };
+    const characters = charactersFor(userId);
+    if (characters.length === 1) openCharacter(characters[0].id);
   }
 
   function backToUsers() {
