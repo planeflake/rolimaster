@@ -12,6 +12,8 @@ tags:
 
 # Bronn Gearwright
 
+![[Portraits/Bronn Gearwright - Portrait.png]]
+
 ## Overview
 
 Master Engineer Bronn Gearwright is a senior pipeline engineer in Aethergate's Guild of Conduits.

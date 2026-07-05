@@ -68,3 +68,13 @@ The best hospitals can sometimes preserve a patient until the right Cycle phase 
 - A black-market canister carries Brightrot contamination.
 - A cult tries to infect a converter to create a living reservoir.
 - The city must choose between the Heartline and Overbright containment during an Arcane shortage.
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Glowfever cloth strip, cracked filter bead, contaminated wall flake |
+| Uncommon | Scramble-lamp residue vial, quarantine mask charm, glassvein nail clipping |
+| Rare | Brightrot case sample, sealed black-market canister cap, cult bloom token |
+| Epic | Living mana cyst that stores and releases unstable surplus power |
+| Legendary | First Bloom shard, a font-touched disease relic from the original outbreak |

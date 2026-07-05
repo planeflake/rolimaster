@@ -70,3 +70,13 @@ The public is not told how often that has nearly stopped being true.
 - A cult sabotages Violet Breakwaters, believing Brightrot is ascension.
 - The [[Ratio Office]] hides Arcane shortage numbers to prevent panic.
 - The party must enter the ward to repair a Violet Bell Post before the next phase shift.
+
+## Loot Table
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| Glass Patrol Gates | Cracked mask filter | Quarantine pass shard | Patrol captain's seal | Violet gate hinge that bleeds excess mana | First quarantine lockplate |
+| Scramble Lamps | Burnt violet wick | Color-shift lamp lens | Arcane lamp heart | Pattern-breaking prism | Original Scramble Lamp core |
+| Null Gutters | Contaminated condensate vial | Sealed runoff hook | Brightrot-stained valve tag | Null-gutter catchstone | Deep runoff covenant seal |
+| Abandoned Homes | Glowfever blanket scrap | Evacuation locket | Hidden family cache | Memory-warm hearth tile | House-root relic still resisting Brightrot |
+| Violet Bell Post | Bell pull cord | Altered alarm card | Frosted violet clapper | Containment bell tongue | First Violet Bell |

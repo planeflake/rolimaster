@@ -55,3 +55,13 @@ This is not necessarily true.
 - Records show an old Violet activation that the city officially denies.
 - The Heartline survives, but patients begin sharing impossible memories.
 - Overbright containment drops because Arcane was diverted to emergency conversion.
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Violet warning seal, emergency authorization stub, Arcane ration bead |
+| Uncommon | Crisis witness ribbon, converter override chit, restricted protocol index tab |
+| Rare | Denied activation record, magistrate's emergency signet, sealed Arcane feed order |
+| Epic | Violet conversion key that leaks unstable Arcane-derived Essence |
+| Legendary | First Violet Protocol seal, still able to wake emergency civic systems |

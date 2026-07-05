@@ -45,3 +45,13 @@ During [[The Day of Open Valves]], the barracks is understaffed. Too many Warden
 - A stolen Warden pressure mask turns up near Cogmarket.
 - The barracks pressure bell rings while every visible gauge remains normal.
 - A Warden asks the party to carry a sealed canister to the hospital without attracting attention.
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | White-enamel kit clasp, duty roster slip, practice clamp splinter |
+| Uncommon | Resonance lantern wick, Warden escort whistle, hospital-priority seal |
+| Rare | Stolen pressure mask tag, hidden Heartline valve note, registered Essence canister cap |
+| Epic | Mana-shear polearm head or slow-release Essence cradle |
+| Legendary | Mercy Tunnel master key or First Warden shear blade |

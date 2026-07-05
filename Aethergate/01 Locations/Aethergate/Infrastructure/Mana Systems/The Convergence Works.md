@@ -65,3 +65,13 @@ The [[White Line Wardens]] maintain a permanent post near the Heartline gates an
 - A converter hall shows side effects from Mentalism-derived Essence before the [[Ratio Office]] admits conversion happened.
 - Saboteurs target the Arcane Lock during Low Convergence.
 - Old Aetherspark instruments beneath the Works point downward instead of toward the Fonts.
+
+## Loot Table
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| Converter Hall | Burnt converter fuse | Realm-separation gasket | Misconverted Essence vial | Conversion prism core | First converter heart |
+| Pressure Board | Calibration chalk | Emergency route pin | Priority override plate | Board-memory dial | Aetherspark's pressure theorem wheel |
+| Heartline Gate | White seal thread | Hospital bypass tag | Mercy pressure key | Essence-storing hinge | First Heartline gate seal |
+| Arcane Lock | Violet warning plate | Arcane lock pin | Crisis feed authorization | Unstable Arcane breaker | Emergency Arcane Lock core |
+| Old Instruments | Dust-capped gauge | Downward needle | Hidden current chart | Deep-current listening horn | Old Foundations master regulator |

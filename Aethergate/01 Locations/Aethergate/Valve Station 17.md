@@ -43,6 +43,25 @@ That should be impossible.
 - A hidden maintenance grate leading toward [[The Underworks]]
 - Pressure logs that disagree with the official city report
 
+## Items
+
+| Area | Item | Rarity | Power Status | Notes |
+|---|---|---|---|---|
+| Maintenance Grate | [[Frost-Veined Siphon Needle]] | Epic | Unstable | Converts channeled energy into frost or cold, with backlash risk. |
+
+## Loot Table
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| Exterior Fence Yard | Bent gauge needle | Locked crew whistle | Cartel lookout token | Bell-rope charm | First Survey Boundary Nail |
+| Valve Door | Broken seal wire | False inspection stamp | Unauthorized key-sliver | Pressure-echo knocker | Original Station 17 Master Seal |
+| Gauge Wall | Misfiled pressure slip | Delayed-needle gauge | Disagreeing logbook page | Resonance lens | Negative-flow gauge core |
+| Spare Gauge Lockers | Worn clamp wrench | Guild-marked patch-rune | Missing registered gauge | Self-tightening conduit collar | Pre-Cycle gauge face |
+| Pressure Bell Eaves | Fallen bell clapper | Altered bell sequence card | Blue-white frost bell | Alarm tongue | Nine-tone pressure bell |
+| Locked Stair | Rusted stair key | Warden lantern stub | Bloodless frost handprint | Step-rune | Sealed stairwell ward-key |
+| Maintenance Grate | Cut grate screw | Non-standard siphon washer | Fresh Underworks route mark | [[Frost-Veined Siphon Needle]] | Matching Underworks route marker |
+| Lower Pressure Chamber | Burst gasket | Unauthorized pressure bypass sketch | Stolen emergency canister cap | Living frost sample | Dead Junction pulse-stone |
+
 ## Campaign Uses
 
 - Bronn Gearwright brings the party here to prove the theft is not normal.

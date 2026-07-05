@@ -91,3 +91,13 @@ The most feared failure is silent inversion, where the array stops collecting lo
 - Bronn Gearwright identifies a pressure pattern as an array breathing.
 - A legal civic array has been retuned during an Arcane surge and now drinks from the wrong current.
 - Someone uses old Aetherspark safeguards to hide a newer theft.
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Copper sieve shaving, spent condensation bead, cracked resonance tooth |
+| Uncommon | Dew Harp tuning pin, Fog Lung filter, legal array service tag |
+| Rare | Illegal Underworks siphon tooth, retuned array diagram, stolen condensation vessel |
+| Epic | Century-soaked sieve ring that slowly releases reclaimed ambient mana |
+| Legendary | Aetherspark Font-Bloom Engine seed from an early civic array |

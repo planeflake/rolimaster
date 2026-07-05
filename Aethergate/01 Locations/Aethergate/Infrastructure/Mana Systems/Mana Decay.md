@@ -73,3 +73,13 @@ Forgery of Ward Grade or Heartline supply marks is treated as a grave crime.
 - Black Stock is relabeled as Ward Grade and sold into a clinic.
 - Soured Channeling creates a haunting around a storage vault.
 - The city schedules [[The Day of Open Valves]] before surplus becomes dangerous.
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Stale canister tag, residue-stained cloth, cracked Day Glass bead |
+| Uncommon | Grey Stock ration chit, decay testing strip, soured storage stopper |
+| Rare | Forged Ward Grade stamp, Black Stock canister cap, condemned Dead Draw vial |
+| Epic | Decay-fed storage fixture that releases unstable old mana in slow pulses |
+| Legendary | First Dead Draw crucible, still holding incoherent residue from an early civic disaster |

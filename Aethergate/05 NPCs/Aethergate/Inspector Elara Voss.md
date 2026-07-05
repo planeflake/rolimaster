@@ -12,6 +12,8 @@ tags:
 
 # Inspector Elara Voss
 
+![[Portraits/Inspector Elara Voss - Portrait.png]]
+
 ## Overview
 
 Inspector Elara Voss is a [[Mana Authority]] investigator assigned to a cluster of minor mana thefts in [[Aethergate]].

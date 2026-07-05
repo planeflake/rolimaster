@@ -23,7 +23,8 @@ This list supports the city map and keeps detailed labels off the artwork.
 
 - [[Aetherspark's Tower]]
 - [[The Convergence Works]]
-- Ninefold Infirmary
+- [[Living Ink Guild]]
+- [[Ninefold Infirmary]]
 - Glass Sea Harbor
 - [[The Overbright Ward]]
 - Airship Docks

@@ -89,3 +89,13 @@ Religious and civic opposition groups consider Channeling conversion sacrilege, 
 - The city quietly runs Mentalism conversion before announcing rationing.
 - A converter accident creates Essence that behaves correctly but dreams.
 - Arcane conversion saves the Heartline and wakes an old instrument below [[Aetherspark's Tower]].
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Conversion ratio slate, burnt gasket, realm-stained condensate vial |
+| Uncommon | Mentalism echo filter, Channeling residue cup, Arcane warning bead |
+| Rare | Misconverted Essence ampoule, denied batch record, converter side-effect log |
+| Epic | Realm-memory prism that changes stored power without fully cleaning it |
+| Legendary | First conversion brake, a dangerous relic from Aetherspark's early trials |

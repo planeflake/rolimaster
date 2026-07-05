@@ -67,3 +67,13 @@ Pressure readings become chaotic during the festival, making it an ideal cover f
 - The [[Ratio Office]] schedules the festival to hide a shortage.
 - Old vents below [[Aetherspark's Tower]] open into something that should have remained sealed.
 - A festival held during Arcane scarcity pulls patrols away from [[The Overbright Ward]].
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Festival lantern wick, surplus token, painted valve ribbon |
+| Uncommon | Lost-item booth charm, sanctioned fireworks fuse, dream-theater ticket |
+| Rare | Mislabelled surplus canister tag, festival patrol pass, prophecy booth card |
+| Epic | Open Valve brass key that briefly vents stored mana into a chosen effect |
+| Legendary | First festival pressure bell, soaked in decades of public surplus release |

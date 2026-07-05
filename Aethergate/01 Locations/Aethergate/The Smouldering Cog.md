@@ -90,6 +90,20 @@ A small candlelit corner where artificers leave tiny gears, burnt fuses, or fail
 - The owner knows more about smuggling routes than she admits.
 - A hidden compartment in the Captain's Alcove contains an early sketch by Aetherspark showing underground mana currents.
 
+## Room Loot Tables
+
+These finds are meant as choose-or-roll discoveries. Common items are tavern color or minor evidence. Higher-rarity items can become hooks, leverage, or future quest objects.
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| [[The Smouldering Cog#The Upper Deck Balcony|Upper Deck Balcony]] | [[Dropped Airship Token]], [[Weathered Pipeworker Gloves]], [[Loose Festival Lantern Wick]] | [[Brass Spyglass Lens]], [[Coded Docking Chit]] | [[Lost Signet Pin from an Airship Captain]] | [[Wind-Cut Cloak Clasp]] | [[Aetherspark's Bent Altitude Charm]] |
+| [[The Smouldering Cog#The Boiler Bar|Boiler Bar]] | [[Warm Copper Cup]], [[Tab Marker]], [[Cracked Pressure Cork]] | [[Boiler-Warmed Tonic Flask]], [[Bartender's Hidden Favor Token]] | [[Illegal Mana-Inhaler Residue Vial]] | [[Self-Heating Travel Flask]] | [[Original Boiler Ignition Key]] |
+| [[The Smouldering Cog#The Suspended Keel|Suspended Keel]] | [[Old Bounty Slip]], [[Missing-Person Note]], [[Unpaid Tab]] | [[Half-Burned Job Notice]] | [[Folded Underworks Map Scrap]] | [[Nail of True Brass]] | [[Lost Keel-Rune of Aetherspark's Prototype]] |
+| [[The Smouldering Cog#The Captain's Alcove|Captain's Alcove]] | [[Forgotten Glove]], [[Cheap Perfume Vial]], [[Marked Playing Card]] | [[Sealed Message Left by the Wrong Courier]] | [[Early Aetherspark Sketch of Underground Mana Currents]] | [[Hidden Compartment Cipher]] | [[Captain's Black Box Crystal]] |
+| [[The Smouldering Cog#The Broken Propeller Stage|Broken Propeller Stage]] | [[Bent Instrument String]], [[Performer's Lucky Coin]], [[Stained Song Sheet]] | [[Mask from a Vanished Street Troupe]] | [[Propeller Splinter that Hums During Pressure Changes]] | [[Voice-Catching Stage Pin]] | [[The Broken Propeller's Heart-Bolt]] |
+| [[The Smouldering Cog#The Engine Shrine|Engine Shrine]] | [[Burnt Fuse]], [[Tiny Gear Offering]], [[Cracked Candle Cup]] | [[Apprentice's Lost Prototype Charm]] | [[Prayer-Token from a Vanished Artificer]] | [[Ash-Bright Gear]] | [[Aetherspark's First Failed Mana Regulator]] |
+| [[The Smouldering Cog#Secrets|Hidden Maintenance Shaft]] | [[Rusted Clamp]], [[Torn Work Order]], [[Damp Rope]] | [[Non-Standard Siphon Clamp]] | [[Warden Pressure Mask]] | [[Frosted Valve-Core]] | [[Sealed Underworks Route-Marker]] |
+
 ## Related Notes
 
 - [[The Smouldering Cog Menu]]

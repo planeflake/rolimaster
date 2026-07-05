@@ -62,3 +62,12 @@ When Essence supply wanes, the city may feed the line with converted Essence fro
 - A hidden siphon net draws tiny amounts from the line without triggering official alarms.
 - A hospital ward must choose between stale native Essence and fresh converted Essence.
 - Protesters block a converter station that is feeding the line during a shortage.
+
+## Loot Table
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| Exposed Valve | White seal wax | Warden clamp tag | Hospital-priority valve key | Essence-fed valve spindle | First Mercy valve |
+| Guarded Pipe Run | Pressure chalk mark | Escort bell token | Hidden siphon trace | Heartline resonance collar | Uncut Line route-stone |
+| Repair Hatch | Linen-wrapped wrench | Emergency canister tag | Bypass diagram | Self-sealing gasket | Protected hatch ward-key |
+| Hospital Feed | Pale Essence bead | Triage pressure slip | Converted Essence side-effect vial | Clean-flow stabilizer | Lifelight main regulator |

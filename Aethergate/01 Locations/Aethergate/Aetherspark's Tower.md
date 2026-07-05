@@ -67,3 +67,13 @@ They are wrong.
 - A museum exhibit contains a harmless-looking model of an illegal array.
 - The party must enter the lower Works during [[The Day of Open Valves]].
 - The Quiet Shaft opens during an Arcane shortage.
+
+## Loot Table
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| Clock Galleries | Cracked clock lens | Phase-reader token | Misaligned Cycle gear | Time-soaked escapement that steadies reactions | Beacon calibration jewel |
+| Aetherspark Museum | Exhibit label pin | Retired guide key | Original model component | Prototype hum-coil | Aetherspark's sealed demonstration core |
+| Civic Offices | Waxed hearing note | Authority archive ribbon | Magistrate's private seal | Oathbound record clasp | Founding charter stamp |
+| Old Foundations | Dusty pressure bell | Braked array shard | Downward-pointing gauge | Deep-current resonator | First foundation regulator |
+| Quiet Shaft | Broken rung marker | Silent ward nail | Hidden descent map | Soundless shaft key | Quiet Shaft heartweight |

@@ -48,3 +48,13 @@ It has not.
 The deepest tunnels connect to routes that should not exist on any city plan.
 
 Some of those passages lead toward the first hints of [[The Hidden Skaven]].
+
+## Loot Table
+
+| Area | Common | Uncommon | Rare | Epic | Legendary |
+|---|---|---|---|---|---|
+| Maintenance Tunnels | Rusted pipe tag | Smuggler chalk mark | Hidden route map | Old passage-memory nail | Pre-Cycle tunnel marker |
+| Failed Reservoir | Cracked resonance tile | Drowned gauge | Sealed reserve canister | Reservoir stone that releases stored mana | First overflow heartstone |
+| Machine Room | Broken regulator cog | Clockwork ratchet key | Aetherspark prototype gear | Self-winding pressure governor | Buried engine seed |
+| Drainage Channel | Glass-slick grit | Waterproof contraband pouch | Cartel cache token | Current-bent lockbar | Ancient sluice covenant key |
+| Deep Passage | Claw-mark casting | Bone-white route bead | Forbidden descent charm | Shadow-pressure lantern | Hidden Skaven treaty shard |

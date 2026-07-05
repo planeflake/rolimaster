@@ -22,9 +22,11 @@ Its daily life depends on measured pressure, rationed supply, legal conversion, 
 ## Key Locations
 
 - [[Aetherspark's Tower]]
+- [[Living Ink Guild]]
 - [[The Smouldering Cog]]
 - [[The Underworks]]
 - [[The Overbright Ward]]
+- [[Ninefold Infirmary]]
 - [[White Line Barracks]]
 - [[Valve Station 17]]
 - [[Aethergate Points of Interest]]
@@ -41,3 +43,13 @@ Major systems include [[The Convergence Works]], [[The Heartline]], [[Mana Conve
 Minor mana thefts in Cogmarket are beginning to reveal deeper failures in the city's measurements.
 
 If mana is being removed before it reaches registered surface conduits, Aethergate's rationing system, hospital supply, and public trust are all at risk.
+
+## City Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Civic pressure chit, lamp-grid fuse, stamped ration token |
+| Uncommon | Guild favor marker, sealed courier tube, minor permit stamp |
+| Rare | Forged inspection plate, old district key, jeweled magistrate badge |
+| Epic | Century-soaked valve fixture that releases stored civic mana slowly |
+| Legendary | Founding survey relic tied to Aethergate's first mana grid |

@@ -26,3 +26,16 @@ Roll or choose.
 | 10 | "An airship out of Tideglass arrived with no cargo manifest and three extra guards." |
 | 11 | "The old flying boat under this tavern still has one working engine. Mara denies it too quickly." |
 | 12 | "Someone found rat tracks in the Underworks. Big ones." |
+
+## Veyrholm Starting Seeds
+
+These are idea seeds only, not full quests.
+
+- A spotless physician from [[Veyrholm]] offers free examinations to travelers with "interesting family histories."
+- A drunk cuts his hand on a cracked mug, and a stranger in white gloves crosses the room too quickly to cover the blood.
+- Someone is buying old noble signet rings, family bibles, baptism records, and locks of hair near the Cogmarket stalls.
+- A courier asks Mara to hide a red-lacquer case until dawn. It is cold, sealed, and faintly pulsing.
+- A child in the tavern sings the Veyrholm rhyme, though their family insists they have never left Aethergate.
+- A nervous Ash Warden wants passage out of the city before someone dreams his memories back to him.
+- A minor noble collapses after tasting wine and whispers, "He has seven. He only needs four."
+- A surgeon from the [[Ninefold Infirmary]] asks for help finding a stolen vial of blood before the wrong person drinks it.

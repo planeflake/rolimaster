@@ -60,3 +60,13 @@ If the city must choose between the Heartline, the converters, and Overbright co
 - A cult chooses Low Convergence for sabotage because the city has fewer safe options.
 - A public official hides that the city is closer to the Arcane Threshold than announced.
 - The party must decide whether to support Channeling conversion or risk Violet Protocol.
+
+## Loot Table
+
+| Rarity | Finds |
+|---|---|
+| Common | Cycle notice slip, phase-colored lamp bead, ration calendar tab |
+| Uncommon | Hidden shortage marker, conversion schedule pin, Watch Net dream token |
+| Rare | Suppressed Arcane Threshold forecast, Ratio Office phase key, false public cycle chart |
+| Epic | Cycle-tuned regulator that changes output with the current Font phase |
+| Legendary | Aetherspark's first Cycle dial, still listening to the Nine Fonts |
