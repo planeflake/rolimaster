@@ -5,7 +5,11 @@ realm: Mentalism
 spell_user: pure
 system: Rolemaster
 source: "Rolemaster Mentalism spell-list import"
-tags: [rolemaster, profession, mentalism, healing]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - healing
 import_status: partial
 ---
 

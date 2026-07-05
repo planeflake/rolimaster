@@ -8,7 +8,11 @@ system: Rolemaster
 source: "Essence Companion"
 source_page: 55
 pdf_page: 56
-tags: [rolemaster, profession, essence, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - essence
+  - supplemental
 ---
 
 # Runemage

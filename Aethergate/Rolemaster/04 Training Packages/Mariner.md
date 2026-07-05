@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 34
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, sailing]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - sailing
 ---
 
 # Mariner

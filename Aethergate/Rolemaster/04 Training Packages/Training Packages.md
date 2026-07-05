@@ -2,7 +2,10 @@
 type: index
 topic: training-packages
 system: Rolemaster
-tags: [rolemaster, index, training-package]
+tags:
+  - rolemaster
+  - index
+  - training-package
 ---
 
 # Training Packages

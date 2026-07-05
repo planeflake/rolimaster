@@ -4,7 +4,9 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 107
 aliases: [Rural]
-tags: [rolemaster, culture]
+tags:
+  - rolemaster
+  - culture
 import_status: draft
 ---
 

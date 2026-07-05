@@ -5,7 +5,14 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 69
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, apprenticeship, travel]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - apprenticeship
+  - travel
 ---
 
 # Journeying Apprentice

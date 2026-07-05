@@ -9,7 +9,10 @@ status: full-imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 189
 pdf_page: 190
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Brilliance

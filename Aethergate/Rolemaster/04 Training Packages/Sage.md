@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 38
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, knowledge]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - knowledge
 ---
 
 # Sage

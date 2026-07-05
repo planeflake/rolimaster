@@ -6,7 +6,10 @@ profession: "Healer"
 list_type: "Base List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, channeling]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
 ---
 
 # Blood Ways

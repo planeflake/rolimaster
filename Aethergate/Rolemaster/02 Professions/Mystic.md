@@ -7,7 +7,11 @@ spell_user: hybrid
 system: Rolemaster
 source: "Rolemaster Character Law"
 source_page: 79
-tags: [rolemaster, profession, mentalism, essence]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - essence
 ---
 
 # Mystic

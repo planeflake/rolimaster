@@ -4,7 +4,9 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 92
 aliases: [Desert]
-tags: [rolemaster, culture]
+tags:
+  - rolemaster
+  - culture
 import_status: draft
 ---
 

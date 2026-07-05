@@ -6,7 +6,10 @@ spell_user: pure
 system: Rolemaster
 source: "Rolemaster Character Law"
 source_page: 75
-tags: [rolemaster, profession, essence]
+tags:
+  - rolemaster
+  - profession
+  - essence
 ---
 
 # Illusionist

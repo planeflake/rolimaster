@@ -9,7 +9,10 @@ status: full-imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 174
 pdf_page: 175
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Lesser Illusions

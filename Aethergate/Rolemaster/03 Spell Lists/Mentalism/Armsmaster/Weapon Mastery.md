@@ -8,7 +8,11 @@ system: Rolemaster
 status: identified
 source: "Rolemaster Mentalism companion contents photos"
 source_page: 144
-tags: [rolemaster, spell-list, mentalism, supplemental]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
+  - supplemental
 ---
 
 # Weapon Mastery

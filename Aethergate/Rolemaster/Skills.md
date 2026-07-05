@@ -2,7 +2,9 @@
 type: index
 topic: skills
 system: Rolemaster
-tags: [rolemaster, skills]
+tags:
+  - rolemaster
+  - skills
 ---
 
 # Skills

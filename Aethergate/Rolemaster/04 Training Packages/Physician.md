@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 36
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, medicine]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - medicine
 ---
 
 # Physician

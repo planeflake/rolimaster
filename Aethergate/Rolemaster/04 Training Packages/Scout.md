@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 141
-tags: [rolemaster, training-package, vocational, outdoors]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - outdoors
 ---
 
 # Scout

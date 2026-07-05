@@ -6,7 +6,9 @@ profession:
 list_type:
 system: Rolemaster
 status: draft
-tags: [rolemaster, spell-list]
+tags:
+  - rolemaster
+  - spell-list
 ---
 
 # {{title}}

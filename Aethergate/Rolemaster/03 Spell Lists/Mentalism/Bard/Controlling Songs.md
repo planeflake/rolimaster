@@ -6,7 +6,10 @@ profession: "Bard"
 list_type: "Base List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Controlling Songs

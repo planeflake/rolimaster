@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 142
-tags: [rolemaster, training-package, vocational, combat]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - combat
 ---
 
 # Soldier

@@ -4,7 +4,9 @@ topic: talents
 system: Rolemaster
 source: "Talent Law"
 source_pages: 107-110
-tags: [rolemaster, talents]
+tags:
+  - rolemaster
+  - talents
 ---
 
 # Talents

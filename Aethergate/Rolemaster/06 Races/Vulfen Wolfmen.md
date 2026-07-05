@@ -4,7 +4,9 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 82
 aliases: [Vulfen, Wolfmen]
-tags: [rolemaster, race]
+tags:
+  - rolemaster
+  - race
 import_status: imported
 ---
 

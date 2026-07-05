@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 33
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, influence]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - influence
 ---
 
 # Houri

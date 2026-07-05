@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 70
-tags: [rolemaster, training-package, essence, supplemental, vocational, research]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - vocational
+  - research
 ---
 
 # Librarian

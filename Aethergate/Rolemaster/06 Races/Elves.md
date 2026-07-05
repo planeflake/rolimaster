@@ -4,7 +4,9 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 15
 aliases: [Elf, Elves, Wood Elves, Grey Elves, High Elves, Dyari, Erlini, Linaeri, Loari, Shuluri, Iylar]
-tags: [rolemaster, race]
+tags:
+  - rolemaster
+  - race
 import_status: imported
 expand_variants: true
 ---

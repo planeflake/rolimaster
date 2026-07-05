@@ -9,7 +9,10 @@ status: ocr-imported
 source: "Rolemaster SS - Arcane Companion"
 source_page: 58
 pdf_page: 59
-tags: [rolemaster, spell-list, arcane]
+tags:
+  - rolemaster
+  - spell-list
+  - arcane
 ---
 
 # Spell Triggers

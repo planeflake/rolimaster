@@ -9,7 +9,10 @@ status: full-imported
 source: "Rolemaster FRP - Spell Law - Of Essence"
 source_page: 39
 pdf_page: 40
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Influences

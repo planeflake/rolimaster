@@ -6,7 +6,10 @@ profession: "Illusionist"
 list_type: "Base List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Feel-Taste-Smell

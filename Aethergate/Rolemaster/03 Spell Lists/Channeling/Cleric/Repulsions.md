@@ -9,7 +9,10 @@ status: imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 168
 pdf_page: 169
-tags: [rolemaster, spell-list, channeling]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
 ---
 
 # Repulsions

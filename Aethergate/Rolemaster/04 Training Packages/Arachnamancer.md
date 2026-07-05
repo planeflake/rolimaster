@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 61
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, arachnamancy]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - arachnamancy
 ---
 
 # Arachnamancer

@@ -9,7 +9,10 @@ status: imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 171
 pdf_page: 172
-tags: [rolemaster, spell-list, channeling]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
 ---
 
 # Nature's Way

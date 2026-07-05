@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 142
-tags: [rolemaster, training-package, vocational, travel]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - travel
 ---
 
 # Traveller

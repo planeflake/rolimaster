@@ -7,7 +7,12 @@ system: Rolemaster
 source: "Mentalism Companion"
 source_page: 24
 pdf_page: 25
-tags: [rolemaster, profession, mentalism, arms, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - arms
+  - supplemental
 ---
 
 # Armsmaster

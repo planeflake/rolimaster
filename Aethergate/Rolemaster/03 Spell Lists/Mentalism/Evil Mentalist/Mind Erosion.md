@@ -6,7 +6,10 @@ profession: "Evil Mentalist"
 list_type: "Base List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Mind Erosion

@@ -8,7 +8,11 @@ system: Rolemaster
 status: skeleton
 source: "Spell Law: Of Mentalism"
 source_page: 52
-tags: [rolemaster, spell-list, channeling, healer]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
+  - healer
 ---
 
 # Cleansing

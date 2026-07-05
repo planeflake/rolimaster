@@ -20,6 +20,10 @@ _obsidian_excluded/
 documents/
 Old/
 
+# NPC portraits are part of the vault (notes embed them)
+!Aethergate/**/Portraits/*.png
+!Aethergate/**/NPC Portraits/*.png
+
 # Temp import scratch dirs
 .tmp-essence-import/
 .tmp-*/

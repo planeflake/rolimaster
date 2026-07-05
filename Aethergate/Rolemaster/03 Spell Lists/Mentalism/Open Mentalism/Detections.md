@@ -9,7 +9,10 @@ status: full-imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 191
 pdf_page: 192
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Detections

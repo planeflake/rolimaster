@@ -8,7 +8,11 @@ system: Rolemaster
 status: identified
 source: "Rolemaster Mentalism companion contents photos"
 source_page: 130
-tags: [rolemaster, spell-list, channeling, supplemental]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
+  - supplemental
 ---
 
 # Starlore

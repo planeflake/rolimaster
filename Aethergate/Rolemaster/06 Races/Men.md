@@ -4,7 +4,10 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 58
 aliases: [Man, Men]
-tags: [rolemaster, race, race-group]
+tags:
+  - rolemaster
+  - race
+  - race-group
 import_status: split
 ---
 

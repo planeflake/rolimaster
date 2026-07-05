@@ -6,7 +6,10 @@ profession: "Lay Healer"
 list_type: "Base List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Concussion Mastery

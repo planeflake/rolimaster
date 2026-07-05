@@ -8,7 +8,11 @@ system: Rolemaster
 source: "ICE 5809 - RMFRP Channeling Companion"
 source_page: 78
 status: imported
-tags: [rolemaster, spell-list, channeling, mythic]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
+  - mythic
 ---
 
 # Holy Mission

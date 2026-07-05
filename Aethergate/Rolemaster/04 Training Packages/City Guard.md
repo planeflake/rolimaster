@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 137
-tags: [rolemaster, training-package, vocational, urban]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - urban
 ---
 
 # City Guard

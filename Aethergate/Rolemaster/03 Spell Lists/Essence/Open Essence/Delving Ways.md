@@ -9,7 +9,10 @@ status: full-imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 172
 pdf_page: 173
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Delving Ways

@@ -4,7 +4,11 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 38
 aliases: [Murlog, Murlogi Goblins]
-tags: [rolemaster, race, goblinoid, shadow-world]
+tags:
+  - rolemaster
+  - race
+  - goblinoid
+  - shadow-world
 import_status: draft
 ---
 

@@ -7,7 +7,11 @@ system: Rolemaster
 source: "Mentalism Companion"
 source_page: 21
 pdf_page: 22
-tags: [rolemaster, profession, mentalism, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - supplemental
 ---
 
 # Seer

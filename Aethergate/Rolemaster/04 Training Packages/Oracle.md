@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 35
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, divination]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - divination
 ---
 
 # Oracle

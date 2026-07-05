@@ -4,7 +4,10 @@ topic: training-packages
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_pages: [24, 134, 135]
-tags: [rolemaster, rules, training-package]
+tags:
+  - rolemaster
+  - rules
+  - training-package
 ---
 
 # Training Package Rules

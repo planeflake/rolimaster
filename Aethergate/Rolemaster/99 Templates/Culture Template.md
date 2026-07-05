@@ -4,7 +4,9 @@ system: Rolemaster
 source:
 source_page:
 aliases: []
-tags: [rolemaster, culture]
+tags:
+  - rolemaster
+  - culture
 import_status: draft
 ---
 

@@ -8,7 +8,12 @@ system: Rolemaster
 source: "Channeling Companion"
 source_page: 24
 pdf_page: 25
-tags: [rolemaster, profession, channeling, mentalism, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - mentalism
+  - supplemental
 ---
 
 # Warlock

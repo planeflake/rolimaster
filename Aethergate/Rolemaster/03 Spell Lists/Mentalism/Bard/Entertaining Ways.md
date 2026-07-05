@@ -9,7 +9,10 @@ status: imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 201
 pdf_page: 202
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Entertaining Ways

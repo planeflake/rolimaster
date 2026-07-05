@@ -5,7 +5,12 @@ system: Rolemaster
 status: imported
 source: "Channeling Companion"
 source_page: 32
-tags: [rolemaster, training-package, channeling, supplemental, lifestyle]
+tags:
+  - rolemaster
+  - training-package
+  - channeling
+  - supplemental
+  - lifestyle
 ---
 # Cultist
 

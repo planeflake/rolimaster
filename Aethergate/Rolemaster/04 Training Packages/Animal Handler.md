@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 60
-tags: [rolemaster, training-package, essence, supplemental, vocational, animals]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - vocational
+  - animals
 ---
 
 # Animal Handler

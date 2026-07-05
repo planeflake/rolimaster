@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 30
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, dreams]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - dreams
 ---
 
 # Dreamweaver

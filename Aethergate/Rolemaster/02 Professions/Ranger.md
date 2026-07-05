@@ -6,7 +6,11 @@ spell_user: semi
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 98
-tags: [rolemaster, profession, channeling, arms]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - arms
 ---
 
 # Ranger

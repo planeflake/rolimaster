@@ -3,7 +3,10 @@ type: profession
 profession: "Evil Cleric"
 realm: Channeling
 system: Rolemaster
-tags: [rolemaster, profession, channeling]
+tags:
+  - rolemaster
+  - profession
+  - channeling
 ---
 
 # Evil Cleric

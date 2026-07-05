@@ -9,7 +9,10 @@ status: ocr-imported
 source: "Rolemaster SS - Arcane Companion"
 source_page: 52
 pdf_page: 53
-tags: [rolemaster, spell-list, arcane]
+tags:
+  - rolemaster
+  - spell-list
+  - arcane
 ---
 
 # Arcane Shield

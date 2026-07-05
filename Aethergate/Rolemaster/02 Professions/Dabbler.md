@@ -6,7 +6,11 @@ spell_user: semi
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 99
-tags: [rolemaster, profession, essence, arms]
+tags:
+  - rolemaster
+  - profession
+  - essence
+  - arms
 ---
 
 # Dabbler

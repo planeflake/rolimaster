@@ -8,7 +8,12 @@ system: Rolemaster
 source: "Mentalism Companion"
 source_page: 23
 pdf_page: 24
-tags: [rolemaster, profession, mentalism, essence, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - essence
+  - supplemental
 ---
 
 # Enchanter

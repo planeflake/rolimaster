@@ -7,7 +7,12 @@ system: Rolemaster
 source: "Essence Companion"
 source_page: 57
 pdf_page: 58
-tags: [rolemaster, profession, essence, arms, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - essence
+  - arms
+  - supplemental
 ---
 
 # Warrior Mage

@@ -5,7 +5,11 @@ realm: Channeling
 spell_user: pure
 system: Rolemaster
 source: "Rolemaster Channeling spell-list import"
-tags: [rolemaster, profession, channeling, nature]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - nature
 import_status: partial
 ---
 

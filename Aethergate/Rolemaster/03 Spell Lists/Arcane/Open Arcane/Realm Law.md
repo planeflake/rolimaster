@@ -9,7 +9,10 @@ status: ocr-imported
 source: "Rolemaster SS - Arcane Companion"
 source_page: 56
 pdf_page: 57
-tags: [rolemaster, spell-list, arcane]
+tags:
+  - rolemaster
+  - spell-list
+  - arcane
 ---
 
 # Realm Law

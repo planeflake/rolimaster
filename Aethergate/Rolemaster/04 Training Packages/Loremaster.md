@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 140
-tags: [rolemaster, training-package, vocational, lore]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - lore
 ---
 
 # Loremaster

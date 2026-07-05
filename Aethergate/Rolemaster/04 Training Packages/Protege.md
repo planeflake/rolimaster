@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 37
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, apprenticeship]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - apprenticeship
 ---
 
 # Protege

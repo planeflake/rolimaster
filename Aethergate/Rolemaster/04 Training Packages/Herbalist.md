@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 138
-tags: [rolemaster, training-package, vocational, healing]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - healing
 ---
 
 # Herbalist

@@ -6,7 +6,10 @@ spell_user: pure
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 96
-tags: [rolemaster, profession, channeling]
+tags:
+  - rolemaster
+  - profession
+  - channeling
 ---
 
 # Cleric

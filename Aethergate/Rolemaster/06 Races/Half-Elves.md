@@ -4,7 +4,9 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 43
 aliases: [Half-Elf, Half-Elves, Eritari, Kytaari, Punkari, Sulini, Vorloi]
-tags: [rolemaster, race]
+tags:
+  - rolemaster
+  - race
 import_status: complete
 ---
 

@@ -6,7 +6,11 @@ spell_user: pure
 system: Rolemaster
 source: "Alchemy Companion"
 source_page: 57
-tags: [rolemaster, profession, essence, alchemy]
+tags:
+  - rolemaster
+  - profession
+  - essence
+  - alchemy
 import_status: complete
 ---
 

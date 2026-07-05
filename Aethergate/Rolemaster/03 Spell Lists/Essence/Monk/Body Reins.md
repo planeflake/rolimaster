@@ -7,7 +7,10 @@ list_type: "Base List"
 system: Rolemaster
 status: progression-imported
 source: "Rolemaster Essence spell-list overview photos"
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Body Reins

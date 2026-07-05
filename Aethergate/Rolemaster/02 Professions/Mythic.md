@@ -7,7 +7,12 @@ system: Rolemaster
 source: "Channeling Companion"
 source_page: 25
 pdf_page: 26
-tags: [rolemaster, profession, channeling, arms, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - arms
+  - supplemental
 ---
 
 # Mythic

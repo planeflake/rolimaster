@@ -1,3 +1,8 @@
+---
+type: index
+topic: spell lists
+system: Rolemaster
+---
 # Spell Lists Index
 
 ## Arcane

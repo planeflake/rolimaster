@@ -3,7 +3,10 @@ type: profession
 profession: "Evil Mentalist"
 realm: Mentalism
 system: Rolemaster
-tags: [rolemaster, profession, mentalism]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
 ---
 
 # Evil Mentalist

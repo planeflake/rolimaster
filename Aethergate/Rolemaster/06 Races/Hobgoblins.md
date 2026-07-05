@@ -4,7 +4,10 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 36
 aliases: [Hobgoblin]
-tags: [rolemaster, race, goblinoid]
+tags:
+  - rolemaster
+  - race
+  - goblinoid
 import_status: draft
 ---
 

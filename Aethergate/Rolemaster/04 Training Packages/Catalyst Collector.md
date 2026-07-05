@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 62
-tags: [rolemaster, training-package, essence, supplemental, vocational, catalysts]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - vocational
+  - catalysts
 ---
 
 # Catalyst Collector

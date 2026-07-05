@@ -4,7 +4,10 @@ package_type: lifestyle
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 135
-tags: [rolemaster, training-package, lifestyle]
+tags:
+  - rolemaster
+  - training-package
+  - lifestyle
 ---
 
 # Adventurer

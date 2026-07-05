@@ -2,7 +2,10 @@
 type: reference
 topic: spell-types
 system: Rolemaster
-tags: [rolemaster, spells, rules]
+tags:
+  - rolemaster
+  - spells
+  - rules
 ---
 
 # Spell Types

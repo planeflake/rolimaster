@@ -9,7 +9,10 @@ status: full-imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 176
 pdf_page: 177
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Unbarring Ways

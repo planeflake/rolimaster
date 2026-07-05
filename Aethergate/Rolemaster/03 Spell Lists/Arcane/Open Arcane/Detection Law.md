@@ -9,7 +9,10 @@ status: ocr-imported
 source: "Rolemaster SS - Arcane Companion"
 source_page: 54
 pdf_page: 55
-tags: [rolemaster, spell-list, arcane]
+tags:
+  - rolemaster
+  - spell-list
+  - arcane
 ---
 
 # Detection Law

@@ -4,7 +4,11 @@ package_type: lifestyle
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 139
-tags: [rolemaster, training-package, lifestyle, combat]
+tags:
+  - rolemaster
+  - training-package
+  - lifestyle
+  - combat
 ---
 
 # Knight

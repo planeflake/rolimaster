@@ -4,7 +4,11 @@ package_type: lifestyle
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 136
-tags: [rolemaster, training-package, lifestyle, magic]
+tags:
+  - rolemaster
+  - training-package
+  - lifestyle
+  - magic
 ---
 
 # Amateur Mage

@@ -5,7 +5,14 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 73
-tags: [rolemaster, training-package, essence, supplemental, vocational, research, magic]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - vocational
+  - research
+  - magic
 ---
 
 # Spell Researcher

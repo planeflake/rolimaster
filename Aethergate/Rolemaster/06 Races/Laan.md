@@ -4,7 +4,11 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 63
 aliases: [Zori]
-tags: [rolemaster, race, mannish, shadow-world]
+tags:
+  - rolemaster
+  - race
+  - mannish
+  - shadow-world
 import_status: draft
 ---
 

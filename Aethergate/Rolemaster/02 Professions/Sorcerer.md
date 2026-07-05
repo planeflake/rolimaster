@@ -7,7 +7,11 @@ spell_user: hybrid
 system: Rolemaster
 source: "Rolemaster Character Law"
 source_page: 80
-tags: [rolemaster, profession, essence, channeling]
+tags:
+  - rolemaster
+  - profession
+  - essence
+  - channeling
 ---
 
 # Sorcerer

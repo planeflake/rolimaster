@@ -4,7 +4,10 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 61
 aliases: [High Man]
-tags: [rolemaster, race, mannish]
+tags:
+  - rolemaster
+  - race
+  - mannish
 import_status: imported
 ---
 

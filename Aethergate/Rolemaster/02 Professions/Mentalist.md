@@ -6,7 +6,10 @@ spell_user: pure
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 97
-tags: [rolemaster, profession, mentalism]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
 ---
 
 # Mentalist

@@ -6,7 +6,10 @@ spell_user: pure
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 95
-tags: [rolemaster, profession, essence]
+tags:
+  - rolemaster
+  - profession
+  - essence
 ---
 
 # Magician

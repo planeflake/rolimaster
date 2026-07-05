@@ -6,7 +6,11 @@ spell_user: semi
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 100
-tags: [rolemaster, profession, mentalism, arms]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - arms
 ---
 
 # Bard

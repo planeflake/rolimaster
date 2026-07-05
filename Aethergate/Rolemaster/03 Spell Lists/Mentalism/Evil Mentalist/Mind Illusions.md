@@ -8,7 +8,11 @@ system: Rolemaster
 status: skeleton
 source: "Spell Law: Of Mentalism"
 source_page: 66
-tags: [rolemaster, spell-list, mentalism, evil-mentalist]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
+  - evil-mentalist
 ---
 
 # Mind Illusions

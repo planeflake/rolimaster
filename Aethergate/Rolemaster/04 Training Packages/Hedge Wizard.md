@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 67
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, ritual-magic]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - ritual-magic
 ---
 
 # Hedge Wizard

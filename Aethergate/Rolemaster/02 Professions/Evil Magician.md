@@ -3,7 +3,10 @@ type: profession
 profession: "Evil Magician"
 realm: Essence
 system: Rolemaster
-tags: [rolemaster, profession, essence]
+tags:
+  - rolemaster
+  - profession
+  - essence
 ---
 
 # Evil Magician

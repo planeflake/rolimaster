@@ -4,7 +4,11 @@ realm: Arcane
 category: Open
 system: Rolemaster
 source: "Rolemaster SS - Arcane Companion"
-tags: [rolemaster, spell-list, arcane, index]
+tags:
+  - rolemaster
+  - spell-list
+  - arcane
+  - index
 ---
 
 # Open Arcane Lists

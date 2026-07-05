@@ -5,7 +5,12 @@ system: Rolemaster
 status: imported
 source: "Channeling Companion"
 source_page: 31
-tags: [rolemaster, training-package, channeling, supplemental, vocational]
+tags:
+  - rolemaster
+  - training-package
+  - channeling
+  - supplemental
+  - vocational
 ---
 # Chancellor
 

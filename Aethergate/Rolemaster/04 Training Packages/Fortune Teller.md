@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 31
-tags: [rolemaster, training-package, mentalism, supplemental, vocational, divination]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - vocational
+  - divination
 ---
 
 # Fortune Teller

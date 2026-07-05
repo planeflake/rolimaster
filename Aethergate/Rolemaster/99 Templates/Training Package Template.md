@@ -4,7 +4,9 @@ package_type:
 system: Rolemaster
 source:
 source_page:
-tags: [rolemaster, training-package]
+tags:
+  - rolemaster
+  - training-package
 ---
 
 # {{title}}

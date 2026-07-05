@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 59
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, magic]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - magic
 ---
 
 # Amateur Mage Revised

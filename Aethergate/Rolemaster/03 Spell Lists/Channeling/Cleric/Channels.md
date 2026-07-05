@@ -9,7 +9,10 @@ status: detailed
 source: "Rolemaster Fantasy Role Playing"
 source_page: 166
 pdf_page: 167
-tags: [rolemaster, spell-list, channeling]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
 ---
 
 # Channels

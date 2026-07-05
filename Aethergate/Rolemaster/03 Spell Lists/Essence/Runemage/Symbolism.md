@@ -8,7 +8,11 @@ system: Rolemaster
 source: "ICE 5603 - RMSS Essence Companion"
 source_page: 113
 status: imported
-tags: [rolemaster, spell-list, essence, runemage]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
+  - runemage
 ---
 
 # Symbolism

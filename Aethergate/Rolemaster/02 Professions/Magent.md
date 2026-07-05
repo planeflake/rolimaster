@@ -6,7 +6,11 @@ spell_user: semi
 system: Rolemaster
 source: "Spell Law: Of Mentalism"
 source_page: 78
-tags: [rolemaster, profession, mentalism, arms]
+tags:
+  - rolemaster
+  - profession
+  - mentalism
+  - arms
 ---
 
 # Magent

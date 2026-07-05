@@ -7,7 +7,11 @@ system: Rolemaster
 source: "Essence Companion"
 source_page: 56
 pdf_page: 57
-tags: [rolemaster, profession, essence, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - essence
+  - supplemental
 ---
 
 # Mana Molder

@@ -1,3 +1,8 @@
+---
+type: index
+topic: tables
+system: Rolemaster
+---
 # Tables Index
 
 - [[Talents]]

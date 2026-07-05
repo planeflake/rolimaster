@@ -7,7 +7,12 @@ system: Rolemaster
 source: "Channeling Companion"
 source_pages: [26, 27, 28, 29]
 pdf_pages: [27, 28, 29, 30]
-tags: [rolemaster, profession, channeling, supplemental, configurable]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - supplemental
+  - configurable
 ---
 
 # Priest

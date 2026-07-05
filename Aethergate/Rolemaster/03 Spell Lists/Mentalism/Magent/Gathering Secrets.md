@@ -8,7 +8,11 @@ system: Rolemaster
 status: progression-imported
 source: "Spell Law: Of Mentalism"
 source_page: 47
-tags: [rolemaster, spell-list, mentalism, magent]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
+  - magent
 ---
 
 # Gathering Secrets

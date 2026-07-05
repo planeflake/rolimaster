@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 71
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, nomenist]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - nomenist
 ---
 
 # Nomenist Caster

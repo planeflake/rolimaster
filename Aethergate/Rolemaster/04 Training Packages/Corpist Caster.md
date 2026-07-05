@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 63
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, corpist]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - corpist
 ---
 
 # Corpist Caster

@@ -6,7 +6,10 @@ spell_user: none
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 94
-tags: [rolemaster, profession, arms]
+tags:
+  - rolemaster
+  - profession
+  - arms
 ---
 
 # Rogue

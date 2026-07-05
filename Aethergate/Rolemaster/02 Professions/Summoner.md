@@ -8,7 +8,12 @@ system: Rolemaster
 source: "Channeling Companion"
 source_page: 23
 pdf_page: 24
-tags: [rolemaster, profession, channeling, essence, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - essence
+  - supplemental
 ---
 
 # Summoner

@@ -4,7 +4,9 @@ topic: flaws
 system: Rolemaster
 source: "Talent Law"
 source_pages: 112
-tags: [rolemaster, flaws]
+tags:
+  - rolemaster
+  - flaws
 ---
 
 # Flaws

@@ -6,7 +6,10 @@ spell_user: none
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 93
-tags: [rolemaster, profession, arms]
+tags:
+  - rolemaster
+  - profession
+  - arms
 ---
 
 # Thief

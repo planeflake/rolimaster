@@ -4,7 +4,11 @@ package_type: vocational
 system: Rolemaster
 source: "Rolemaster Fantasy Role Playing"
 source_page: 140
-tags: [rolemaster, training-package, vocational, trade]
+tags:
+  - rolemaster
+  - training-package
+  - vocational
+  - trade
 ---
 
 # Merchant

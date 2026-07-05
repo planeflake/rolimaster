@@ -6,7 +6,10 @@ profession: "Closed Essence"
 list_type: "Closed List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, essence]
+tags:
+  - rolemaster
+  - spell-list
+  - essence
 ---
 
 # Spirit Mastery

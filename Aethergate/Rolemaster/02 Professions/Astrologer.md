@@ -8,7 +8,12 @@ system: Rolemaster
 source: "Mentalism Companion"
 source_page: 22
 pdf_page: 23
-tags: [rolemaster, profession, channeling, mentalism, supplemental]
+tags:
+  - rolemaster
+  - profession
+  - channeling
+  - mentalism
+  - supplemental
 ---
 
 # Astrologer

@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Mentalism Companion"
 source_page: 32
-tags: [rolemaster, training-package, mentalism, supplemental, lifestyle, wilderness]
+tags:
+  - rolemaster
+  - training-package
+  - mentalism
+  - supplemental
+  - lifestyle
+  - wilderness
 ---
 
 # Hermit

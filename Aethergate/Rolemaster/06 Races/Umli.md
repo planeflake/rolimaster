@@ -4,7 +4,11 @@ system: Rolemaster
 source: "Rolemaster FRP - Races And Cultures"
 source_page: 65
 aliases: [Umlii]
-tags: [rolemaster, race, mannish, shadow-world]
+tags:
+  - rolemaster
+  - race
+  - mannish
+  - shadow-world
 import_status: draft
 ---
 

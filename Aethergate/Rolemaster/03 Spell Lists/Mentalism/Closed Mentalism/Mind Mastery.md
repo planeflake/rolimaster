@@ -6,7 +6,10 @@ profession: "Closed Mentalism"
 list_type: "Closed List"
 system: Rolemaster
 status: skeleton
-tags: [rolemaster, spell-list, mentalism]
+tags:
+  - rolemaster
+  - spell-list
+  - mentalism
 ---
 
 # Mind Mastery

@@ -6,7 +6,9 @@ spell_list:
 level:
 system: Rolemaster
 status: draft
-tags: [rolemaster, spell]
+tags:
+  - rolemaster
+  - spell
 ---
 
 # {{title}}

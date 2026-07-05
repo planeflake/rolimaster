@@ -9,7 +9,10 @@ status: imported
 source: "Rolemaster Fantasy Role Playing"
 source_page: 170
 pdf_page: 171
-tags: [rolemaster, spell-list, channeling]
+tags:
+  - rolemaster
+  - spell-list
+  - channeling
 ---
 
 # Nature's Summons

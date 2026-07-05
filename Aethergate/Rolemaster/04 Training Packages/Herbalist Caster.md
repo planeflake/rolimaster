@@ -5,7 +5,13 @@ system: Rolemaster
 status: imported
 source: "Essence Companion"
 source_page: 68
-tags: [rolemaster, training-package, essence, supplemental, lifestyle, herbalist]
+tags:
+  - rolemaster
+  - training-package
+  - essence
+  - supplemental
+  - lifestyle
+  - herbalist
 ---
 
 # Herbalist Caster
