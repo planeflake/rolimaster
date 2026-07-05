@@ -776,7 +776,7 @@
     activeCharacterId = characterId;
     character = activeCharacter() ?? blankCharacter();
     lastSavedCharacter = null;
-    activeTab = "Race";
+    activeTab = "Summary";
     resetSkillFilters();
     currentView = "editor";
     library = { ...library, selectedUserId: activeUserId, selectedCharacterId: characterId };
