@@ -1,0 +1,16 @@
+# Normalize line endings: store LF in the repo, let Git convert on checkout.
+* text=auto
+*.md text
+*.js text
+*.mjs text
+*.svelte text
+*.css text
+*.html text
+*.json text
+
+# Binaries — never normalize
+*.png binary
+*.jpg binary
+*.zip binary
+*.7z binary
+*.pdf binary

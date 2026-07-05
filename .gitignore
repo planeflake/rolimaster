@@ -27,3 +27,12 @@ Old/
 # Temp import scratch dirs
 .tmp-essence-import/
 .tmp-*/
+
+# Logs, pids, archives, tool caches
+*.log
+*.pid
+*.7z
+.vite/
+
+# Per-user Obsidian state (pane layout etc.)
+Aethergate/.obsidian/workspace.json
