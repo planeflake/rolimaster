@@ -1,8 +1,11 @@
 import fs from "node:fs";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const appRoot = process.cwd();
 const workspaceRoot = path.resolve(appRoot, "../..");
+const vaultRoot = path.join(workspaceRoot, "Aethergate");
 const rolemasterRoot = path.join(workspaceRoot, "Aethergate", "Rolemaster");
 const outFile = path.join(appRoot, "src", "lib", "generated-data.json");
 const referenceTrainingPages = new Set(["Training Package Rules", "Training Packages"]);
@@ -420,6 +423,26 @@ function readMarkdownFilesRecursive(relativeDir) {
   return files;
 }
 
+function readVaultMarkdownFilesRecursive(relativeDir) {
+  const dir = path.join(vaultRoot, relativeDir);
+  const files = [];
+  if (!fs.existsSync(dir)) return files;
+
+  function walk(currentDir) {
+    for (const entry of fs.readdirSync(currentDir, { withFileTypes: true })) {
+      const filePath = path.join(currentDir, entry.name);
+      if (entry.isDirectory()) {
+        walk(filePath);
+      } else if (entry.isFile() && entry.name.endsWith(".md")) {
+        files.push([filePath, fs.readFileSync(filePath, "utf8")]);
+      }
+    }
+  }
+
+  walk(dir);
+  return files;
+}
+
 function fileName(filePath) {
   return path.basename(filePath, ".md");
 }
@@ -459,12 +482,13 @@ function section(markdown, heading) {
 }
 
 function firstParagraph(markdown, heading = "Summary") {
+  const preferred = section(markdown, heading) || section(markdown, "Overview") || stripFrontmatter(markdown);
   return (
-    section(markdown, heading)
+    preferred
       .split(/\r?\n/)
       .map((line) => line.trim())
       .filter(Boolean)
-      .find((line) => !line.startsWith("|") && !line.startsWith("- ")) ?? ""
+      .find((line) => !line.startsWith("|") && !line.startsWith("- ") && !line.startsWith("#")) ?? ""
   );
 }
 
@@ -543,6 +567,31 @@ function classifyTalent(name, category) {
   return categoryFallbacks[category] ?? { group: "Unclassified", tags: [] };
 }
 
+function buildRaceObject(id, name, fm, filePath, markdown, statRow, ppRow, valueRow, gmRow, bdRows) {
+  const { Variant: _variant, ...stats } = statRow ?? {};
+  return {
+    id,
+    name,
+    source: fm.source ?? "",
+    sourcePage: fm.source_page ?? "",
+    path: vaultPath(filePath),
+    summary: firstParagraph(markdown),
+    stats,
+    languages: section(markdown, "Languages").trim(),
+    backgroundOptions: numeric(valueRow?.["Background Options"] ?? 0),
+    baseRate: gmRow?.["Base Rate"] ?? "",
+    notes: section(markdown, "Mechanical Notes").trim(),
+    bodyDevelopment: bdRows.map((row) => ({ range: row.Ranks, xpCost: numeric(row["XP Cost"]) })),
+    ppProgression: {
+      arcane: ppRow?.["Arcane PP"] ?? "",
+      channeling: ppRow?.["Channeling PP"] ?? "",
+      essence: ppRow?.["Essence PP"] ?? "",
+      mentalism: ppRow?.["Mentalism PP"] ?? "",
+      psionic: ppRow?.["Psionic PP"] ?? ""
+    }
+  };
+}
+
 function parseRace(filePath, markdown) {
   const fm = frontmatter(markdown);
   const name = title(markdown, fileName(filePath));
@@ -552,27 +601,14 @@ function parseRace(filePath, markdown) {
   const bdRows = tableInSection(markdown, "Body Development", "Ranks");
   const ppRows = tableInSection(markdown, "Progression Rates", "Body Development");
 
-  return {
-    id: name,
-    name,
-    source: fm.source ?? "",
-    sourcePage: fm.source_page ?? "",
-    path: vaultPath(filePath),
-    summary: firstParagraph(markdown),
-    stats: statRows[0] ?? {},
-    languages: section(markdown, "Languages").trim(),
-    backgroundOptions: numeric(valueRows[0]?.["Background Options"] ?? 0),
-    baseRate: gmRows[0]?.["Base Rate"] ?? "",
-    notes: section(markdown, "Mechanical Notes").trim(),
-    bodyDevelopment: bdRows.map((row) => ({ range: row.Ranks, xpCost: numeric(row["XP Cost"]) })),
-    ppProgression: {
-      arcane: ppRows[0]?.["Arcane PP"] ?? "",
-      channeling: ppRows[0]?.["Channeling PP"] ?? "",
-      essence: ppRows[0]?.["Essence PP"] ?? "",
-      mentalism: ppRows[0]?.["Mentalism PP"] ?? "",
-      psionic: ppRows[0]?.["Psionic PP"] ?? ""
-    }
-  };
+  if (fm.expand_variants === "true") {
+    return statRows.map((statRow, i) => {
+      const variantName = statRow.Variant ?? `${name} ${i + 1}`;
+      return buildRaceObject(variantName, variantName, fm, filePath, markdown, statRow, ppRows[i], valueRows[i], gmRows[i], bdRows);
+    });
+  }
+
+  return [buildRaceObject(name, name, fm, filePath, markdown, statRows[0], ppRows[0], valueRows[0], gmRows[0], bdRows)];
 }
 
 function parseProfession(filePath, markdown) {
@@ -820,6 +856,137 @@ function parseSpellList(filePath, markdown) {
   };
 }
 
+function parseEncyclopediaEntry(kind, filePath, markdown) {
+  const fm = frontmatter(markdown);
+  const name = title(markdown, fileName(filePath));
+  const cleanSummary = cleanWiki(firstParagraph(markdown, "Overview") || firstParagraph(markdown))
+    .replace(/\*\*/g, "")
+    .trim();
+
+  const related = [...new Set(
+    wikiLinks(stripFrontmatter(markdown).replace(/!\[\[[^\]]*\]\]/g, ""))
+      .map((link) => link.target.replace(/\.md$/i, "").replace(/^.*\//, "").trim())
+  )].filter((target) => target && target !== name && !/\.(png|jpe?g|webp)$/i.test(target));
+
+  return {
+    id: `${kind}:${vaultPath(filePath)}`,
+    kind,
+    name,
+    status: fm.status ?? "",
+    district: fm.district ?? "",
+    city: fm.city ?? "",
+    location: fm.location ?? fm.organisation ?? fm.faction ?? "",
+    role: fm.role ?? "",
+    ancestry: fm.ancestry ?? "",
+    rank: fm.rank ?? "",
+    tags: parseFrontmatterTags(markdown),
+    portrait: copyEntryPortrait(filePath, markdown),
+    related,
+    sections: bodySections(markdown, name),
+    path: vaultPath(filePath),
+    summary: cleanSummary || `${name} is recorded in the Aethergate vault.`
+  };
+}
+
+// Fold guildhall / floor-map location notes into their parent guild entry so each
+// guild is a single item (carrying the floor-map image and room breakdown), and
+// drop the standalone note. A location note belongs to a guild when its frontmatter
+// `location` matches the guild's name.
+function foldGuildAssets(entries) {
+  const guildsByName = new Map(entries.filter((entry) => entry.kind === "guild").map((guild) => [guild.name, guild]));
+  const folded = new Set();
+
+  for (const entry of entries) {
+    if (entry.kind !== "location" || !entry.location) continue;
+    const guild = guildsByName.get(entry.location);
+    if (!guild) continue;
+    if (entry.portrait && !guild.floorMap) guild.floorMap = entry.portrait;
+    const extraSections = (entry.sections ?? []).filter((part) => part.heading && !/^(overview|related notes)$/i.test(part.heading));
+    guild.sections = [...(guild.sections ?? []), ...extraSections];
+    folded.add(entry.name);
+  }
+
+  for (const guild of guildsByName.values()) {
+    guild.related = (guild.related ?? []).filter((name) => !folded.has(name));
+  }
+  return entries.filter((entry) => !(entry.kind === "location" && folded.has(entry.name) && guildsByName.has(entry.location)));
+}
+
+// Extract the `tags:` YAML list from frontmatter (supports inline `[a, b]` and block `- a` styles).
+function parseFrontmatterTags(markdown) {
+  const block = markdown.match(/^---\s*([\s\S]*?)---/);
+  if (!block) return [];
+  const lines = block[1].split(/\r?\n/);
+  const start = lines.findIndex((line) => /^tags:/.test(line.trim()));
+  if (start === -1) return [];
+  const inline = lines[start].match(/^tags:\s*\[(.*)\]\s*$/);
+  if (inline) return inline[1].split(",").map((tag) => tag.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
+  const tags = [];
+  for (let i = start + 1; i < lines.length; i += 1) {
+    const item = lines[i].match(/^\s*-\s*(.+)$/);
+    if (!item) break;
+    tags.push(item[1].trim().replace(/^["']|["']$/g, ""));
+  }
+  return tags.filter(Boolean);
+}
+
+// Split a vault note into readable DM sections, stripping the title, embeds, and wikilink syntax.
+function bodySections(markdown, name) {
+  const text = stripFrontmatter(markdown)
+    .replace(/^#\s+.+$/m, "")
+    .replace(/!\[\[[^\]]*\]\]/g, "")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "");
+  const lines = text.split(/\r?\n/);
+  const sections = [];
+  let current = { heading: "", lines: [] };
+  const flush = () => {
+    if (current.heading || current.lines.some(Boolean)) sections.push(current);
+  };
+  for (const line of lines) {
+    const heading = line.match(/^#{2,4}\s+(.+)$/);
+    if (heading) {
+      flush();
+      current = { heading: heading[1].trim(), lines: [] };
+    } else {
+      current.lines.push(cleanWiki(line).replace(/\*\*/g, ""));
+    }
+  }
+  flush();
+  return sections
+    .map((part) => ({ heading: part.heading, text: part.lines.join("\n").replace(/\n{3,}/g, "\n\n").trim() }))
+    .filter((part) => part.heading || part.text);
+}
+
+// Copy an entry's embedded portrait/image into public/ and return its served URL.
+function copyEntryPortrait(filePath, markdown) {
+  const match = stripFrontmatter(markdown).match(/!\[\[([^\]]+\.(?:png|jpe?g|webp))\]\]/i);
+  if (!match) return "";
+  const source = path.join(path.dirname(filePath), match[1].trim());
+  if (!fs.existsSync(source)) return "";
+  const destName = path.basename(match[1].trim()).replace(/\s+/g, "-");
+  const destDir = path.join(appRoot, "public", "atlas-portraits");
+  fs.mkdirSync(destDir, { recursive: true });
+  fs.copyFileSync(source, path.join(destDir, destName));
+  return `/atlas-portraits/${destName}`;
+}
+
+// Copy a map image from the vault into public/maps and return its served URL.
+function copyMapImage(relativePath, destName) {
+  const source = path.join(vaultRoot, relativePath);
+  if (!fs.existsSync(source)) return "";
+  const destDir = path.join(appRoot, "public", "maps");
+  fs.mkdirSync(destDir, { recursive: true });
+  fs.copyFileSync(source, path.join(destDir, destName));
+  return `/maps/${destName}`;
+}
+
+function buildAtlasMaps() {
+  return [
+    { id: "world", name: "Mana World", scope: "world", city: "", image: copyMapImage("07 Player Handouts/Mana World Map - Illustrated.png", "mana-world.png") },
+    { id: "aethergate", name: "Aethergate", scope: "city", city: "Aethergate", image: copyMapImage("07 Player Handouts/Aethergate City Map - Illustrated.png", "aethergate-city.png") }
+  ].filter((map) => map.image);
+}
+
 function spellListSummary(markdown, name, realm, category, listType, spells) {
   const existing = firstParagraph(markdown);
   if (existing && !/^TODO\b/i.test(existing)) return existing;
@@ -840,11 +1007,38 @@ function spellListSummary(markdown, name, realm, category, listType, spells) {
   return `${name} is ${article} ${phrase} ready for detailed spell import.`;
 }
 
+function parseFlaws(markdown) {
+  const parsed = [];
+  let currentType = "";
+
+  for (const line of markdown.split(/\r?\n/)) {
+    const heading = line.match(/^##\s+(.+)$/);
+    if (heading) {
+      currentType = heading[1];
+      continue;
+    }
+
+    const row = line.match(/^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|$/);
+    if (!row || row[1] === "Flaw" || row[1].startsWith("---") || !currentType) continue;
+    const name = row[1].trim();
+    parsed.push({
+      id: name,
+      name,
+      type: currentType,
+      pointGain: numeric(row[2].trim()),
+      source: row[3].trim()
+    });
+  }
+
+  return parsed;
+}
+
 const talentMarkdown = fs.readFileSync(path.join(rolemasterRoot, "Talents.md"), "utf8");
+const flawMarkdown = fs.readFileSync(path.join(rolemasterRoot, "Flaws.md"), "utf8");
 const skillMarkdown = fs.readFileSync(path.join(rolemasterRoot, "Skills.md"), "utf8");
 
 const data = {
-  races: readMarkdownFiles("06 Races").map(([filePath, markdown]) => parseRace(filePath, markdown)).sort((a, b) => a.name.localeCompare(b.name)),
+  races: readMarkdownFiles("06 Races").flatMap(([filePath, markdown]) => parseRace(filePath, markdown)).sort((a, b) => a.name.localeCompare(b.name)),
   professions: readMarkdownFiles("02 Professions")
     .filter(([filePath]) => !hiddenProfessionPages.has(fileName(filePath)))
     .map(([filePath, markdown]) => parseProfession(filePath, markdown))
@@ -854,6 +1048,7 @@ const data = {
     .map(([filePath, markdown]) => parseSpellList(filePath, markdown))
     .sort((a, b) => a.realm.localeCompare(b.realm) || a.category.localeCompare(b.category) || a.name.localeCompare(b.name)),
   talents: parseTalents(talentMarkdown),
+  flaws: parseFlaws(flawMarkdown),
   cultures: readMarkdownFiles("07 Cultures")
     .map(([filePath, markdown]) => parseCulture(filePath, markdown))
     .sort((a, b) => a.name.localeCompare(b.name)),
@@ -861,8 +1056,102 @@ const data = {
     .filter(([filePath]) => !referenceTrainingPages.has(fileName(filePath)))
     .map(([filePath, markdown]) => parseTrainingPackage(filePath, markdown))
     .sort((a, b) => a.name.localeCompare(b.name)),
-  skills: parseSkills(skillMarkdown)
+  skills: parseSkills(skillMarkdown),
+  maps: buildAtlasMaps(),
+  encyclopedia: foldGuildAssets([
+    ...readVaultMarkdownFilesRecursive("02 Factions")
+      .filter(([, markdown]) => frontmatter(markdown).type !== "overview")
+      .map(([filePath, markdown]) => parseEncyclopediaEntry("guild", filePath, markdown)),
+    ...readVaultMarkdownFilesRecursive("01 Locations").map(([filePath, markdown]) => parseEncyclopediaEntry("location", filePath, markdown)),
+    ...readVaultMarkdownFilesRecursive("05 NPCs").map(([filePath, markdown]) => parseEncyclopediaEntry("npc", filePath, markdown)),
+    ...readVaultMarkdownFilesRecursive("06 Campaign/Quests").map(([filePath, markdown]) => parseEncyclopediaEntry("quest", filePath, markdown))
+  ]).sort((a, b) => a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name))
 };
 
 fs.writeFileSync(outFile, `${JSON.stringify(data, null, 2)}\n`);
-console.log(`Generated data: ${data.races.length} races, ${data.cultures.length} cultures, ${data.professions.length} professions, ${data.spellLists.length} spell lists, ${data.talents.length} talents, ${data.trainingPackages.length} training packages, ${data.skills.length} skills.`);
+console.log(`Generated data: ${data.races.length} races, ${data.cultures.length} cultures, ${data.professions.length} professions, ${data.spellLists.length} spell lists, ${data.talents.length} talents, ${data.flaws.length} flaws, ${data.trainingPackages.length} training packages, ${data.skills.length} skills, ${data.encyclopedia.length} encyclopedia entries.`);
+
+// Push to Postgres
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const envFile = path.join(__dirname, "..", ".env");
+
+async function pushToDb() {
+  try {
+    const envText = await readFile(envFile, "utf-8").catch(() => "");
+    const env = {};
+    for (const line of envText.split(/\r?\n/)) {
+      const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.+?)\s*$/);
+      if (m) env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+    }
+
+    const missing = ["DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME"].filter(k => !env[k] && !process.env[k]);
+    if (missing.length) {
+      console.warn(`Postgres push skipped: missing required env vars ${missing.join(", ")}. Set them in ${envFile} (see .env.example).`);
+      return;
+    }
+
+    const { default: pg } = await import("pg");
+    const client = new pg.Client({
+      host:     env.DB_HOST     || process.env.DB_HOST,
+      port:     Number(env.DB_PORT || process.env.DB_PORT || 5432),
+      user:     env.DB_USER     || process.env.DB_USER,
+      password: env.DB_PASSWORD || process.env.DB_PASSWORD,
+      database: env.DB_NAME     || process.env.DB_NAME,
+      connectionTimeoutMillis: 4000,
+    });
+
+    await client.connect();
+
+    // Create tables if they don't exist
+    const tableNames = ["races", "cultures", "professions", "spell_lists", "talents", "flaws", "training_packages", "skills"];
+    for (const t of tableNames) {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS ${t} (
+          id         TEXT PRIMARY KEY,
+          data       JSONB NOT NULL,
+          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+    }
+
+    const tables = {
+      races:             data.races,
+      cultures:          data.cultures,
+      professions:       data.professions,
+      spell_lists:       data.spellLists,
+      talents:           data.talents,
+      flaws:             data.flaws,
+      training_packages: data.trainingPackages,
+      skills:            data.skills,
+    };
+
+    for (const [table, rows] of Object.entries(tables)) {
+      // Delete rows no longer in source
+      const ids = rows.map(r => r.id);
+      if (ids.length > 0) {
+        await client.query(
+          `DELETE FROM ${table} WHERE id <> ALL($1::text[])`,
+          [ids]
+        );
+      } else {
+        await client.query(`DELETE FROM ${table}`);
+      }
+      // Upsert each row
+      for (const row of rows) {
+        await client.query(
+          `INSERT INTO ${table} (id, data, updated_at) VALUES ($1, $2, NOW())
+           ON CONFLICT (id) DO UPDATE SET data = $2, updated_at = NOW()`,
+          [row.id, row]
+        );
+      }
+      console.log(`  → ${table}: ${rows.length} rows`);
+    }
+
+    await client.end();
+    console.log("Postgres: game data pushed.");
+  } catch (err) {
+    console.warn("Postgres push skipped:", err.message);
+  }
+}
+
+await pushToDb();
