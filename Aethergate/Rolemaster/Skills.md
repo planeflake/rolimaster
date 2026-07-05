@@ -112,6 +112,7 @@ Costs use the workbook's displayed skill-cost columns on the `Skills` tab. `Stat
 | Camouflage | Subterfuge-Mechanics | IN+AG | +0 | 3/8 | *School of Hard Knocks*, p. 44; *Character Generation sheet*, Skills tab |
 | Cartography | Technical/Trade-Vocational | ME+IN | +0 | 5/12 | *School of Hard Knocks*, p. 44; *Character Generation sheet*, Skills tab |
 | Caving | Outdoor-Environmental | EM+AG | +2 | 2/5 | *School of Hard Knocks*, p. 45; *Character Generation sheet*, Skills tab |
+| Chain | Armor-Medium | ST+AG | +0 | 0 | *Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables |
 | Channeling | Power Manipulation | EM+IN | +0 | 18 | *School of Hard Knocks*, p. 46; *Character Generation sheet*, Skills tab |
 | Circle Lore | Lore-Magical | ME+RE | +0 | 6 | *School of Hard Knocks*, p. 46; *Character Generation sheet*, Skills tab |
 | Cleansing Trance | Self Control | SD+PR | +4 | 2/6 | *School of Hard Knocks*, p. 47; *Character Generation sheet*, Skills tab |
@@ -205,6 +206,7 @@ Costs use the workbook's displayed skill-cost columns on the `Skills` tab. `Stat
 | Picking Locks | Subterfuge-Mechanics | IN+AG | +0 | 3/8 | *School of Hard Knocks*, p. 90; *Character Generation sheet*, Skills tab |
 | Picking Pockets | Subterfuge-Stealth | AG+SD | +2 | 2/5 | *School of Hard Knocks*, p. 91; *Character Generation sheet*, Skills tab |
 | Planar Lore | Lore-Magical | ME+RE | +0 | 6 | *School of Hard Knocks*, p. 91; *Character Generation sheet*, Skills tab |
+| Plate | Armor-Heavy | ST+AG | +0 | 0 | *Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables |
 | Play Instrument | Artistic-Active | PR+EM | +0 | 2/5 | *School of Hard Knocks*, p. 92; *Character Generation sheet*, Skills tab |
 | Poetic Improvisation | Artistic-Active | PR+EM | +0 | 2/5 | *School of Hard Knocks*, p. 92; *Character Generation sheet*, Skills tab |
 | Poetry | Artistic-Passive | EM+IN | +0 | 2/5 | *School of Hard Knocks*, p. 92; *Character Generation sheet*, Skills tab |
@@ -230,6 +232,7 @@ Costs use the workbook's displayed skill-cost columns on the `Skills` tab. `Stat
 | Research | Science/Analytic-Basic | RE+ME | +0 | 3/6 | *School of Hard Knocks*, p. 101; *Character Generation sheet*, Skills tab |
 | Reverse Stroke | Combat Maneuvers | AG+QU | +2 | 3/9 | *School of Hard Knocks*, p. 101; *Character Generation sheet*, Skills tab |
 | Riding | Outdoor-Environmental | EM+AG | +2 | 2/5 | *School of Hard Knocks*, p. 101; *Character Generation sheet*, Skills tab |
+| Rigid Leather | Armor-Light | ST+AG | +0 | 0 | *Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables |
 | Rope Mastery | Crafts | AG+ME | +2 | 4/10 | *School of Hard Knocks*, p. 102; *Character Generation sheet*, Skills tab |
 | Rowing | Athletic-Endurance | CO+AG | +2 | 2/6 | *School of Hard Knocks*, p. 102; *Character Generation sheet*, Skills tab |
 | Sailing | Technical/Trade-General | RE+ME | +2 | 3/7 | *School of Hard Knocks*, p. 103; *Character Generation sheet*, Skills tab |
@@ -253,6 +256,7 @@ Costs use the workbook's displayed skill-cost columns on the `Skills` tab. `Stat
 | Skiing | Athletic-Gymnastics | AG+QU | +0 | 2/5 | *School of Hard Knocks*, p. 111; *Character Generation sheet*, Skills tab |
 | Skinning | Crafts | AG+ME | +2 | 4/10 | *School of Hard Knocks*, p. 112; *Character Generation sheet*, Skills tab |
 | Sleep Trance | Self Control | SD+PR | +4 | 2/6 | *School of Hard Knocks*, p. 112; *Character Generation sheet*, Skills tab |
+| Soft Leather | Armor-Light | ST+AG | +0 | 0 | *Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables |
 | Spatial Location Awareness | Awareness-Senses | IN+SD | +2 | 2/6 | *School of Hard Knocks*, p. 112; *Character Generation sheet*, Skills tab |
 | Spell Lore | Lore-Magical | ME+RE | +0 | 6 | *School of Hard Knocks*, p. 113; *Character Generation sheet*, Skills tab |
 | Spell Mastery | Power Awareness | EM+IN | +0 | 8 | *School of Hard Knocks*, p. 113; *Character Generation sheet*, Skills tab |

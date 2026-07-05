@@ -43058,6 +43058,17 @@
       "source": "*School of Hard Knocks*, p. 45; *Character Generation sheet*, Skills tab"
     },
     {
+      "id": "Chain",
+      "name": "Chain",
+      "category": "Armor-Medium",
+      "statPair": "ST+AG",
+      "statBonus": 0,
+      "stats": "+0",
+      "cost": "0",
+      "summary": "Used for wearing armor effectively and reducing its movement penalties.",
+      "source": "*Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables"
+    },
+    {
       "id": "Channeling",
       "name": "Channeling",
       "category": "Power Manipulation",
@@ -44081,6 +44092,17 @@
       "source": "*School of Hard Knocks*, p. 91; *Character Generation sheet*, Skills tab"
     },
     {
+      "id": "Plate",
+      "name": "Plate",
+      "category": "Armor-Heavy",
+      "statPair": "ST+AG",
+      "statBonus": 0,
+      "stats": "+0",
+      "cost": "0",
+      "summary": "Used for wearing armor effectively and reducing its movement penalties.",
+      "source": "*Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables"
+    },
+    {
       "id": "Play Instrument",
       "name": "Play Instrument",
       "category": "Artistic-Active",
@@ -44356,6 +44378,17 @@
       "source": "*School of Hard Knocks*, p. 101; *Character Generation sheet*, Skills tab"
     },
     {
+      "id": "Rigid Leather",
+      "name": "Rigid Leather",
+      "category": "Armor-Light",
+      "statPair": "ST+AG",
+      "statBonus": 0,
+      "stats": "+0",
+      "cost": "0",
+      "summary": "Used for wearing armor effectively and reducing its movement penalties.",
+      "source": "*Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables"
+    },
+    {
       "id": "Rope Mastery",
       "name": "Rope Mastery",
       "category": "Crafts",
@@ -44607,6 +44640,17 @@
       "cost": "2/6",
       "summary": "Used for the situations covered by its skill category.",
       "source": "*School of Hard Knocks*, p. 112; *Character Generation sheet*, Skills tab"
+    },
+    {
+      "id": "Soft Leather",
+      "name": "Soft Leather",
+      "category": "Armor-Light",
+      "statPair": "ST+AG",
+      "statBonus": 0,
+      "stats": "+0",
+      "cost": "0",
+      "summary": "Used for wearing armor effectively and reducing its movement penalties.",
+      "source": "*Rolemaster Fantasy Role Playing*, armor skills; culture adolescence tables"
     },
     {
       "id": "Spatial Location Awareness",
