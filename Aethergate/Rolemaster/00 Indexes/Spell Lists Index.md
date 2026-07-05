@@ -6,6 +6,10 @@
 
 - [[Open Arcane Index]]
 
+### Closed Arcane
+
+- [[Closed Arcane Index]]
+
 ## Channeling
 
 ### Open Channeling

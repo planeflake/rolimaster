@@ -6,9 +6,9 @@ profession: "Dabbler"
 list_type: "Base List"
 system: Rolemaster
 status: full-imported
-source: "Rolemaster Fantasy Role Playing"
-source_page: 187
-pdf_page: 188
+source: "Rolemaster FRP - Spell Law - Of Essence"
+source_page: 43
+pdf_page: 44
 tags: [rolemaster, spell-list, essence]
 ---
 
@@ -40,6 +40,18 @@ Dabbler spells for assessing wealth, marking and locating targets, finding buyer
 | 8 | Find Buyer II | `500'R/lvl` | - | self | I | As Find Buyer I, but locates someone who both wants the object and is willing to acquire it now. |
 | 9 | Detect Power | 1 object | - | self | I | Detects whether an item has magical power, but not the realm or amount of power. |
 | 10 | Item Analysis I | 1 object | - | self | I | Gives the caster a `10%` chance to identify an enchanted object's abilities, rolled separately for each ability; the same item cannot be checked again until the caster gains a level. |
+| 11 | Find Owner I | `1 mile R` | - | self | I | Locates the owner of a touched object, subject to the setting's definition of ownership. |
+| 12 | Find Buyer III | `500'R/lvl` | - | self | I | As Find Buyer II, but the buyer must also be willing to acquire the object peacefully. |
+| 13 | Assessment True | 1 object | - | self | I | As Item Assessment, but can assess any item, including living things, structures, and vehicles. |
+| 14 | Significance | 1 object | - | self | I | Reveals whether an item has cultural or historical significance, without identifying the exact meaning. |
+| 15 | Find Owner II | `5 mile R` | - | self | I | As Find Owner I, but with increased range. |
+| 16 | Find Buyer IV | `500'R/lvl` | - | self | I | As Find Buyer III, but the buyer must also be willing to pay the best price. |
+| 18 | Origins | 1 object | - | self | I | Reveals the item's broad area of origin, maker's ancestry, and approximate creation date. |
+| 19 | Find Owner III | `10 mile R` | - | self | I | As Find Owner I, but with increased range. |
+| 20 | Owner Vision | caster | - | self | I | Shows the caster a visual image of an item's owner. |
+| 25 | Item Vision | 1 object | - | self | I | Shows a significant event from the item's past. |
+| 30 | Origins True | 1 object | - | self | I | As Origins, but reveals exact origin, maker, and creation time. |
+| 50 | Find Owner True | unlimited | - | self | I | As Find Owner I, but without the normal area limit. |
 
 ## Special Notes
 

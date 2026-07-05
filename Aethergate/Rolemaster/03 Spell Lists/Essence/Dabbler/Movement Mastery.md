@@ -6,9 +6,9 @@ profession: "Dabbler"
 list_type: "Base List"
 system: Rolemaster
 status: full-imported
-source: "Rolemaster Fantasy Role Playing"
-source_page: 186
-pdf_page: 187
+source: "Rolemaster FRP - Spell Law - Of Essence"
+source_page: 41
+pdf_page: 42
 tags: [rolemaster, spell-list, essence]
 ---
 
@@ -40,6 +40,17 @@ Dabbler spells for running, jumping, landing safely, silent movement, swimming, 
 | 8 | Long Dive | caster | - | self | U | Lets the caster dive safely through the air up to `50'` per level if sufficient water is present. |
 | 9 | Traceless Passing | caster | C | self | U | Allows walking-pace movement without leaving tracks or other visible signs of passage. |
 | 10 | Spider's Step True | caster | `1 min/lvl` | self | U | As Spider's Step, but allows movement along any surface, including ceilings. |
+| 11 | Float | caster | `1 min/lvl` | self | U | Lets the caster float on air, drifting with the wind unless moved by another force. |
+| 12 | Spider's Walk | caster | `1 min/lvl` | self | U | As Spider's Step, but allows normal walking pace and requires only two-point contact. |
+| 13 | Balance II | caster | `1 rnd/lvl` | self | U | As Balance I, but allows balance maneuvers at twice normal walking pace. |
+| 14 | Shadow Landing | caster | - | self | U | Allows the caster to fall any distance with a near-certain safe landing and no sound. |
+| 15 | Spider's Run | caster | `1 min/lvl` | self | U | As Spider's Walk, but allows movement at twice normal walking pace. |
+| 16 | Glide I | caster | `1 min/lvl` | self | U | Lets the caster glide, with altitude and horizontal movement constrained by the source's glide ratio. |
+| 18 | Balance III | caster | `1 rnd/lvl` | self | U | As Balance I, but allows balance maneuvers at three times normal walking pace. |
+| 20 | Spider's Walk True | caster | `1 min/lvl` | self | U | As Spider's Walk, but allows movement along any surface, including ceilings. |
+| 25 | Windwalking | caster | `1 min/lvl` | self | U | Lets the caster walk on calm air, moving horizontally but not vertically under the spell's own power. |
+| 30 | Balance True | caster | `1 min/lvl` | self | U | As Balance I, but allows balance maneuvers at any pace. |
+| 50 | Movement Mastery | caster | `1 min/lvl` | self | U | Lets the caster use any lower-level spell from this list once per round. |
 
 ## Special Notes
 
