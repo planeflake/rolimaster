@@ -1662,7 +1662,7 @@
 
     <section class="user-grid" aria-label="Players">
       {#each players as player}
-        {@const playerCharacters = charactersFor(player.id)}
+        {@const playerCharacters = library.users?.[player.id]?.characters ?? []}
         {@const latest = playerCharacters.map((item) => item.updatedAt).filter(Boolean).sort().at(-1)}
         <button class="user-card" on:click={() => selectUser(player.id)}>
           <span class="user-avatar">{player.name.slice(0, 1)}</span>
