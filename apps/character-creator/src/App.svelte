@@ -265,6 +265,11 @@
   $: remainingTrainingPoints = Number(character.trainingPool || 0) - totalPackageCost;
   $: remainingXp = Math.max(0, Number(character.xp || 0) - Number(character.spentXp || 0));
   $: packageRanks = selectedPackages.flatMap((trainingPackage) => trainingPackage.ranks.filter((rank) => rank.ranks > 0));
+  // The arguments exist only to make the reactive dependencies visible to the
+  // compiler; the helpers read the same values via closure.
+  $: summarySkills = summarySkillEntries(character, selectedCulture, knownSkills);
+  $: directedSpellRows = activeDirectedSpellRows(character);
+  $: sheetSpellRows = selectedSpellRows(selectedSpellLists, character);
   $: knownSkills = skillOptions(data.skills, packageRanks, selectedProfession, selectedCulture);
   $: spellGroups = [...new Set(availableSpellLists.map((spellList) => spellList.group).filter(Boolean))];
   $: talentGroups = [...new Set(data.talents.map((talent) => talent.group).filter(Boolean))];
@@ -3106,7 +3111,7 @@
 
               <section class="summary-panel">
                 <h2 class="sheet-section-title">Skills</h2>
-                {#if summarySkillEntries().length === 0}
+                {#if summarySkills.length === 0}
                   <p class="sheet-empty-hint">No skill ranks yet.</p>
                 {:else}
                   <table class="sheet-skill-table">
@@ -3123,7 +3128,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {#each summarySkillEntries() as [skillName, ranks]}
+                      {#each summarySkills as [skillName, ranks]}
                         {@const rowSkill = skillByName(skillName)}
                         {@const level = skillLevel(skillName)}
                         <tr>
@@ -3144,7 +3149,7 @@
 
               <section class="summary-panel">
                 <h2 class="sheet-section-title">Directed Spells</h2>
-                {#if activeDirectedSpellRows().length === 0}
+                {#if directedSpellRows.length === 0}
                   <p class="sheet-empty-hint">No directed spell categories set yet.</p>
                 {:else}
                   <table class="sheet-skill-table sheet-directed-table">
@@ -3162,7 +3167,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {#each activeDirectedSpellRows() as category}
+                      {#each directedSpellRows as category}
                         {@const entry = directedSpellEntry(category)}
                         <tr>
                           <td class="sheet-skill-name">{directedSpellCategoryLabel(category) || category}</td>
@@ -3443,9 +3448,9 @@
             {/if}
           </section>
 
-          {#if selectedSpellRows().length > 0}
+          {#if sheetSpellRows.length > 0}
             <section class="sheet-section">
-              <h2 class="sheet-section-title">Spell Lists <span class="sheet-section-count">{selectedSpellLists.filter((spellList) => knownSpellsForList(spellList).length > 0).length} lists / {selectedSpellRows().length} spells</span></h2>
+              <h2 class="sheet-section-title">Spell Lists <span class="sheet-section-count">{selectedSpellLists.filter((spellList) => knownSpellsForList(spellList).length > 0).length} lists / {sheetSpellRows.length} spells</span></h2>
               <div class="sheet-spell-lists">
                 {#each selectedSpellLists as spellList}
                   {@const knownSpells = knownSpellsForList(spellList)}
@@ -3465,7 +3470,7 @@
             </section>
           {/if}
 
-          {#if activeDirectedSpellRows().length > 0}
+          {#if directedSpellRows.length > 0}
             <section class="sheet-section">
               <h2 class="sheet-section-title">Directed Spells</h2>
               <table class="sheet-skill-table sheet-directed-table">
@@ -3483,7 +3488,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {#each activeDirectedSpellRows() as category}
+                  {#each directedSpellRows as category}
                     {@const entry = directedSpellEntry(category)}
                     <tr>
                       <td class="sheet-skill-name">{directedSpellCategoryLabel(category) || category}</td>
@@ -3502,7 +3507,7 @@
             </section>
           {/if}
 
-          {#if summarySkillEntries().length > 0}
+          {#if summarySkills.length > 0}
             <section class="sheet-section">
               <h2 class="sheet-section-title">Skills</h2>
               <table class="sheet-skill-table">
@@ -3519,7 +3524,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {#each summarySkillEntries() as [skillName, ranks]}
+                  {#each summarySkills as [skillName, ranks]}
                     {@const rowSkill = skillByName(skillName)}
                     {@const level = skillLevel(skillName)}
                     <tr>
